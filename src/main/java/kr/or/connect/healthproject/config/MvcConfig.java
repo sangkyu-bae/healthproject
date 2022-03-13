@@ -11,6 +11,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesView;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import kr.or.connect.healthproject.interceptor.LogInterceptor;
 import springfox.documentation.builders.PathSelectors;
@@ -26,6 +29,27 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @ComponentScan(basePackages = {"kr.or.connect.healthproject.controller"})
 public class MvcConfig implements WebMvcConfigurer{
+	//타일즈 추가
+	@Bean
+	public TilesConfigurer tilesConfigurer() {
+		final TilesConfigurer configurer=new TilesConfigurer();
+		
+		configurer.setDefinitions(new String[] {
+				"/WEB-INF/tiles/tiles.xml"
+		});
+		
+		configurer.setCheckRefresh(true);
+		
+		return configurer;
+	}
+	@Bean 
+	public TilesViewResolver tilesViewResolver() {
+		final TilesViewResolver tilesViewResolver=new TilesViewResolver();
+		
+		tilesViewResolver.setViewClass(TilesView.class);
+		tilesViewResolver.setOrder(1);
+		return tilesViewResolver;
+	}
 	// default servlet 핸들러를 설정한다.
 	// 원래 서블릿은 / (모든 요청)을 처리하는 default servlet을 제공한다. 스프링에서 설정한 path는 스프링이 처리하고, 스프링이 처리하지 못한 경로에 대한 처리는
 	// 디폴트 서블릿에게 전달하여 처리하게 된다.

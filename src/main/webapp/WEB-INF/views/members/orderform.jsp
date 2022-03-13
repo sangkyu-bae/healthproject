@@ -2,197 +2,151 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>캠핑모아 MADAGASCAR</title>
-    <link href="${path}/resources/css/reset.css" rel="stylesheet" type="text/css">
-    <link href="${path}/resources/css/index.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  </head>
-  <body>
-    <header>
- 
-      <div class="head-notice">
-        <span class="header_text">15% OFF ALL TENT</span>
-      </div>
-      <nav class="fix-head">
-        <div class="container">
-          <div class="headcont">
-            <a href="/healthproject/index">MADAGASCAR</a>
-          </div>
-          <div class="navbar-nav">
-              <ul class="navbar_ul">
-             <li class="ul-list"><a href="${path}/index" class="nav-li">HOME</a></li>
-              <li class="ul-list"><a href="${path}/shop" class="nav-li chcke">SHOP</a></li>
-              
-              <sec:authorize access="!isAuthenticated()">
-              	<li class="ul-list"><a href="${path}/members/loginform" class="nav-li">LOGIN</a></li>
-              </sec:authorize>
-              <sec:authorize access="isAuthenticated()">
-              	<li class="ul-list"><a href="logout" class="nav-li">Logout</a></li>
-              </sec:authorize>
-              
-              <sec:authorize access="!isAuthenticated()">
-              	<li class="ul-list"><a href="${path}/members/joinform" class="nav-li">JOIN</a></li>
-              </sec:authorize>
-              <sec:authorize access="isAuthenticated()">
-              	<li class="ul-list"><a href="${path}/members/mypage" class="nav-li">MYPAGE</a></li>
-              </sec:authorize>
-              
-              <li class="ul-list"><a href="#" class="nav-li">CONTACT</a></li>
-              <li class="ul-list"><a href="${path}/members/mycart" class="nav-li">MYCART</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-    <section>
-      <div class="order_form_container">
-        <div class="order_wraps">
-          Order
-        </div>
-        <div class="order_form_head_box">
-          <h2>Order/Payment</h2>
-          <div class="order_form_nav">
-            <span>장바구니</span>
-            <span class="i_tag"><i class="fas fa-chevron-right"></i></span>
-            <span class="chcke">주문서</span>
-            <span class="i_tag"><i class="fas fa-chevron-right"></i></span>
-            <span>주문 완료</span>
-          </div>
-        </div>
-        <div class="order_section_box section_one">
-          <div class="order_section_head">
-            <h3>Recipient Info</h3>
-            <span>수령자 정보</span>
-          </div>
-          <div class="order_form_wrap">
-            <div class="order_ul_box">
-              <ul class="box_receiver_info">
-                <li class="cell_discount_tit">배송지 선택</li>
-                <li class="cell_discount_detail">신규 배송지</li>
-              </ul>
-              <ul class="box_receiver_info">
-                <li class="cell_discount_tit">수령인</li>
-                <li class="cell_discount_detail"><input class="recipient_info" type="text" name="" value=""></li>
-              </ul>
-              <ul class="box_receiver_info">
-                <li class="cell_discount_tit">휴대전화</li>
-                <li class="cell_discount_detail">
-                  <div class="">
-                    <select class="rmobile1" name="">
-                      <option value>선택하세요</option>
-                      <option value="010">010</option>
-                      <option value="011">011</option>
-                      <option value="016">016</option>
-                      <option value="017">017</option>
-                      <option value="018">018</option>
-                      <option value="019">019</option>
-                    </select>
-                    <span>-</span>
-                    <input type="text" maxlength='4' class="recipient_info phons" name="" value="">
-                    <span>-</span>
-                    <input type="text" maxlength='4' class="recipient_info phons" name="" value="">
-                  </div>
-                </li>
-              </ul>
-              <ul class="box_receiver_info">
-                <li class="cell_discount_tit">전화번호</li>
-                <li class="cell_discount_detail">
-                  <div class="select_boxs">
-                    <select class="rmobile1"id="numbers_box" name="">
-                      <option value>선택하세요</option>
-                      <option value="02">02</option>
-                      <option value="031">031</option>
-                      <option value="032">032</option>
-                      <option value="033">033</option>
-                      <option value="041">041</option>
-                      <option value="042">042</option>
-                      <option value="043">043</option>
-                      <option value="044">044</option>
-                      <option value="051">051</option>
-                      <option value="052">052</option>
-                      <option value="053">053</option>
-                      <option value="054">054</option>
-                      <option value="055">055</option>
-                      <option value="061">061</option>
-                      <option value="062">062</option>
-                      <option value="063">063</option>
-                      <option value="064">064</option>
-                    </select>
-                    <span>-</span>
-                    <input type="text"  maxlength='4' class="recipient_info phons home" name="" value="">
-                    <span>-</span>
-                    <input type="text"  maxlength='4' class="recipient_info phons home" name="" value="">
-                    <div class="check_box" style="display:inline;">
-                     <input type="radio"id="h" name="h" value="">
-                   	 <label class="checknum"for="h">없음</label>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <ul class="box_receiver_info">
-                <li class="cell_discount_tit">배송지 주소</li>
-                <li class="cell_discount_detail">
-                  <div class="add_box">
-                    <input type="text" class="recipient_info nonclick fix_adrr_ti"name="" value="" disabled>
-                    <a class="plain_btn" onclick="execPostCode()">주소찾기</a><br>
-                    <input type="text" class="recipient_info nonclick fix_adrr_mi"name="" value="" disabled><br>
-                    <input type="text" placeholder="상세 주소를 입력해주세요" class="recipient_info fix_adrr_mi"name="" value=""><br>
-                  </div>
-                </li>
-              </ul>
-              <ul class="box_receiver_info">
-                <li class="cell_discount_tit">배송 메모</li>
-                <li class="cell_discount_detail">
-                  <div class="ask_box">
-                    <select class="dlv_selectbox" name="">
-                      <option value>배송 시 요청사항을 선택해주세요</option>
-                      <option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
-                      <option value="부재 시 집 앞에 놔주세요">부재 시 집 앞에 놔주세요</option>
-                      <option value="배송 전 연락 바랍니다">배송 전 연락 바랍니다</option>
-                      <option value="파손의 위험이 있는 상품입니다. 배송 시 주의해주세요">파손의 위험이 있는 상품입니다. 배송 시 주의해주세요</option>
-                      <option value="etc">직접 입력</option>
-                    </select>
-                    <textarea name="name" id="my-self-text" maxlength="50"rows="2" cols="50" placeholder="최대 50자까지 입력 가능합니다." style="display:none;"></textarea>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="order_section_box">
-          <div class="order_section_head">
-            <h3>Product Info</h3>
-            <span class="pr_info_s">상품 정보</span>
-          </div>
-          <div class="order_pr_table_wrap">
-            <table class="table_basic">
-              <colgroup>
-                <col>
-                <col width="70px">
-                <col width="100px">
-                <col width="100px">
-              </colgroup>
-              <thead>
-                <tr>
-                  <th scope="col">수량정보</th>
-                  <th scope="col">수량</th>
-                  <th class="table_background" scope="col">배송비</th>
-                  <th class="table_background"scope="col">주문금액</th>
-                </tr>
-              </thead>
-              <tbody class="order_tnodys">
-              <!-- 
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<div class="order_form_container">
+	<div class="order_wraps">Order</div>
+	<div class="order_form_head_box">
+		<h2>Order/Payment</h2>
+		<div class="order_form_nav">
+			<span>장바구니</span> <span class="i_tag"><i
+				class="fas fa-chevron-right"></i></span> <span class="chcke">주문서</span> <span
+				class="i_tag"><i class="fas fa-chevron-right"></i></span> <span>주문
+				완료</span>
+		</div>
+	</div>
+	<div class="order_section_box section_one">
+		<div class="order_section_head">
+			<h3>Recipient Info</h3>
+			<span>수령자 정보</span>
+		</div>
+		<div class="order_form_wrap">
+			<div class="order_ul_box">
+				<ul class="box_receiver_info">
+					<li class="cell_discount_tit">배송지 선택</li>
+					<li class="cell_discount_detail">신규 배송지</li>
+				</ul>
+				<ul class="box_receiver_info">
+					<li class="cell_discount_tit">수령인</li>
+					<li class="cell_discount_detail"><input class="recipient_info"
+						type="text" name="" value=""></li>
+				</ul>
+				<ul class="box_receiver_info">
+					<li class="cell_discount_tit">휴대전화</li>
+					<li class="cell_discount_detail">
+						<div class="">
+							<select class="rmobile1" name="">
+								<option value>선택하세요</option>
+								<option value="010">010</option>
+								<option value="011">011</option>
+								<option value="016">016</option>
+								<option value="017">017</option>
+								<option value="018">018</option>
+								<option value="019">019</option>
+							</select> <span>-</span> <input type="text" maxlength='4'
+								class="recipient_info phons" name="" value=""> <span>-</span>
+							<input type="text" maxlength='4' class="recipient_info phons"
+								name="" value="">
+						</div>
+					</li>
+				</ul>
+				<ul class="box_receiver_info">
+					<li class="cell_discount_tit">전화번호</li>
+					<li class="cell_discount_detail">
+						<div class="select_boxs">
+							<select class="rmobile1" id="numbers_box" name="">
+								<option value>선택하세요</option>
+								<option value="02">02</option>
+								<option value="031">031</option>
+								<option value="032">032</option>
+								<option value="033">033</option>
+								<option value="041">041</option>
+								<option value="042">042</option>
+								<option value="043">043</option>
+								<option value="044">044</option>
+								<option value="051">051</option>
+								<option value="052">052</option>
+								<option value="053">053</option>
+								<option value="054">054</option>
+								<option value="055">055</option>
+								<option value="061">061</option>
+								<option value="062">062</option>
+								<option value="063">063</option>
+								<option value="064">064</option>
+							</select> <span>-</span> <input type="text" maxlength='4'
+								class="recipient_info phons home" name="" value=""> <span>-</span>
+							<input type="text" maxlength='4'
+								class="recipient_info phons home" name="" value="">
+							<div class="check_box" style="display: inline;">
+								<input type="radio" id="h" name="h" value=""> <label
+									class="checknum" for="h">없음</label>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<ul class="box_receiver_info">
+					<li class="cell_discount_tit">배송지 주소</li>
+					<li class="cell_discount_detail">
+						<div class="add_box">
+							<input type="text" class="recipient_info nonclick fix_adrr_ti"
+								name="" value="" disabled> <a class="plain_btn"
+								onclick="execPostCode()">주소찾기</a><br> <input type="text"
+								class="recipient_info nonclick fix_adrr_mi" name="" value=""
+								disabled><br> <input type="text"
+								placeholder="상세 주소를 입력해주세요" class="recipient_info fix_adrr_mi"
+								name="" value=""><br>
+						</div>
+					</li>
+				</ul>
+				<ul class="box_receiver_info">
+					<li class="cell_discount_tit">배송 메모</li>
+					<li class="cell_discount_detail">
+						<div class="ask_box">
+							<select class="dlv_selectbox" name="">
+								<option value>배송 시 요청사항을 선택해주세요</option>
+								<option value="부재 시 경비실에 맡겨주세요">부재 시 경비실에 맡겨주세요</option>
+								<option value="부재 시 집 앞에 놔주세요">부재 시 집 앞에 놔주세요</option>
+								<option value="배송 전 연락 바랍니다">배송 전 연락 바랍니다</option>
+								<option value="파손의 위험이 있는 상품입니다. 배송 시 주의해주세요">파손의 위험이
+									있는 상품입니다. 배송 시 주의해주세요</option>
+								<option value="etc">직접 입력</option>
+							</select>
+							<textarea name="name" id="my-self-text" maxlength="50" rows="2"
+								cols="50" placeholder="최대 50자까지 입력 가능합니다."
+								style="display: none;"></textarea>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="order_section_box">
+		<div class="order_section_head">
+			<h3>Product Info</h3>
+			<span class="pr_info_s">상품 정보</span>
+		</div>
+		<div class="order_pr_table_wrap">
+			<table class="table_basic">
+				<colgroup>
+					<col>
+					<col width="70px">
+					<col width="100px">
+					<col width="100px">
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">수량정보</th>
+						<th scope="col">수량</th>
+						<th class="table_background" scope="col">배송비</th>
+						<th class="table_background" scope="col">주문금액</th>
+					</tr>
+				</thead>
+				<tbody class="order_tnodys">
+					<!-- 
                 <tr>
                   <td>
                     <div class="order_pr_img_box order_left">
@@ -216,210 +170,179 @@
                   </td>
                 </tr>
                  -->
-                   <c:forEach var="cart" items="${cart}" varStatus="status">
-                   <tr>
-                    <td>
-                       <div class="order_pr_img_box order_left">
-                         <a><img src="${path}/resources/img/${cart.saveFileName}" alt=""></a>
-                       </div>
-                       <div class="order_left order_pr_info_boxs">
-                         <h2>${cart.description}</h2>
-                         <div class="order_option_box">
-                           <p>옵션 : ${cart.size}</p>
-                         </div>
-                       </div>
-                     </td>
-                     <td class="order_qtn"><strong>${cart.count}개</strong></td>
-                     <td class="order_qtn table_background">
-                       <span>무료</span> <br>
-                       <span class="order_cor">반송비 확인</span>
-                     </td>
-                     <td class="order_qtn table_background">
-                        <c:if test="${cart.discountRate eq 0 }">
-                           <span class="real_price">78,000 원</span>
-                        </c:if>   
-                        <c:if test="${cart.discountRate ne 0 }">
-                           <span class="sale_prices">98,000 원</span>
-                          <span class="real_price">78,000 원</span>
-                        </c:if>
-                     </td>
-                   </tr>
-                </c:forEach>
-              </tbody>
-            </table>
-            <div class="order_list_section_box">
-              <ul class="list_section_type">
-                <li>- 구매 가능 수량이 1개로 제한된 상품은 주문 취소 시, 24시간 내 가상계좌 재주문이 불가합니다.</li>
-                <li>- MADAGASCAR은 기본적으로 대한민국 내 제주도 및 도서 산간 지역 포함 <strong>전 지역, 전 상품 무료배송입니다.</strong> </li>
-                <li>- 해외 배송 상품이나 일부 업체의 경우, 교환/환불 시 반송료가 다를 수 있으며 상품 페이지에 별도 표기되어 있습니다.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="order_section_box">
-          <div class="order_section_head">
-            <h3>Payment info / Agreement</h3>
-            <span class="pr_info_s">결제 정보 / 주문자 동의</span>
-          </div>
-          <div class="pay_info_wrap">
-            <ul class="pay_info_ul">
-              <li class="pay_info_list cell_discount_tit ">결제 안내</li>
-              <li class="pay_info_list cell_rigth">
-                <div class="payment-area-wrap">
-                <ul>
-                	<li>
-                		<input type="radio"id="paym_01" name="kyejae" value="">
-                  		<label class="box_choice" for="paym_01">신용카드</label>
-                	</li>
-                	<li>
-                		<input type="radio"id="paym_02" name="kyejae" value="">
-                  		<label class="box_choice" for="paym_02">가상 계좌(무통장)</label>
-                	</li>
-                	<li>
-                		<input type="radio"id="paym_03" name="kyejae" value="">
-                 	    <label class="box_choice" for="paym_03">계좌이체(에스크로)</label>
-                	</li>
-                	<li>
-                	 <input type="radio"id="paym_04" name="kyejae" value="">
-                 	 <label class="box_choice" for="paym_04">휴대전화</label>
-                	</li>
-                	<li>
-                	   <input type="radio"id="paym_05" name="kyejae" value="">
-                  	   <label class="box_choice" for="paym_05">해외카드</label>
-                	</li>
-                	<li>
-                		<input type="radio"id="paym_06" name="kyejae" value="">
-                  		<label class="box_choice" for="paym_06">토스페이</label>
-                	</li>
-                	<li>
-                	 <input type="radio"id="paym_07" name="kyejae" value="">
-                  	  <label class="box_choice" for="paym_07">카카오페이</label>
-                	</li>
-                	<li>
-                	 <input type="radio"id="paym_08" name="kyejae" value="">
-                  	 <label class="box_choice" for="paym_08">네이버페이</label>
-                	</li>
-                	<li>
-                	 <input type="radio"id="paym_09" name="kyejae" value="">
-                  	 <label class="box_choice" for="paym_09">차이페이</label>
-                	</li>
-                	<li>
-                	 <input type="radio"id="paym_10" name="kyejae" value="">
-                  	 <label class="box_choice" for="paym_10">페이코</label>
-                	</li>
-                </ul>
-                </div>
-                <div class="box-select">
-                  <select name="card_code" id="card_code">
-                    <option value="">카드 선택</option>
-                    <option value="BC81|31">하나 BC</option>
-                    <option value="CCBC|31">비씨카드(페이북)</option>
-                    <option value="CCCJ|42">제주카드</option>
-                    <option value="CCCT|36">씨티카드</option>
-                    <option value="CCCU|62">신협카드</option>
-                    <option value="CCDI|61">현대카드</option>
-                    <option value="CCHN|21">하나카드</option>
-                    <option value="CCHS|" selected="selected">KB증권(현대증권)</option>
-                    <option value="CCJB|35">전북카드</option>
-                    <option value="CCKA|15">카카오뱅크</option>
-                    <option value="CCKD|30">KDB산업</option>
-                    <option value="CCKE|21">하나(외환)</option>
-                    <option value="CCKJ|46">광주카드</option>
-                    <option value="CCKK|31">케이뱅크</option>
-                    <option value="CCKM|11">KB 국민</option>
-                    <option value="CCLG|41">신한카드</option>
-                    <option value="CCLO|71">롯데카드</option>
-                    <option value="CCNH|91">NH채움</option>
-                    <option value="CCPB|37">우체국카드</option>
-                    <option value="CCPH|33">우리카드</option>
-                    <option value="CCSB|39">저축은행</option>
-                    <option value="CCSM|38">MG새마을</option>
-                    <option value="CCSS|51">삼성카드</option>
-                    <option value="CCSU|34">수협카드</option>
-                  </select>
-                  <select id="card_quota" name="card_quota">
-                      <option value="">일시불</option>
-                      <option value="2">2개월</option>
-                      <option value="3">3개월</option>
-                      <option value="4">4개월</option>
-                      <option value="5">5개월</option>
-                      <option value="6">6개월</option>
-                      <option value="7">7개월</option>
-                      <option value="8">8개월</option>
-                      <option value="9">9개월</option>
-                      <option value="10">10개월</option>
-                      <option value="11">11개월</option>
-                      <option value="12">12개월</option>
-                    </select>
-                    <button type="button" class="order-benefit-button" onclick="Order.showInterestBenefitInfo(); return false;">
-                        <span>무이자/부분무이자 할부 혜택 안내</span><i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                <div class="order-notice">
-			               <p class="order-notice__title">
-		                     안전결제(ISP)? (국민카드/BC카드/우리카드)
-		                 </p>
-                     <p class="order-notice__contents">
-	                      온라인 쇼핑 시 주민등록번호, 비밀번호 등의 주요 개인정보를 입력하지 않고 고객님이 사전에 미리 설정한 한전결제(ISP) 비밀번호만 입력, 결제하도록 하여 개인정보 유출 및 카드 도용을 방지하는 서비스입니다.
-                    </p>
-                    <p class="order-notice__title">
-                      안심 클릭 결제? (삼성/외환/롯데/현대/신한/시티/하나/NH/수협/전북/광주/산업은행/제주은행)
-                    </p>
-                    <p class="order-notice__contents">
-	                     온라인 쇼핑시 주민등록번호, 비밀번호 등의 주요 개인 정보를 입력하지 않고 고객님이 사전에 미리 설정한 전자 상거래용 안심 클릭 비밀번호를 입력하여 카드 사용자 본인 여부를 확인함으로써 온라인상에서의 카드 도용을 방지하는 서비스입니다.
-                     </p>
-							  </div>
-              </li>
-            </ul>
-          </div>
-          <div class="my_agree_wrap">
-            <ul class="agree_ul">
-              <li class="pay_info_list cell_discount_tit">주문자 동의</li>
-              <li class="pay_info_list cell_rigth">
-                <div class="order-agree">
-                  <div class="order-agree__checkbox order_all_agree">
-                    <input type="checkbox" name="order_check"id="all_agree" value="">
-                    <label for="all_agree">필수 항목 전체 동의하기</label>
-                  </div>
-                  <div class="order-agree__checkbox">
-                    <input type="checkbox" name="order_check"id="agree_person" value="">
-                    <label for="agree_person">[필수] 개인정보 수집 및 이용 동의</label>
-                  </div>
-                  <div class="order-agree__checkbox">
-                    <input type="checkbox" name="order_check"id="agree_info" value="">
-                    <label for="agree_info">[필수] 개인정보 제 3자 제공 동의</label>
-                  </div>
-                  <div class="order-agree__checkbox">
-                    <input type="checkbox" name="order_check"id="agree_pay" value="">
-                    <label for="agree_pay">[필수] 전자결제대행 이용 동의</label>
-                  </div>
-                  <div class="order-agree__checkbox">
-                    <input type="checkbox" name="order_check"id="agree_buy_info" value="">
-                    <label for="agree_buy_info">[필수] 상품정보, 거래조건 확인 및 구매진행 동의</label>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="order_submit_btn_box">
-         <button type="button" class="order_btn" name="button">${totalPrice}원 결제하기</button>
-        </div>
-      </div>
-    </section>
-    <footer>
-      <div class="foot_section">
-        <div class="foot_wrap">
-          <div class="foot_text">
-            <span>© 2021 product bae-Sang-Kyu</span><br>
-            <span>Proudly created with uwiv29l@naver.com</span>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <script type="text/javascript" src ="${path }/resources/js/index.js"></script>
-    <script type="text/javascript" src ="${path }/resources/js/addressapi.js"></script>
- 	<script type="text/javascript">
+					<c:forEach var="cart" items="${cart}" varStatus="status">
+						<tr>
+							<td>
+								<div class="order_pr_img_box order_left">
+									<a><img src="${path}/resources/img/${cart.saveFileName}"
+										alt=""></a>
+								</div>
+								<div class="order_left order_pr_info_boxs">
+									<h2>${cart.description}</h2>
+									<div class="order_option_box">
+										<p>옵션 : ${cart.size}</p>
+									</div>
+								</div>
+							</td>
+							<td class="order_qtn"><strong>${cart.count}개</strong></td>
+							<td class="order_qtn table_background"><span>무료</span> <br>
+								<span class="order_cor">반송비 확인</span></td>
+							<td class="order_qtn table_background"><c:if
+									test="${cart.discountRate eq 0 }">
+									<span class="real_price">78,000 원</span>
+								</c:if> <c:if test="${cart.discountRate ne 0 }">
+									<span class="sale_prices">98,000 원</span>
+									<span class="real_price">78,000 원</span>
+								</c:if></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<div class="order_list_section_box">
+				<ul class="list_section_type">
+					<li>- 구매 가능 수량이 1개로 제한된 상품은 주문 취소 시, 24시간 내 가상계좌 재주문이 불가합니다.</li>
+					<li>- MADAGASCAR은 기본적으로 대한민국 내 제주도 및 도서 산간 지역 포함 <strong>전
+							지역, 전 상품 무료배송입니다.</strong>
+					</li>
+					<li>- 해외 배송 상품이나 일부 업체의 경우, 교환/환불 시 반송료가 다를 수 있으며 상품 페이지에 별도
+						표기되어 있습니다.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="order_section_box">
+		<div class="order_section_head">
+			<h3>Payment info / Agreement</h3>
+			<span class="pr_info_s">결제 정보 / 주문자 동의</span>
+		</div>
+		<div class="pay_info_wrap">
+			<ul class="pay_info_ul">
+				<li class="pay_info_list cell_discount_tit ">결제 안내</li>
+				<li class="pay_info_list cell_rigth">
+					<div class="payment-area-wrap">
+						<ul>
+							<li><input type="radio" id="paym_01" name="kyejae" value="">
+								<label class="box_choice" for="paym_01">신용카드</label></li>
+							<li><input type="radio" id="paym_02" name="kyejae" value="">
+								<label class="box_choice" for="paym_02">가상 계좌(무통장)</label></li>
+							<li><input type="radio" id="paym_03" name="kyejae" value="">
+								<label class="box_choice" for="paym_03">계좌이체(에스크로)</label></li>
+							<li><input type="radio" id="paym_04" name="kyejae" value="">
+								<label class="box_choice" for="paym_04">휴대전화</label></li>
+							<li><input type="radio" id="paym_05" name="kyejae" value="">
+								<label class="box_choice" for="paym_05">해외카드</label></li>
+							<li><input type="radio" id="paym_06" name="kyejae" value="">
+								<label class="box_choice" for="paym_06">토스페이</label></li>
+							<li><input type="radio" id="paym_07" name="kyejae" value="">
+								<label class="box_choice" for="paym_07">카카오페이</label></li>
+							<li><input type="radio" id="paym_08" name="kyejae" value="">
+								<label class="box_choice" for="paym_08">네이버페이</label></li>
+							<li><input type="radio" id="paym_09" name="kyejae" value="">
+								<label class="box_choice" for="paym_09">차이페이</label></li>
+							<li><input type="radio" id="paym_10" name="kyejae" value="">
+								<label class="box_choice" for="paym_10">페이코</label></li>
+						</ul>
+					</div>
+					<div class="box-select">
+						<select name="card_code" id="card_code">
+							<option value="">카드 선택</option>
+							<option value="BC81|31">하나 BC</option>
+							<option value="CCBC|31">비씨카드(페이북)</option>
+							<option value="CCCJ|42">제주카드</option>
+							<option value="CCCT|36">씨티카드</option>
+							<option value="CCCU|62">신협카드</option>
+							<option value="CCDI|61">현대카드</option>
+							<option value="CCHN|21">하나카드</option>
+							<option value="CCHS|" selected="selected">KB증권(현대증권)</option>
+							<option value="CCJB|35">전북카드</option>
+							<option value="CCKA|15">카카오뱅크</option>
+							<option value="CCKD|30">KDB산업</option>
+							<option value="CCKE|21">하나(외환)</option>
+							<option value="CCKJ|46">광주카드</option>
+							<option value="CCKK|31">케이뱅크</option>
+							<option value="CCKM|11">KB 국민</option>
+							<option value="CCLG|41">신한카드</option>
+							<option value="CCLO|71">롯데카드</option>
+							<option value="CCNH|91">NH채움</option>
+							<option value="CCPB|37">우체국카드</option>
+							<option value="CCPH|33">우리카드</option>
+							<option value="CCSB|39">저축은행</option>
+							<option value="CCSM|38">MG새마을</option>
+							<option value="CCSS|51">삼성카드</option>
+							<option value="CCSU|34">수협카드</option>
+						</select> <select id="card_quota" name="card_quota">
+							<option value="">일시불</option>
+							<option value="2">2개월</option>
+							<option value="3">3개월</option>
+							<option value="4">4개월</option>
+							<option value="5">5개월</option>
+							<option value="6">6개월</option>
+							<option value="7">7개월</option>
+							<option value="8">8개월</option>
+							<option value="9">9개월</option>
+							<option value="10">10개월</option>
+							<option value="11">11개월</option>
+							<option value="12">12개월</option>
+						</select>
+						<button type="button" class="order-benefit-button"
+							onclick="Order.showInterestBenefitInfo(); return false;">
+							<span>무이자/부분무이자 할부 혜택 안내</span><i class="fas fa-chevron-right"></i>
+						</button>
+					</div>
+					<div class="order-notice">
+						<p class="order-notice__title">안전결제(ISP)? (국민카드/BC카드/우리카드)</p>
+						<p class="order-notice__contents">온라인 쇼핑 시 주민등록번호, 비밀번호 등의 주요
+							개인정보를 입력하지 않고 고객님이 사전에 미리 설정한 한전결제(ISP) 비밀번호만 입력, 결제하도록 하여 개인정보
+							유출 및 카드 도용을 방지하는 서비스입니다.</p>
+						<p class="order-notice__title">안심 클릭 결제?
+							(삼성/외환/롯데/현대/신한/시티/하나/NH/수협/전북/광주/산업은행/제주은행)</p>
+						<p class="order-notice__contents">온라인 쇼핑시 주민등록번호, 비밀번호 등의 주요
+							개인 정보를 입력하지 않고 고객님이 사전에 미리 설정한 전자 상거래용 안심 클릭 비밀번호를 입력하여 카드 사용자 본인
+							여부를 확인함으로써 온라인상에서의 카드 도용을 방지하는 서비스입니다.</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="my_agree_wrap">
+			<ul class="agree_ul">
+				<li class="pay_info_list cell_discount_tit">주문자 동의</li>
+				<li class="pay_info_list cell_rigth">
+					<div class="order-agree">
+						<div class="order-agree__checkbox order_all_agree">
+							<input type="checkbox" name="order_check" id="all_agree" value="">
+							<label for="all_agree">필수 항목 전체 동의하기</label>
+						</div>
+						<div class="order-agree__checkbox">
+							<input type="checkbox" name="order_check" id="agree_person"
+								value=""> <label for="agree_person">[필수] 개인정보 수집
+								및 이용 동의</label>
+						</div>
+						<div class="order-agree__checkbox">
+							<input type="checkbox" name="order_check" id="agree_info"
+								value=""> <label for="agree_info">[필수] 개인정보 제 3자
+								제공 동의</label>
+						</div>
+						<div class="order-agree__checkbox">
+							<input type="checkbox" name="order_check" id="agree_pay" value="">
+							<label for="agree_pay">[필수] 전자결제대행 이용 동의</label>
+						</div>
+						<div class="order-agree__checkbox">
+							<input type="checkbox" name="order_check" id="agree_buy_info"
+								value=""> <label for="agree_buy_info">[필수] 상품정보,
+								거래조건 확인 및 구매진행 동의</label>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="order_submit_btn_box">
+		<button type="button" class="order_btn" name="button">${totalPrice}원
+			결제하기</button>
+	</div>
+</div>
+<script type="text/javascript" src="${path }/resources/js/addressapi.js"></script>
+<script type="text/javascript">
 /////전화번호 or핸드폰 번호 4자리 입력시 다음칸으로 focus
  	function nextNumber(){
  		$(".phons").keyup(function(){
@@ -611,5 +534,3 @@
  		
  	})
  	</script>
-  </body>
-</html>

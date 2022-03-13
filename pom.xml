@@ -15,6 +15,8 @@
     <jackson2.version>2.9.4</jackson2.version>
     <mybatis.version>3.5.0</mybatis.version>
 	<mybatis.spring.version>1.3.2</mybatis.spring.version>
+	<!-- 타일즈 추가-->
+	<org.apache.tiles-version>3.0.3</org.apache.tiles-version>
   </properties>
   <dependencies>
   <!-- jsp-api이다. tomcat에 배포될 경우엔 사용되지 않도록 하기 위해서 scope를 provided로 설정하였다. -->
@@ -214,7 +216,30 @@
 		<artifactId>mybatis-spring</artifactId>
 		<version>${mybatis.spring.version}</version>
 	</dependency>
-        
+    <!-- Tiles -->
+	<dependency>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-core</artifactId>
+		<version>${org.apache.tiles-version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-servlet</artifactId>
+		<version>${org.apache.tiles-version}</version>
+	</dependency>
+	
+	<dependency>
+	          <groupId>org.apache.tiles</groupId>
+	          <artifactId>tiles-jsp</artifactId>
+	          <version>${org.apache.tiles-version}</version>
+	      </dependency>
+	
+	<dependency>
+		<groupId>org.apache.tiles</groupId>
+		<artifactId>tiles-extras</artifactId>
+		<version>${org.apache.tiles-version}</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>healthproject</finalName>

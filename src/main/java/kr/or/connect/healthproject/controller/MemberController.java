@@ -51,16 +51,16 @@ public class MemberController {
 	      if(principal!=null) {
 	         return "redirect:/index";
 	      }
-	      return "members/loginform";
+	      return "members/loginform.web";
 	   }
 
 	@RequestMapping("/loginerror")
 	public String loginerror(@RequestParam("login_error")String loginError) {
-		return "members/loginerror";
+		return "members/loginerror.web";
 	}
 	@GetMapping("/joinform")
 	public String joinform() {
-		return "members/joinform";
+		return "members/joinform.web";
 	}
 	@PostMapping("/join")
 	public String join(@ModelAttribute User user) {
@@ -83,12 +83,12 @@ public class MemberController {
 	}
 	@GetMapping("/mycart")
 	public String mycart() {
-		return "members/mycart";
+		return "members/mycart.web";
 	}
 	
 	@GetMapping("/mypage")
 	public String mypage() {
-		return "members/mypage";
+		return "members/mypage.web";
 	}
 	   /*
 	    * @param productId 상품번호
@@ -161,7 +161,7 @@ public class MemberController {
 	         modelMap.addAttribute("cart",cart);
 	         modelMap.addAttribute("totalPrice",price);
 	      }
-	      return "members/orderform";
+	      return "members/orderform.web";
 	   }
 
 }
