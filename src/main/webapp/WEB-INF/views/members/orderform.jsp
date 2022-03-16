@@ -298,7 +298,7 @@
 	</div>
 	<div class="order_submit_btn_box">
 		<button type="button" class="order_btn" name="button">${totalPrice}원
-			결제하기</button>
+			결제하기ㅇ</button>
 	</div>
 </div>
 <script type="text/javascript" src="${path }/resources/js/addressapi.js"></script>
