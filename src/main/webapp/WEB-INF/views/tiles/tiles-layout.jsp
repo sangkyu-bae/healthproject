@@ -32,5 +32,6 @@
   		</footer>
   </body>
   <script type="text/javascript" src ="${path }/resources/js/addressapi.js"></script>
+  <script type="text/javascript" src ="${path }/resources/js/common.js"></script>
    <script type="text/javascript" src ="${path }/resources/js/index.js"></script>
 </html>

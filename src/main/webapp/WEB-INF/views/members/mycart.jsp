@@ -90,7 +90,7 @@
        </div>
     <script type="text/javascript">
     function buy_all_product(){
-    	window.location.href = `${path}/members/orderform`;
+    	window.location.href = `/healthproject/members/orderform`;
     }
     function qtnChange(){
     	var ul= document.querySelector('.my_cart_list_box');

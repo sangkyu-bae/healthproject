@@ -1867,6 +1867,10 @@ tbody td{
   line-height: 21px;
   font-weight: bold;
 }
+.box_choice:hover {
+	cursor: pointer;
+}
+	
 .cell_discount_tit {
   width: 190px;
 }

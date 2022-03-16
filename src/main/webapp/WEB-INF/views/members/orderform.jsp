@@ -146,30 +146,6 @@
 					</tr>
 				</thead>
 				<tbody class="order_tnodys">
-					<!-- 
-                <tr>
-                  <td>
-                    <div class="order_pr_img_box order_left">
-                      <a><img src="http://localhost:8080/healthproject/resources/img/follow/03.jpg" alt=""></a>
-                    </div>
-                    <div class="order_left order_pr_info_boxs">
-                      <h2>[토피] 와이드 데님 팬츠(LIGHT BLUE)</h2>
-                      <div class="order_option_box">
-                        <p>옵션 : L</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="order_qtn"><strong>2개</strong></td>
-                  <td class="order_qtn table_background">
-                    <span>무료</span> <br>
-                    <span class="order_cor">반송비 확인</span>
-                  </td>
-                  <td class="order_qtn table_background">
-                    <span class="sale_prices">98,000 원</span>
-                    <span>78,000 원</span>
-                  </td>
-                </tr>
-                 -->
 					<c:forEach var="cart" items="${cart}" varStatus="status">
 						<tr>
 							<td>
@@ -221,26 +197,10 @@
 				<li class="pay_info_list cell_rigth">
 					<div class="payment-area-wrap">
 						<ul>
-							<li><input type="radio" id="paym_01" name="kyejae" value="">
-								<label class="box_choice" for="paym_01">신용카드</label></li>
-							<li><input type="radio" id="paym_02" name="kyejae" value="">
-								<label class="box_choice" for="paym_02">가상 계좌(무통장)</label></li>
-							<li><input type="radio" id="paym_03" name="kyejae" value="">
-								<label class="box_choice" for="paym_03">계좌이체(에스크로)</label></li>
-							<li><input type="radio" id="paym_04" name="kyejae" value="">
-								<label class="box_choice" for="paym_04">휴대전화</label></li>
-							<li><input type="radio" id="paym_05" name="kyejae" value="">
-								<label class="box_choice" for="paym_05">해외카드</label></li>
-							<li><input type="radio" id="paym_06" name="kyejae" value="">
-								<label class="box_choice" for="paym_06">토스페이</label></li>
-							<li><input type="radio" id="paym_07" name="kyejae" value="">
-								<label class="box_choice" for="paym_07">카카오페이</label></li>
-							<li><input type="radio" id="paym_08" name="kyejae" value="">
-								<label class="box_choice" for="paym_08">네이버페이</label></li>
-							<li><input type="radio" id="paym_09" name="kyejae" value="">
-								<label class="box_choice" for="paym_09">차이페이</label></li>
-							<li><input type="radio" id="paym_10" name="kyejae" value="">
-								<label class="box_choice" for="paym_10">페이코</label></li>
+							<c:forEach items="${paymentList}" var="list">
+								<li><input type="radio" id="paym_0${list.id}" name="kyejae" value="">
+								<label class="box_choice" for="paym_0${list.id }">${list.name}</label></li>
+							</c:forEach>
 						</ul>
 					</div>
 					<div class="box-select">

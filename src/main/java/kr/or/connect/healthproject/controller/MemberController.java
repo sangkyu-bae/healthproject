@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import kr.or.connect.healthproject.login.dto.MyCart;
 import kr.or.connect.healthproject.login.dto.ReservationInfo;
 import kr.or.connect.healthproject.login.dto.ReservationInfoPrice;
 import kr.or.connect.healthproject.login.dto.User;
+import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
 import kr.or.connect.healthproject.service.MemberService;
 import kr.or.connect.healthproject.service.security.UserEntity;
@@ -45,6 +47,8 @@ public class MemberController {
 	  }
 	  @Autowired
 	  HealthprojectService healthprojectService;
+	  @Autowired
+	  AdminService adminService;
 	  @GetMapping("/loginform")
 	   public String loginform(Principal principal) {
 	      //로그인 되어있을시 메인 화면으로 전환
@@ -149,7 +153,6 @@ public class MemberController {
 	      if(checkPoint.equals("123")) {
 	         carts=memberService.getMaxCartPr(user.getId());
 	         cart.add(carts);
-	         
 	         modelMap.addAttribute("cart",cart);
 	         modelMap.addAttribute("totalPrice",carts.getPrice());
 	      }else if(checkPoint.equals("0")){
@@ -161,6 +164,9 @@ public class MemberController {
 	         modelMap.addAttribute("cart",cart);
 	         modelMap.addAttribute("totalPrice",price);
 	      }
+	      List<Map<String, Object>> paymentList=adminService.selectPayMentList();
+	      System.out.println(paymentList);
+	      modelMap.addAttribute("paymentList",paymentList);
 	      return "members/orderform.web";
 	   }
 

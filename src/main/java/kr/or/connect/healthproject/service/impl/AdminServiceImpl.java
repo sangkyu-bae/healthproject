@@ -2,11 +2,13 @@ package kr.or.connect.healthproject.service.impl;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.connect.healthproject.admin.dao.PayMentMethodDao;
 import kr.or.connect.healthproject.admin.dao.ProductGetSizeDao;
 import kr.or.connect.healthproject.admin.dao.ProductQuestionAnwserDao;
 import kr.or.connect.healthproject.admin.dao.ProductSizeDao;
@@ -26,7 +28,8 @@ public class AdminServiceImpl implements AdminService{
 	ProductSizeDao productSizeDao;
 	@Autowired
 	ProductGetSizeDao productGetSizeDao;
-
+	@Autowired
+	PayMentMethodDao payMentMethodDao;
 	@Override
 	@Transactional(readOnly = false)
 	public Long insertproductQuestionAnwser(ProductQuestionAnwser anwser) {
@@ -49,5 +52,14 @@ public class AdminServiceImpl implements AdminService{
 			getSize.setProductSize(list);
 		}
 		return getSize;
+	}
+	/*
+	 * 결제 방법 검색
+	 * @throws Excption
+	 */
+	@Override
+	@Transactional
+	public List<Map<String, Object>> selectPayMentList() throws Exception {
+		return payMentMethodDao.selectPayMentList();
 	}
 }
