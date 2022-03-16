@@ -89,7 +89,7 @@
 					</li>
 				</ul>
 				<ul class="box_receiver_info">
-					<li class="cell_discount_tit">배송지 주소</li>
+					<li class="cell_discount_tit">배송지 ㅇㅇ주소</li>
 					<li class="cell_discount_detail">
 						<div class="add_box">
 							<input type="text" class="recipient_info nonclick fix_adrr_ti"
