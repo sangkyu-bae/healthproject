@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<c:set var="path" value="${pageContext.request.contextPath}"/>
       <div class="cart_container">
         <div class="cart_wrap">
           <div class="cart_head cart_left">
@@ -11,10 +11,11 @@
                 My cart
             </div>
              <ul class="my_cart_list_box">
+             <!-- 
               <li class="my_cart_list">
                 <div class="cart_section">
                   <div class="cart_img_box cart_section_box">
-                    <img src="" alt="">
+                    <img src="http://localhost:8080/healthproject/resources/img/product/moin_jakcket.jpg" alt="">
                   </div>
                   <div class="cart_section_box cart_product_info">
                     <div class="cart_product_name">
@@ -42,8 +43,12 @@
                   <div class="cart_section_box cart_delte_box">
                     X
                   </div>
+                  <div class="cart_buy_btns">
+                  	<input type="button">
+                  </div>
                 </div>
               </li>
+               -->
             </ul>
           </div>
           <div class="cart_order_container cart_left">
@@ -134,6 +139,9 @@
             	}
     		}
     	})
+    }
+    function addProducts(reservationId){ 
+    	location.href="/healthproject/members/orderform?reservationId="+reservationId ;
     }
     document.addEventListener("DOMContentLoaded",function(){
     	qtnChange();

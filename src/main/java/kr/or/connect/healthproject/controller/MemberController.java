@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -86,7 +88,15 @@ public class MemberController {
         return "members/memberinfo";
 	}
 	@GetMapping("/mycart")
-	public String mycart() {
+	public String mycart(Model model,
+			Principal principal) {
+		String longinId=principal.getName();
+		User user=memberService.getUse(longinId);
+		Map<String, Object>params=new HashMap<>();
+		params.put("id", user.getId());
+		List<MyCart>list=memberService.getCartProduct(params);
+		model.addAttribute("list",list);
+		
 		return "members/mycart.web";
 	}
 	
@@ -139,34 +149,77 @@ public class MemberController {
 
 	   @RequestMapping("/orderform")
 	   public String orderform(HttpServletRequest request,
-	         //@ModelAttribute("cart")MyCart cart,
+			 @RequestParam(name="reservationId",required = false,defaultValue = "0") Integer reservationId,
 	         @RequestParam(name="checkPoint",required = false,defaultValue = "0") String checkPoint,
 	         ModelMap modelMap,
 	         Principal principal) throws Exception{
-	      if(principal==null) {
-	         return "redirect:/index";
-	      }
-	      String loginId=  principal.getName();
-	      User user=memberService.getUse(loginId);
-	      MyCart carts;
-	      List<MyCart> cart = new ArrayList<MyCart>();
-	      if(checkPoint.equals("123")) {
-	         carts=memberService.getMaxCartPr(user.getId());
-	         cart.add(carts);
-	         modelMap.addAttribute("cart",cart);
-	         modelMap.addAttribute("totalPrice",carts.getPrice());
-	      }else if(checkPoint.equals("0")){
-	         cart=memberService.getCartProduct(user.getId());
-	         int price = 0;
-	         for(MyCart m:cart) {
-	            price+=m.getPrice()*m.getCount();
-	         }
-	         modelMap.addAttribute("cart",cart);
-	         modelMap.addAttribute("totalPrice",price);
-	      }
-	      List<Map<String, Object>> paymentList=adminService.selectPayMentList();
-	      System.out.println(paymentList);
+		
+		   if(principal==null) {
+		         return "redirect:/index";
+		    }
+		  System.out.println("reservatioId?"+reservationId);
+		  String loginId=  principal.getName();
+		  User user=memberService.getUse(loginId);
+		
+		  
+		  MyCart carts;
+		  List<MyCart> cart = new ArrayList<MyCart>();
+		  
+		  Long totalPrice ;
+		  if(checkPoint.equals("123")) {
+			  carts=memberService.getMaxCartPr(user.getId());
+		      cart.add(carts);
+		      totalPrice=carts.getPrice();
+		  }else {
+			  Map<String,Object>params=new HashMap<>();
+			  params.put("id", user.getId());
+			  if(reservationId==0) {
+				  cart=memberService.getCartProduct(params);
+			      for(MyCart m:cart) {
+			    	  //totalPrice+=m.getPrice()*m.getCount();
+			      }
+			  }else {
+				  System.out.println("여기탐?");
+				  params.put("reservationId", reservationId);
+				  cart=memberService.getCartProduct(params);
+				  for(MyCart m:cart) {
+			    	  //totalPrice+=m.getPrice()*m.getCount();
+			      }
+			  }
+		  }
+		  modelMap.addAttribute("cart",cart);
+		 // modelMap.addAttribute("totalPrice",totalPrice);
+		  /*
+		  if(reservationId==0) {
+			   String loginId=  principal.getName();
+			   User user=memberService.getUse(loginId);
+			   MyCart carts;
+			    List<MyCart> cart = new ArrayList<MyCart>();
+			      if(checkPoint.equals("123")) {
+			         carts=memberService.getMaxCartPr(user.getId());
+			         cart.add(carts);
+			         modelMap.addAttribute("cart",cart);
+			         modelMap.addAttribute("totalPrice",carts.getPrice());
+			      }else if(checkPoint.equals("0")){
+			    	  Map<String, Object>params=new HashMap<>();
+			    	  params.put("id", user.getId());
+			         cart=memberService.getCartProduct(params);
+			         int price = 0;
+			         for(MyCart m:cart) {
+			            price+=m.getPrice()*m.getCount();
+			         }
+			         modelMap.addAttribute("cart",cart);
+			         modelMap.addAttribute("totalPrice",price);
+			      }
+			      
+		  }else {
+			  
+		  }
+	      */
+		  List<Map<String, Object>> paymentList=adminService.selectPayMentList();
 	      modelMap.addAttribute("paymentList",paymentList);
+	    
+	  
 	      return "members/orderform.web";
 	   }
 

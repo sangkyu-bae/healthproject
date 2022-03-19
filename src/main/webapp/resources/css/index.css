@@ -916,9 +916,7 @@ padding-left: 0.5em;
   color: white;
   font-size: 18px
 }
-.cart_buy_btn{
-  position: relative;
-}
+
 .cart_buy_btn:hover{
   cursor: pointer;
   display: block;
@@ -1270,10 +1268,29 @@ tbody td{
   border-bottom: 1px solid gray;
 }
 .cart_section{
+  position:relative;
   width: 600px;
   padding: 20px 0;
   border-bottom: 1px solid gray;
-
+}
+.cart_section:hover .cart_buy_btns{
+	display: block;
+}
+.cart_buy_btns{
+	display:none;
+	position: absolute;
+	bottom: 30px;
+	right: 50px;
+}
+.cart_buy_btns input:hover{
+	cursor: pointer;
+}
+.cart_buy_btns input{
+ 	background-color: rgb(42, 34, 156);
+ 	color:white;
+	border: none;
+	width:90px;
+	height: 30px;
 }
 .cart_img_box img{
   width: 120px;

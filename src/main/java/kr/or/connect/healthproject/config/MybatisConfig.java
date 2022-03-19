@@ -25,22 +25,6 @@ public class MybatisConfig {
 	@Autowired
 	ResourceLoader resourceLoader;
 	
-//	 @Bean
-//	  public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource) throws IOException {
-//	        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-////	        Resource resource=resourceLoader.getResource("classpath:text.tex");
-////	        System.out.println("경로쓰 :"+resource.getURL().getPath());
-//	        System.out.println("경로 :"+ applicationContext.getResource("classpath:/mybatis/mybatis-config.xml"));
-//	        Resource resource=applicationContext.getResource("classpath:mybatis/mybatis-config.xml");
-//	        System.out.println("경로스:"+resource.getURL().getPath());
-//	        Resource[] path=new PathMatchingResourcePatternResolver().getResources("classpath:.*/mybatis/mappers/*.xml");
-//	        System.out.println("경로쓰스스:"+path[0]);
-//	        sessionFactory.setDataSource(dataSource);
-//	        sessionFactory.setConfigLocation(applicationContext.getResource("classpath:mybatis/mybatis-config.xml"));
-//	        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:.*/mybatis/mappers/*.xml"));
-//	        //sessionFactory.setMapperLocations(applicationContext.getResources("classpath:mybatis/mappers/*.xml"));
-//	        return sessionFactory;
-//	    }
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean=new SqlSessionFactoryBean();

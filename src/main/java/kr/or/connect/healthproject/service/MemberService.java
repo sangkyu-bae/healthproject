@@ -1,6 +1,7 @@
 package kr.or.connect.healthproject.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.connect.healthproject.dto.FileInfo;
 import kr.or.connect.healthproject.login.dto.BuyCount;
@@ -31,7 +32,7 @@ public interface MemberService extends UserDbService{
 	public Long addProductQuestion(ProductQuestion productQuestion);
 	public int insertPrQuestion(ProductQuestion productQuestion);
 	
-	public List<MyCart>getCartProduct(Long id);
+	public List<MyCart>getCartProduct(Map<String, Object>params);
 	public int deleteReservation(Long id);
 	public int getMaxReservationId(Long userId);
 	public MyCart getMaxCartPr(Long userId);

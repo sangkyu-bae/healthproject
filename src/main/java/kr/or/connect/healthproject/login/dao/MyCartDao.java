@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -18,18 +20,21 @@ import kr.or.connect.healthproject.login.dto.MyCart;
 public class MyCartDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<MyCart>rowMapper=BeanPropertyRowMapper.newInstance(MyCart.class);
-	
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
 	public MyCartDao(DataSource dataSource) {
 		this.jdbc=new NamedParameterJdbcTemplate(dataSource);
 	}
 	
-	public List<MyCart>getCartProduct(Long id){
-		Map<String, Object>map=new HashMap<>();
-		map.put("id",id);
-		
-		return jdbc.query(GET_CART_PRODUCT, map, rowMapper);
+//	public List<MyCart>getCartProduct(Long id){
+//		Map<String, Object>map=new HashMap<>();
+//		map.put("id",id);
+//		
+//		return jdbc.query(GET_CART_PRODUCT, map, rowMapper);
+//	}
+	public List<MyCart>getCartProduct(Map<String, Object>params){
+		return sqlSessionTemplate.selectList("kr.or.connect.healthproject.login.dao.MyCartDao.getCartProduct",params);
 	}
-	
 	public int deleteReservation(Long id) {
 		Map<String, ?>map=Collections.singletonMap("id", id);
 		return jdbc.update(UPDATE_RESERVATION_INFO, map);

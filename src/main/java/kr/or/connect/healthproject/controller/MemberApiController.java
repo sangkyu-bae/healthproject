@@ -188,7 +188,9 @@ public class MemberApiController {
 	public Map<String, Object>getCartProduct(Principal principal){
 		String longinId=principal.getName();
 		User user=memberService.getUse(longinId);
-		List<MyCart>list=memberService.getCartProduct(user.getId());
+		Map<String, Object>params=new HashMap<>();
+		params.put("id", user.getId());
+		List<MyCart>list=memberService.getCartProduct(params);
 		
 		Map<String, Object>map=new HashMap<>();
 		map.put("cartList", list);

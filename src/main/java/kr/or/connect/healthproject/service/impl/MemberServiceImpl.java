@@ -3,6 +3,7 @@ package kr.or.connect.healthproject.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -200,8 +201,9 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	@Transactional
-	public List<MyCart> getCartProduct(Long id) {
-		List<MyCart>list=myCartDao.getCartProduct(id);
+	public List<MyCart> getCartProduct(Map<String, Object>params) {
+		List<MyCart>list=myCartDao.getCartProduct(params);
+		System.out.println(list);
 		return list;
 	}
 

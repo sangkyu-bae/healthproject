@@ -1216,7 +1216,6 @@ function getmyCartImg(data){
 	var data=data['cartList'];
 	var html=``;
 	var totalPrice=0;
-	
 	for(var i=0;i<data.length;i++){
 		
 		var price=data[i].price;
@@ -1255,9 +1254,13 @@ function getmyCartImg(data){
                   <div class="cart_section_box cart_delte_box" id="${data[i].reservationInfoId}">
                     X
                   </div>
+                   <div class="cart_buy_btns">
+                  	<input type="button" onclick="addProducts(${data[i].reservationInfoId})" value="구매하기">
+                  </div> 
                 </div>
               </li>`
 	}
+	
 	var ul=document.querySelector('.my_cart_list_box');
 	ul.innerHTML=html;
 	addQtnEvent();
@@ -1269,6 +1272,7 @@ function addQtnEvent(){
 	ul.addEventListener("click",function(evt){
 		var price;
 		var qtn;
+		console.log(evt.target);
 		if(evt.target.classList[1]==='min_box'){
 			qtn=minOrPlus(0,evt.target.previousElementSibling);
 			price=updatePrice(evt.target.parentNode.previousElementSibling.firstElementChild.nextElementSibling);
