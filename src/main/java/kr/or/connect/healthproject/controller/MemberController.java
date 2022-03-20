@@ -2,6 +2,7 @@ package kr.or.connect.healthproject.controller;
 
 import java.io.PrintWriter;
 import java.security.Principal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -165,7 +166,7 @@ public class MemberController {
 		  MyCart carts;
 		  List<MyCart> cart = new ArrayList<MyCart>();
 		  
-		  Long totalPrice ;
+		  int totalPrice=0;
 		  if(checkPoint.equals("123")) {
 			  carts=memberService.getMaxCartPr(user.getId());
 		      cart.add(carts);
@@ -176,19 +177,23 @@ public class MemberController {
 			  if(reservationId==0) {
 				  cart=memberService.getCartProduct(params);
 			      for(MyCart m:cart) {
-			    	  //totalPrice+=m.getPrice()*m.getCount();
+			    	  totalPrice+=m.getPrice()*m.getCount();
+			    	  String moneyFormat=NumberFormat.getInstance().format(m.getPrice());
+			    	  m.setMoneyFormat(moneyFormat);
 			      }
 			  }else {
-				  System.out.println("여기탐?");
 				  params.put("reservationId", reservationId);
 				  cart=memberService.getCartProduct(params);
 				  for(MyCart m:cart) {
-			    	  //totalPrice+=m.getPrice()*m.getCount();
+			    	  totalPrice+=m.getPrice()*m.getCount();
+			       	  String moneyFormat=NumberFormat.getInstance().format(m.getPrice()*m.getCount());
+			    	  m.setMoneyFormat(moneyFormat);
 			      }
 			  }
 		  }
+		  
 		  modelMap.addAttribute("cart",cart);
-		 // modelMap.addAttribute("totalPrice",totalPrice);
+		  modelMap.addAttribute("totalPrice",totalPrice);
 		  /*
 		  if(reservationId==0) {
 			   String loginId=  principal.getName();

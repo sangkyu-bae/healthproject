@@ -89,7 +89,7 @@
 					</li>
 				</ul>
 				<ul class="box_receiver_info">
-					<li class="cell_discount_tit">배송지 ㅇㄹㅇ주소</li>
+					<li class="cell_discount_tit">배송지 주소</li>
 					<li class="cell_discount_detail">
 						<div class="add_box">
 							<input type="text" class="recipient_info nonclick fix_adrr_ti"
@@ -165,10 +165,10 @@
 								<span class="order_cor">반송비 확인</span></td>
 							<td class="order_qtn table_background"><c:if
 									test="${cart.discountRate eq 0 }">
-									<span class="real_price">78,000 원</span>
+									<span class="real_price">${ cart.moneyFormat}원</span>
 								</c:if> <c:if test="${cart.discountRate ne 0 }">
 									<span class="sale_prices">98,000 원</span>
-									<span class="real_price">78,000 원</span>
+									<span class="real_price">${cart.moneyFormat} 원</span>
 								</c:if></td>
 						</tr>
 					</c:forEach>
@@ -464,7 +464,9 @@
  		})
  	}
 	
-    function ChangeTypePrice(price,discount,count){
+    function ChangeTypePrice(){
+
+       
        price=price*count;
        console.log(price);
        price=price.toLocaleString('ko-KR');
@@ -491,6 +493,9 @@
  		showTextarea();
  		clickBtnEvent();
  		allCheck();
- 		
+        var price =${cart[0].price};
+        var discount=${cart[0].discountRate};
+        var count=${cart[0].count};
+ 		console.log(price);
  	})
  	</script>

@@ -5,12 +5,19 @@ public class MyCart {
 	private Long userId;
 	private String saveFileName;
 	private String description;
-	private Long price;
+	private int price;
 	private double discountRate;
 	private String size;
 	private Long count;
+	private String moneyFormat;
 	
 	
+	public String getMoneyFormat() {
+		return moneyFormat;
+	}
+	public void setMoneyFormat(String moneyFormat) {
+		this.moneyFormat = moneyFormat;
+	}
 	public Long getReservationInfoId() {
 		return reservationInfoId;
 	}
@@ -41,10 +48,10 @@ public class MyCart {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Long getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(Long price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	public double getDiscountRate() {

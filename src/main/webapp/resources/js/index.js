@@ -230,14 +230,13 @@ function pasedUrl(){
 	const parsedUrl = new URL(window.location.href);
 	var pathName=parsedUrl.pathname;
 	var path=pathName.split('/');
-	console.log(path[2]);
 	return path[2];
 }
 function scpasedUrl(){
 	const parsedUrl = new URL(window.location.href);
 	var pathName=parsedUrl.pathname;
 	var path=pathName.split('/');
-	console.log(path[3]);
+	
 	return path[3];
 }
 ///////////////////////
