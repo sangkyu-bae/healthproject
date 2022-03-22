@@ -6,7 +6,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <div class="order_form_container">
 	<div class="order_wraps">Order</div>
@@ -163,10 +164,11 @@
 							<td class="order_qtn"><strong>${cart.count}개</strong></td>
 							<td class="order_qtn table_background"><span>무료</span> <br>
 								<span class="order_cor">반송비 확인</span></td>
-							<td class="order_qtn table_background"><c:if
-									test="${cart.discountRate eq 0 }">
+							<td class="order_qtn table_background">
+								<c:if test="${cart.discountRate eq 0 }">
 									<span class="real_price">${ cart.moneyFormat}원</span>
-								</c:if> <c:if test="${cart.discountRate ne 0 }">
+								</c:if>
+								 <c:if test="${cart.discountRate ne 0 }">
 									<span class="sale_prices">98,000 원</span>
 									<span class="real_price">${cart.moneyFormat} 원</span>
 								</c:if></td>
@@ -230,7 +232,8 @@
 							<option value="CCSM|38">MG새마을</option>
 							<option value="CCSS|51">삼성카드</option>
 							<option value="CCSU|34">수협카드</option>
-						</select> <select id="card_quota" name="card_quota">
+						</select>
+						 <select id="card_quota" name="card_quota">
 							<option value="">일시불</option>
 							<option value="2">2개월</option>
 							<option value="3">3개월</option>

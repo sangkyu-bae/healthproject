@@ -158,7 +158,6 @@ public class MemberController {
 		   if(principal==null) {
 		         return "redirect:/index";
 		    }
-		  System.out.println("reservatioId?"+reservationId);
 		  String loginId=  principal.getName();
 		  User user=memberService.getUse(loginId);
 		
@@ -166,26 +165,33 @@ public class MemberController {
 		  MyCart carts;
 		  List<MyCart> cart = new ArrayList<MyCart>();
 		  
-		  int totalPrice=0;
+		  /*int totalPrice=0;*/
+		  String totalPrice="";
+		  
 		  if(checkPoint.equals("123")) {
 			  carts=memberService.getMaxCartPr(user.getId());
+			  String price=NumberFormat.getInstance().format(carts.getPrice());
+			  carts.setMoneyFormat(price);
 		      cart.add(carts);
-		      totalPrice=carts.getPrice();
+		      totalPrice=price;
 		  }else {
 			  Map<String,Object>params=new HashMap<>();
 			  params.put("id", user.getId());
+			  int price = 0;
 			  if(reservationId==0) {
 				  cart=memberService.getCartProduct(params);
 			      for(MyCart m:cart) {
-			    	  totalPrice+=m.getPrice()*m.getCount();
-			    	  String moneyFormat=NumberFormat.getInstance().format(m.getPrice());
+			    	  price+=m.getPrice()*m.getCount();
+			    	  totalPrice=NumberFormat.getInstance().format(price);
+			    	  String moneyFormat=NumberFormat.getInstance().format(m.getPrice()*m.getCount());
 			    	  m.setMoneyFormat(moneyFormat);
 			      }
 			  }else {
 				  params.put("reservationId", reservationId);
 				  cart=memberService.getCartProduct(params);
 				  for(MyCart m:cart) {
-			    	  totalPrice+=m.getPrice()*m.getCount();
+				 	  price+=m.getPrice()*m.getCount();
+			    	  totalPrice=NumberFormat.getInstance().format(price);
 			       	  String moneyFormat=NumberFormat.getInstance().format(m.getPrice()*m.getCount());
 			    	  m.setMoneyFormat(moneyFormat);
 			      }
@@ -194,33 +200,7 @@ public class MemberController {
 		  
 		  modelMap.addAttribute("cart",cart);
 		  modelMap.addAttribute("totalPrice",totalPrice);
-		  /*
-		  if(reservationId==0) {
-			   String loginId=  principal.getName();
-			   User user=memberService.getUse(loginId);
-			   MyCart carts;
-			    List<MyCart> cart = new ArrayList<MyCart>();
-			      if(checkPoint.equals("123")) {
-			         carts=memberService.getMaxCartPr(user.getId());
-			         cart.add(carts);
-			         modelMap.addAttribute("cart",cart);
-			         modelMap.addAttribute("totalPrice",carts.getPrice());
-			      }else if(checkPoint.equals("0")){
-			    	  Map<String, Object>params=new HashMap<>();
-			    	  params.put("id", user.getId());
-			         cart=memberService.getCartProduct(params);
-			         int price = 0;
-			         for(MyCart m:cart) {
-			            price+=m.getPrice()*m.getCount();
-			         }
-			         modelMap.addAttribute("cart",cart);
-			         modelMap.addAttribute("totalPrice",price);
-			      }
-			      
-		  }else {
-			  
-		  }
-	      */
+	
 		  List<Map<String, Object>> paymentList=adminService.selectPayMentList();
 	      modelMap.addAttribute("paymentList",paymentList);
 	    
