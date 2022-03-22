@@ -194,6 +194,7 @@
 			<span class="pr_info_s">결제 정보 / 주문자 동의</span>
 		</div>
 		<div class="pay_info_wrap">
+		<!--  
 			<ul class="pay_info_ul">
 				<li class="pay_info_list cell_discount_tit ">결제 안내</li>
 				<li class="pay_info_list cell_rigth">
@@ -247,8 +248,7 @@
 							<option value="11">11개월</option>
 							<option value="12">12개월</option>
 						</select>
-						<button type="button" class="order-benefit-button"
-							onclick="Order.showInterestBenefitInfo(); return false;">
+						<button type="button" class="order-benefit-button" >
 							<span>무이자/부분무이자 할부 혜택 안내</span><i class="fas fa-chevron-right"></i>
 						</button>
 					</div>
@@ -265,6 +265,7 @@
 					</div>
 				</li>
 			</ul>
+			-->
 		</div>
 		<div class="my_agree_wrap">
 			<ul class="agree_ul">
@@ -300,11 +301,11 @@
 		</div>
 	</div>
 	<div class="order_submit_btn_box">
-		<button type="button" class="order_btn" name="button">${totalPrice}원
-			결제하기</button>
+		<button type="button" class="order_btn" name="button">${totalPrice}원결제하기</button>
 	</div>
 </div>
 <script type="text/javascript" src="${path }/resources/js/addressapi.js"></script>
+<script type="text/javascript" src="${path }/resources/js/paymentapi.js"></script>
 <script type="text/javascript">
 /////전화번호 or핸드폰 번호 4자리 입력시 다음칸으로 focus
  	function nextNumber(){
@@ -410,6 +411,7 @@
  		return checkNum;
  	}
  	//전체폼 검사
+ 
  	function checkOrderForm(){
  		var names=document.querySelector('.recipient_info');///수령인
  		var number=checkPhoneNum();///전화번호 유효성 검사
@@ -417,32 +419,50 @@
  		var recipient=checkRecipient();////배송메모 유효성 검사
  		var agreeCheck=checkBuyAgree();
  		
+ 		
  		if(names.value.length<3){
  			alert("수령인 이름이 너무작습니다.");
  			names.focus();
+ 			return false;
  		}else if(number!=1){
  			alert("번호형식이 잘못되었습니다.");
  			number.focus();
+ 			return false;
  		}else if(address.value===''){
  			alert("배송지 주소가 등록되지 않았습니다");
  			var adr=document.querySelectorAll(".fix_adrr_mi");
  			adr=adr[1];
  			adr.focus();
+ 			return false;
  		}else if(recipient.value===''){
  			alert("배송 메모를 등록해주세요");
  			recipient.focus();
+ 			return false;
  		}else if(recipient===0){
  			alert("배송 메모를 등록해주세요");
  			document.querySelector('.dlv_selectbox').focus();
+ 			return false;
  		}else if(recipient===1){
  			alert("직접입력 글자수가 적습니다. 5자 이상 등록해주세요");
  			document.querySelector('#my-self-text').focus();
+ 			return false;
  		}else if(agreeCheck!=0){
  			alert("필수 동의사항을 체크해주세요");
  			agreeCheck.focus();
+ 			return false;
  		}
+ 		
+ 		var amount=0;
+ 		
+ 		for(var i=0;i<cart.length;i++){
+ 			console.log(i);
+ 		}
+ 		
+ 		console.log("sldakjflk");
+ 		requestPay();
  	}
-
+ 	
+  
  	////필수 항목 전체 동의 누를시 다 체크
  	function allCheck(){
  		var btn=document.querySelector('#all_agree');
@@ -489,6 +509,9 @@
        }
        
     }
+    
+
+
 
  	document.addEventListener("DOMContentLoaded",function(){
  		nextNumber();
@@ -496,9 +519,10 @@
  		showTextarea();
  		clickBtnEvent();
  		allCheck();
-        var price =${cart[0].price};
-        var discount=${cart[0].discountRate};
-        var count=${cart[0].count};
- 		console.log(price);
+ 		var cart=${cart};
+ 		console.log(cart);
  	})
+ 	
+    	const {IMP}=window;
+    	IMP.init('imp91662306');
  	</script>

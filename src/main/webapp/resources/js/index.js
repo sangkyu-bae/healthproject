@@ -1551,6 +1551,7 @@ function getCommentSection(comment){
 }
 /////////////////////
 ////////////////////////orderform page 스크립트 개발
+/*
 function getMycartData(){
 		$.ajax({
 		url : "http://localhost:8080/healthproject/api/getbuyPr",
@@ -1772,7 +1773,7 @@ function clickBtnEvent(){
 		checkOrderForm();
 	})
 }
-
+*/
 
 ////////////////////
 /////////////////////////
