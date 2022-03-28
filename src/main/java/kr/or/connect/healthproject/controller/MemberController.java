@@ -200,7 +200,7 @@ public class MemberController {
 		  
 		  modelMap.addAttribute("cart",cart);
 		  modelMap.addAttribute("totalPrice",totalPrice);
-	
+		  request.setAttribute("cart", cart);
 		  List<Map<String, Object>> paymentList=adminService.selectPayMentList();
 	      modelMap.addAttribute("paymentList",paymentList);
 	    

@@ -39,6 +39,7 @@
 	</div>
 </nav>
 <script>
+
 	function pasedUrls(){
 		const parsedUrl = new URL(window.location.href);
 		var pathName=parsedUrl.pathname;

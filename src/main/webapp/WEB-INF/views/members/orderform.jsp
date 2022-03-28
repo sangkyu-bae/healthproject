@@ -40,7 +40,7 @@
 					<li class="cell_discount_tit">휴대전화</li>
 					<li class="cell_discount_detail">
 						<div class="">
-							<select class="rmobile1" name="">
+							<select class="rmobile1 tel" name="">
 								<option value>선택하세요</option>
 								<option value="010">010</option>
 								<option value="011">011</option>
@@ -49,8 +49,8 @@
 								<option value="018">018</option>
 								<option value="019">019</option>
 							</select> <span>-</span> <input type="text" maxlength='4'
-								class="recipient_info phons" name="" value=""> <span>-</span>
-							<input type="text" maxlength='4' class="recipient_info phons"
+								class="recipient_info phons tel" name="" value=""> <span>-</span>
+							<input type="text" maxlength='4' class="recipient_info phons tel"
 								name="" value="">
 						</div>
 					</li>
@@ -93,12 +93,11 @@
 					<li class="cell_discount_tit">배송지 주소</li>
 					<li class="cell_discount_detail">
 						<div class="add_box">
-							<input type="text" class="recipient_info nonclick fix_adrr_ti"
-								name="" value="" disabled> <a class="plain_btn"
+							<input type="text" class="recipient_info nonclick addres fix_adrr_ti"name="" value="" disabled> <a class="plain_btn"
 								onclick="execPostCode()">주소찾기</a><br> <input type="text"
-								class="recipient_info nonclick fix_adrr_mi" name="" value=""
+								class="recipient_info nonclick addres fix_adrr_mi" name="" value=""
 								disabled><br> <input type="text"
-								placeholder="상세 주소를 입력해주세요" class="recipient_info fix_adrr_mi"
+								placeholder="상세 주소를 입력해주세요" class="recipient_info addres fix_adrr_mi"
 								name="" value=""><br>
 						</div>
 					</li>
@@ -452,17 +451,83 @@
  			return false;
  		}
  		
- 		var amount=0;
+ 	
+ 		/*
+ 		console.log(name);
+ 		console.log(names.value);
+ 		console.log(address.value);
+ 		console.log(${cart.size()});
+ 		*/
  		
- 		for(var i=0;i<cart.length;i++){
- 			console.log(i);
+ 		checkform();
+ 	}
+ 	function checkform(){
+ 		
+ 	
+ 		//핸드폰
+ 		var tel='';
+ 		var rmobile=document.querySelectorAll('.tel');
+ 		
+ 		for(var i=0;i<rmobile.length;i++){
+ 			
+ 			if(i==rmobile.length-1){
+ 				tel+=rmobile[i].value;
+ 			}else{
+ 				tel+=rmobile[i].value+"-";
+ 			}
+ 			
  		}
  		
- 		console.log("sldakjflk");
- 		requestPay();
- 	}
+ 		//주소
+ 		var addres=document.querySelectorAll('.addres');
+ 		var recipt='';
+ 		for (var i=0;i<addres.length;i++){
+ 			recipt+=addres[i].value+" ";
+ 		}
+ 		console.log(recipt);
+		
+ 		//주문 수량
+ 		var count ='${cart.size()}';
+ 		//상품명
+ 		var name='${cart[0].description}';
+ 		if(count>1){
+ 			count =count-1
+ 			name+=' 외 '+count +'건';
+ 		}
+ 		var buyName=document.querySelector('.recipient_info').value;
+ 		checkUrl(tel,recipt,name,buyName);
  	
-  
+ 	}
+ 	function checkUrl(tel,recipt,name,buyName){
+ 		  	const parsedUrl = new URL(window.location.href);
+ 			var searchParams=parsedUrl.searchParams;
+ 			var checkPoint=searchParams.get('searchParams');
+ 			var reservationId=searchParams.get("reservationId");
+ 			var url='';
+ 			var path=`${path}`;
+ 			console.log(path);
+ 			console.log("${path}");
+ 			if(checkPoint==null&&reservationId==null){
+ 				url=path+"/api/allSelectBuyList?reservationId=0&checkPoint"+0;
+ 			}else if(checkPoint!=null){
+ 				url=path+"/api/allSelectBuyList?checkPoint="+checkPoint;
+ 			}else if(reservationId!=null){
+ 				url=path+"/api/allSelectBuyList?reservationId="+reservationId;
+ 			}
+ 			
+ 	 		$.ajax({
+ 				url : url,
+ 		        dataType : "json",
+ 				method:"GET",
+ 			    contentType: "application/json; charset=utf-8",
+ 		        success : function(data) {
+ 		        	console.log("성공");
+ 		        	requestPay(tel,recipt,name,buyName,data);
+ 				}
+ 			})
+ 			console.log("url/"+url);
+ 			console.log(reservationId);
+ 	  }
  	////필수 항목 전체 동의 누를시 다 체크
  	function allCheck(){
  		var btn=document.querySelector('#all_agree');
@@ -519,8 +584,7 @@
  		showTextarea();
  		clickBtnEvent();
  		allCheck();
- 		var cart=${cart};
- 		console.log(cart);
+ 	
  	})
  	
     	const {IMP}=window;

@@ -48,13 +48,13 @@ import kr.or.connect.healthproject.service.security.UserRoleEntity;
 @Service
 public class MemberServiceImpl implements MemberService{
 
-	   // 생성자에 위해 주입되는 객체이고, 해당 객체를 초기화할 필요가 이후에 없기 때문에 final로 선언하였다.
-	 // final로 선언하고 초기화를 안한 필드는 생성자에서 초기화를 해준다.
+	   // ���깆���� ���� 二쇱������ 媛�泥댁�닿�, �대�� 媛�泥대�� 珥�湲고���� ����媛� �댄���� ��湲� ��臾몄�� final濡� ���명������.
+	 // final濡� ���명��怨� 珥�湲고��瑜� ���� ������ ���깆������ 珥�湲고��瑜� �댁���.
 	 private final UserDao userDao;
 	 private final UserRoleDao userRoleDao;
 	 
-	 // @Service가 붙은 객체는 스프링이 자동으로 Bean으로 생성하는데
-	 // 기본생성자가 없고 아래와 같이 인자를 받는 생성자만 있을 경우 자동으로 관련된 타입이 Bean으로 있을 경우 주입해서 사용하게 된다.
+	 // @Service媛� 遺��� 媛�泥대�� �ㅽ��留��� �����쇰� Bean�쇰� ���깊������
+	 // 湲곕낯���깆��媛� ��怨� ������ 媛��� �몄��瑜� 諛��� ���깆��留� ���� 寃쎌�� �����쇰� 愿��⑤�� ������ Bean�쇰� ���� 寃쎌�� 二쇱���댁�� �ъ�⑺��寃� ����.
 	 public MemberServiceImpl(UserDao userDao, UserRoleDao userRoleDao) {
 	     this.userDao = userDao;
 	     this.userRoleDao = userRoleDao;
@@ -83,7 +83,8 @@ public class MemberServiceImpl implements MemberService{
 	 OrderListDao orderListDao;
 	 @Autowired
 	 MemberReservationInfoDao memberReservationInfoDao;
-	 
+	 @Autowired
+	 kr.or.connect.healthproject.member.dao.OrderListsDao dao;
 	 //
 	 @Autowired
 	 SelectPromotionDao selectPromotionDao;
@@ -132,7 +133,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
-	////사진이 있을때
+	////�ъ��� ������
 	@Override
 	@Transactional(readOnly = false)
 	public Long addReservationUserComment(ReservationUserComment comment,FileInfo fileInfo) {
@@ -153,7 +154,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		return reservationid;
 	}
-	///사진이 없을때
+	///�ъ��� ������
 	@Override
 	@Transactional(readOnly = false)
 	public int addReservationUserComment(ReservationUserComment comment) {
@@ -166,13 +167,13 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional(readOnly = false)
 	public Long addReservationInfo(ReservationInfo info,ReservationInfoPrice infoPrice) {
 		reservationInfoDao.addReservation(info);
-		Long reservationInfoId=reservationInfoDao.getReservationInfoId();///상품예약등록
+		Long reservationInfoId=reservationInfoDao.getReservationInfoId();///�������쎈�깅�
 		
-		ProductPrice price=productPriceDao.getPrice(info.getProductId());///상품가격가져오기
+		ProductPrice price=productPriceDao.getPrice(info.getProductId());///����媛�寃⑷��몄�ㅺ린
 		
 		infoPrice.setReservationInfoId(reservationInfoId);
 		infoPrice.setProductPriceId(price.getId());
-		reservationInfoPriceDao.addReservationInfoPrice(infoPrice);///상품 가격 정보 등록
+		reservationInfoPriceDao.addReservationInfoPrice(infoPrice);///���� 媛�寃� ��蹂� �깅�
 		
 		//return reservationInfoId;
 		return infoPrice.getReservationInfoId();
@@ -203,7 +204,6 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional
 	public List<MyCart> getCartProduct(Map<String, Object>params) {
 		List<MyCart>list=myCartDao.getCartProduct(params);
-		System.out.println(list);
 		return list;
 	}
 
@@ -281,7 +281,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	/*
 	 * @params MemberReservationInfo
-	 * 예약수량 변경시 예약정보 수정된시간과 수량 변경을 위한 매소드
+	 * ���쎌���� 蹂�寃쎌�� ���쎌��蹂� ��������媛�怨� ���� 蹂�寃쎌�� ���� 留ㅼ����
 	 */
 	@Override
 	@Transactional(readOnly = false)
@@ -289,4 +289,16 @@ public class MemberServiceImpl implements MemberService{
 		int sucess=memberReservationInfoDao.updateReservationInfo(info);
 		return sucess;
 	}
+	/*
+	 * 결제완료된 사용자 결제 정보 등록
+	 * @params OrderList
+	 */
+
+	@Override
+	@Transactional(readOnly = false)
+	public void insertOrderList(kr.or.connect.healthproject.member.dto.OrderList vo) throws Exception {
+		dao.insertOrderList(vo);
+		
+	}
+
 }

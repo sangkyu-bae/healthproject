@@ -3,6 +3,8 @@ package kr.or.connect.healthproject.controller;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.security.Principal;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -313,4 +315,90 @@ public class MemberApiController {
 		return map;
 	}
 	
+	@ApiOperation(value = "현재 로그인된 사용자 모든 상품 구매시 정보 가져오기")
+	@ApiResponses({  // Response Message에 대한 Swagger 설명
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 500, message = "Exception")
+    })
+	@GetMapping("/allSelectBuyList")
+	public Map<String, Object>allSelectBuyList( 
+			@RequestParam(name="reservationId",required = false,defaultValue = "0") Integer reservationId,
+			@RequestParam(name="checkPoint",required = false,defaultValue = "0") String checkPoint,
+			Principal principal){
+	
+		  String loginId=  principal.getName();
+		  User user=memberService.getUse(loginId);
+		
+		  
+		  MyCart carts;
+		  List<MyCart> cart = new ArrayList<MyCart>();
+		  
+		  int totalPrice=0;
+	
+		  
+		  if(checkPoint.equals("123")) {
+			  carts=memberService.getMaxCartPr(user.getId());
+			  String price=NumberFormat.getInstance().format(carts.getPrice());
+			  carts.setMoneyFormat(price);
+		      cart.add(carts);
+		      totalPrice=carts.getPrice();
+		  }else {
+			  Map<String,Object>params=new HashMap<>();
+			  params.put("id", user.getId());
+			  int price = 0;
+			  if(reservationId==0) {
+				  cart=memberService.getCartProduct(params);
+			      for(MyCart m:cart) {
+			    	  price+=m.getPrice()*m.getCount();
+			    	  totalPrice=price;
+			    	  String moneyFormat=NumberFormat.getInstance().format(m.getPrice()*m.getCount());
+			    	  m.setMoneyFormat(moneyFormat);
+			      }
+			  }else {
+				  params.put("reservationId", reservationId);
+				  cart=memberService.getCartProduct(params);
+				  for(MyCart m:cart) {
+				 	  price+=m.getPrice()*m.getCount();
+			    	  totalPrice=price;
+			       	  String moneyFormat=NumberFormat.getInstance().format(m.getPrice()*m.getCount());
+			    	  m.setMoneyFormat(moneyFormat);
+			      }
+			  }
+		  }
+		  Map<String, Object>map=new HashMap<>();
+		  map.put("cart", cart);
+		  map.put("totalPrice", totalPrice);
+		
+		return map;
+	}
+	
+	@ApiOperation(value = "결제완료된 상품 등록하기")
+	@ApiResponses({  // Response Message에 대한 Swagger 설명
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 500, message = "Exception")
+    })
+	@PostMapping("/insertOrderList")
+	public Map<String, Object>insertOrderList(@RequestParam (value="orderList[]")List<kr.or.connect.healthproject.member.dto.OrderList> list,
+			Principal principal,
+			@RequestBody List<kr.or.connect.healthproject.member.dto.OrderList> lst)throws Exception {
+		
+		String message="";
+		
+		Map<String, Object>map=new HashMap<>();
+		try {
+			String loginId=principal.getName();
+			User user=memberService.getUse(loginId);
+			for(kr.or.connect.healthproject.member.dto.OrderList vo:list) {
+				vo.setPaymentMethodId(1);
+				vo.setUserId(user.getId());
+				memberService.insertOrderList(vo);
+			}
+		} catch (Exception e) {
+			message="fali";
+		}
+		
+		map.put("message", message);
+		
+		return map;
+	}
 }

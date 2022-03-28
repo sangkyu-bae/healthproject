@@ -13,6 +13,7 @@
 		<typeAlias type="kr.or.connect.healthproject.dto.SelectPromotion" alias="SelectPromotion"/>
 		<typeAlias type="kr.or.connect.healthproject.member.dto.MemberReservationInfo" alias="MemberReservationInfo"/>
 		<typeAlias type="kr.or.connect.healthproject.login.dto.MyCart" alias="MyCart"/>
+		<typeAlias type="kr.or.connect.healthproject.member.dto.OrderList" alias="OrderList"/>
 	</typeAliases>
   
   
