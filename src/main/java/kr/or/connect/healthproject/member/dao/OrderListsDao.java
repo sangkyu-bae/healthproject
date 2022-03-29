@@ -17,6 +17,7 @@ public class OrderListsDao {
 	 */
 	
 	public void insertOrderList(OrderList vo) throws Exception {
-		sessionTemplate.insert("kr.or.connect.healthproject.member.dao.OrderListDao.insertOrderList", vo);
+		System.out.println(vo);
+		sessionTemplate.insert("kr.or.connect.healthproject.member.dao.OrderListsDao.insertOrderList", vo);
 	}
 }

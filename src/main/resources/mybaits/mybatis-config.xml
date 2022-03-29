@@ -14,6 +14,7 @@
 		<typeAlias type="kr.or.connect.healthproject.member.dto.MemberReservationInfo" alias="MemberReservationInfo"/>
 		<typeAlias type="kr.or.connect.healthproject.login.dto.MyCart" alias="MyCart"/>
 		<typeAlias type="kr.or.connect.healthproject.member.dto.OrderList" alias="OrderList"/>
+		<typeAlias type="kr.or.connect.healthproject.member.dto.ReservationInfo" alias="ReservationInfo"/>
 	</typeAliases>
   
   

@@ -6,7 +6,7 @@ public class BuyInfoDaoSqls {
 			+ "from reservation_info a left outer join product b on a.product_id=b.id\r\n"
 			+ "left outer join product_price c on b.id=c.product_id\r\n"
 			+ "left outer join reservation_info_price d on a.id=d.reservation_info_id\r\n"
-			+ "where a.user_id=:userId and a.cancle_flag between 1 and 5\r\n"
+			+ "where a.user_id=:userId and a.cancle_flag between 1 and 5 order by a.cancle_flag\r\n"
 			+ "";
 	public static final String GET_COUNT="select cancle_flag,count(cancle_flag) as cnt from reservation_info\r\n"
 			+ " where user_id=:userId and cancle_flag between 1 and 5\r\n"

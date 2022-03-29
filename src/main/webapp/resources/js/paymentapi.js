@@ -27,7 +27,7 @@
 	});
 }
 */
- function requestPay(tel,recipt,name,buyName,cartDate) {
+ function requestPay(tel,recipt,name,buyName,homeNumber,deliveryNote,path,cartDate) {
 	IMP.request_pay({
 	    pg : 'html5_inicis',
 	    pay_method : 'card',
@@ -41,55 +41,40 @@
 	    buyer_postcode : '123-456'
 	}, function(rsp) {
 	    if ( rsp.success ) {
-		var cart=cartDate['cart'];
-		var list=[];
-		for(var i=0;i<cart.length;i++){
-			var data={
-				reservationInfoId:cart[i].reservationInfoId,
-				orderAddress:recipt,
-				recipient:buyName,
-				deliveryNote:'',
-				homePhone:'',
-				cellPhone:tel,
-				impUid:imp_uid,
-				merchantUid:rsp.merchant_uid
-			}
-		}
-		
-		/*
+			var cart=cartDate['cart'];
+			var list=[];
 			for(var i=0;i<cart.length;i++){
 				var data={
-				reservationInfoId:cart,
-				orderAddress:recipt,
-				recipient:buyName,
-				deliveryNote:'',
-				homePhone:'',
-				cellPhone:tel,
-				impUid:imp_uid,
-				merchantUid:rsp.merchant_uid
+					reservationInfoId:cart[i].reservationInfoId,
+					orderAddress:recipt,
+					recipient:buyName,
+					deliveryNote:deliveryNote,
+					homePhone:homeNumber,
+					cellPhone:tel,
+					impUid:rsp.imp_uid,
+					merchantUid:rsp.merchant_uid
+				}
+				list.push(data);
 			}
-			}
-			var list=[];
 			
-			var data={
-				reservationInfoId:'',
-				orderAddress:recipt,
-				recipient:buyName,
-				deliveryNote:'',
-				homePhone:'',
-				cellPhone:tel,
-				impUid:imp_uid,
-				merchantUid:rsp.merchant_uid
-			}
-			*/
-		/*
+			var url =path+"/api/insertOrderList"
+			console.log(path);
 			$.ajax({
-				url : "/healthproject/api/insertOrderList",
-		        dataType : "json",
-				method:"GET",
+				dataType : "json",
+				contentType : false,
+		    	processData : false,
+				headers : {
+					    "Accept" : "application/json",
+					    "Content-Type" : "application/json;charset=utf-8"
+					},
+			    type : "post",
+				data:JSON.stringify(list),
+				url : url,
 			    contentType: "application/json; charset=utf-8",
 		        success : function(data) {
-						getPromotionImage(data);
+						alert("결제가 완료되었습니다.");
+						window.location.href =path+'/members/mypage';
+					
 				}
 			})
 			/*
@@ -102,8 +87,9 @@
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
+	        alert(msg);
 	    }
 	
-	    alert(msg);
+	    
 	});
 }

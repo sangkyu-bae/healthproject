@@ -46,12 +46,17 @@ public interface MemberService extends UserDbService{
 	public Long insertOrderList(OrderList list);
 	public int updateReservationCancleFlag(Long reservationId);
 	
-	public int updateReservationInfo(MemberReservationInfo info);
+	public int updateReservationInfo(MemberReservationInfo info) throws Exception;
 	
 	/*
 	 * 결제완료된 사용자 결제 정보 등록
 	 * @params OrderList
 	 * 
 	 */
-	public void insertOrderList(kr.or.connect.healthproject.member.dto.OrderList vo)throws Exception;
+	public void insertOrderLists(kr.or.connect.healthproject.member.dto.OrderList vo)throws Exception;
+	/*
+	 * @params MemberReservationInfo
+	 * 예약정보 시간, 예약 수량 변경하는 메소드
+	 */	
+	public int updateReservationInfos(kr.or.connect.healthproject.member.dto.ReservationInfo vo) throws Exception;
 }

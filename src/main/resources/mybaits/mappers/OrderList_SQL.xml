@@ -4,10 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
    <mapper namespace="kr.or.connect.healthproject.member.dao.OrderListsDao">
-	   <insert id="kr.or.connect.healthproject.member.dao.OrderListsDao.insertOrderList" parameterType="OrderList">
+	   <insert id="insertOrderList" parameterType="OrderList">
 	   INSERT 
 	   INTO 
-		ORDER_LIST(RESERVATION_INFO_ID,USER_ID,PAYMENT_METHOD_ID,ORDER_ADDRESS,RECIPIENT,CELL_PHONE,HOME_PHONE,DELIVERY_NOTE,CREATE_DATE,MODIFY_DATE,IMP_UID,MERCHANT_UID)
-		VALUE(#{reservationInfoId},#{userId},${orderAddress},#{orderAddress},#{recipient},#{cellPhone},#{homePhone},#{deliveryNote},NOW(),NOW(),#{impUid},#{merchantUid});
+		ORDER_LIST
+		(RESERVATION_INFO_ID,USER_ID,PAYMENT_METHOD_ID,ORDER_ADDRESS,RECIPIENT,CELL_PHONE,HOME_PHONE,DELIVERY_NOTE,CREATE_DATE,MODIFY_DATE,IMP_UID,MERCHANT_UID)
+		VALUE(#{reservationInfoId},#{userId},1,#{orderAddress},#{recipient},#{cellPhone},#{homePhone},#{deliveryNote},NOW(),NOW(),#{impUid},#{merchantUid});
 	   </insert>
    </mapper>

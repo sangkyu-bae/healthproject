@@ -15,7 +15,7 @@ public class MemberReservationInfoDao {
 	 * @params MemberReservationInfo
 	 * 예약정보 시간, 예약 수량 변경하는 메소드
 	 */	
-	public int updateReservationInfo(MemberReservationInfo info) {
+	public int updateReservationInfo(MemberReservationInfo info) throws Exception{
 		//return sessionTemplate.update("kr.or.connect.healthproject.dao.SelectPromotionsDao.updateReservationInfo",info);
 		return sessionTemplate.update("kr.or.connect.healthproject.member.dao.MemberReservationInfoDao.updateReservationInfo",info);
 	}

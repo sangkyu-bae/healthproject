@@ -372,18 +372,17 @@ public class MemberApiController {
 		return map;
 	}
 	
-	@ApiOperation(value = "결제완료된 상품 등록하기")
+	@ApiOperation(value = "결제완료된 상품 등록한후 결제완료로 변경")
 	@ApiResponses({  // Response Message에 대한 Swagger 설명
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 500, message = "Exception")
     })
 	@PostMapping("/insertOrderList")
-	public Map<String, Object>insertOrderList(@RequestParam (value="orderList[]")List<kr.or.connect.healthproject.member.dto.OrderList> list,
+	public Map<String, Object>insertOrderList(
 			Principal principal,
-			@RequestBody List<kr.or.connect.healthproject.member.dto.OrderList> lst)throws Exception {
+			@RequestBody List<kr.or.connect.healthproject.member.dto.OrderList> list)throws Exception {
 		
 		String message="";
-		
 		Map<String, Object>map=new HashMap<>();
 		try {
 			String loginId=principal.getName();
@@ -391,12 +390,20 @@ public class MemberApiController {
 			for(kr.or.connect.healthproject.member.dto.OrderList vo:list) {
 				vo.setPaymentMethodId(1);
 				vo.setUserId(user.getId());
-				memberService.insertOrderList(vo);
+				memberService.insertOrderLists(vo);
+				kr.or.connect.healthproject.member.dto.ReservationInfo reservationInfo=new kr.or.connect.healthproject.member.dto.ReservationInfo();
+				
+				reservationInfo.setCancleFlag(2);
+				reservationInfo.setId(vo.getReservationInfoId());
+				
+				memberService.updateReservationInfos(reservationInfo);
+				
+				message="sucess";
 			}
 		} catch (Exception e) {
 			message="fali";
 		}
-		
+		System.out.println(message);
 		map.put("message", message);
 		
 		return map;

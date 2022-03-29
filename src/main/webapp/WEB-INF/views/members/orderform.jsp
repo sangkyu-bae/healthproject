@@ -462,8 +462,6 @@
  		checkform();
  	}
  	function checkform(){
- 		
- 	
  		//핸드폰
  		var tel='';
  		var rmobile=document.querySelectorAll('.tel');
@@ -494,19 +492,45 @@
  			count =count-1
  			name+=' 외 '+count +'건';
  		}
+ 		
+ 		//전화번호
+ 		var numbersBox=document.querySelector('#numbers_box');
+ 		var homeNumber='';
+ 		if(numbersBox.selectedIndex===0){
+ 			
+ 		}else{
+ 			homeNumber+=numbersBox.value+"-";
+ 			var home=document.querySelectorAll('.home');
+ 			for(var i=0;i<home.length;i++){
+ 				
+ 				if(i==home.length-1){
+ 					homeNumber+= home[i].value;
+ 				}else{
+ 					homeNumber+= home[i].value+ "-";
+ 				}
+ 			}
+ 		}
+ 		// 요청사항
+ 		var deliveryNoteBox=document.querySelector('.dlv_selectbox');
+ 		var deliveryNote='';
+ 		if(deliveryNoteBox.value=='etc'){
+ 			deliveryNote=document.querySelector('#my-self-text').value;
+ 		}else{
+ 			deliveryNote=deliveryNoteBox.value;
+ 		}
+ 		
  		var buyName=document.querySelector('.recipient_info').value;
- 		checkUrl(tel,recipt,name,buyName);
+ 		checkUrl(tel,recipt,name,buyName,homeNumber,deliveryNote);
  	
  	}
- 	function checkUrl(tel,recipt,name,buyName){
+ 	function checkUrl(tel,recipt,name,buyName,homeNumber,deliveryNote){
  		  	const parsedUrl = new URL(window.location.href);
  			var searchParams=parsedUrl.searchParams;
  			var checkPoint=searchParams.get('searchParams');
  			var reservationId=searchParams.get("reservationId");
  			var url='';
  			var path=`${path}`;
- 			console.log(path);
- 			console.log("${path}");
+
  			if(checkPoint==null&&reservationId==null){
  				url=path+"/api/allSelectBuyList?reservationId=0&checkPoint"+0;
  			}else if(checkPoint!=null){
@@ -522,12 +546,55 @@
  			    contentType: "application/json; charset=utf-8",
  		        success : function(data) {
  		        	console.log("성공");
- 		        	requestPay(tel,recipt,name,buyName,data);
+ 		        	requestPay(tel,recipt,name,buyName,homeNumber,deliveryNote,path,data);
  				}
  			})
- 			console.log("url/"+url);
- 			console.log(reservationId);
  	  }
+ 	
+ 	/*test*/
+ 	/*
+ 	function test(tel,recipt,name,buyName,homeNumber,deliveryNote,path,data){
+ 		var cart=data['cart'];
+		var list=[];
+		for(var i=0;i<cart.length;i++){
+			var data={
+				reservationInfoId:cart[i].reservationInfoId,
+				orderAddress:recipt,
+				recipient:buyName,
+				deliveryNote:deliveryNote,
+				homePhone:homeNumber,
+				cellPhone:tel,
+				impUid:"1234",
+				merchantUid:"2342"
+			}
+			list.push(data);
+		}
+		
+		var url =path+"/api/insertOrderList"
+		console.log(url);
+		$.ajax({
+			dataType : "json",
+			contentType : false,
+	    	processData : false,
+			headers : {
+				    "Accept" : "application/json",
+				    "Content-Type" : "application/json;charset=utf-8"
+				},
+		    type : "post",
+			data:JSON.stringify(list),
+			url : url,
+		    contentType: "application/json; charset=utf-8",
+	        success : function(data) {
+					var msg = '결제가 완료되었습니다.';
+					window.location.href =path+'/members/mypage';
+				
+			}
+		})
+		
+	
+ 	}
+ 	*/
+ 	
  	////필수 항목 전체 동의 누를시 다 체크
  	function allCheck(){
  		var btn=document.querySelector('#all_agree');

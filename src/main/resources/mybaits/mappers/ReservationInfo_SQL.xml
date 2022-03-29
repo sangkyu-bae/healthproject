@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.or.connect.healthproject.member.dao.ReservationInfoDaos">
+  	<update id="updateReservationInfo" parameterType="ReservationInfo">
+	UPDATE
+	 RESERVATION_INFO
+	SET 
+		MODIFY_DATE=NOW()
+		,CANCLE_FLAG =#{cancleFlag}
+	WHERE ID=#{id};
+	</update>
+</mapper>
+  
