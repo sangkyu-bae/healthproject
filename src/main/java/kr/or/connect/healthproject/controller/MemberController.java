@@ -207,5 +207,11 @@ public class MemberController {
 	  
 	      return "members/orderform.web";
 	   }
-
+	   
+	   @GetMapping("/order_list_opt")
+	   public String orderListInfo(Model model,
+			   Principal principal) {
+		   return "members/orderlistopt.web";
+	   }
+	   
 }
