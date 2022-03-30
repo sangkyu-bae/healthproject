@@ -1194,6 +1194,7 @@ thead{
 }
 thead th{
   padding: 10px;
+  font-weight: bold;
 }
 tbody tr{
   border-bottom: 1px solid gray;

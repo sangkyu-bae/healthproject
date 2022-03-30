@@ -210,7 +210,12 @@ public class MemberController {
 	   
 	   @GetMapping("/order_list_opt")
 	   public String orderListInfo(Model model,
-			   Principal principal) {
+			   Principal principal,
+			   @RequestParam(name="searchPeriod",required = false,defaultValue = "0") String searchPeriod ) {
+		  Map<String, Object>params=new HashMap<>();
+		  
+		  params.put("searchPeriod", searchPeriod);
+		   
 		   return "members/orderlistopt.web";
 	   }
 	   
