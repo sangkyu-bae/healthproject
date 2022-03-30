@@ -86,7 +86,7 @@ public class MemberController {
 		User user=memberService.getUse(loginId);
 	    modelMap.addAttribute("member", user);
 
-        return "members/memberinfo";
+        return "members/memberinfo.web";
 	}
 	@GetMapping("/mycart")
 	public String mycart(Model model,

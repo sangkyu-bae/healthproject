@@ -17,8 +17,8 @@
 		<div class="mypage_fiter_head ">나의 쇼핑 활동</div>
 		<div class="mypage_fiter_lst_box">
 			<ul class="mypage_fiter_ul">
-				<li class="mypage_fiter_list" style="font-weight: bold;"><a href="${path}/members/order_list_opt">주문 내역 조회</a></li>
-				<li class="mypage_fiter_list"><a href="${path}/mypage/write_review">구매후기</a></li>
+				<li class="mypage_fiter_list" ><a href="${path}/members/order_list_opt">주문 내역 조회</a></li>
+				<li class="mypage_fiter_list" style="font-weight: bold;"><a href="#">구매후기</a></li>
 				<li class="mypage_fiter_list"><a href="#">상품문의</a></li>
 			</ul>
 		</div>
@@ -26,7 +26,15 @@
 	<div class="mypage_section_box  mypage_float_box">
 		<div class="">
 			<div class="mypage_section_head sksk">
-				<h2>주문내역 조회</h2>
+				<h2>구매 후기</h2>
+				<div class="tab-group">
+					<div class="tab-btn" style="padding: 3px; ">
+						<a href="#" style="color:black;">후기 작성</a> 
+					</div>
+					<div class="tab-btn bs">
+						<a href="#">후기 내역</a>
+					</div>
+				</div>
 			</div>
 			<div>
 				<div class="n-radio-tab">
@@ -52,7 +60,6 @@
 						<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
 					</div>
 				</div>
-			
 			</div>
 			
 			
@@ -63,16 +70,14 @@
 						<col style="">
 						<col style="">
 						<col style="">
-						<col style="">
-						<col style="">
+					
 					</colgroup>
 					<thead>
 						<tr>
 							<th scope="col">상품정보</th>
-							<th scope="col">주문일자</th>
+							<th scope="col">구매/구매확정일</th>
 							<th scope="col">주문번호</th>
 							<th scope="col">주문금액</th>
-							<th scope="col" colspan="2">주문 상태</th>
 						</tr>
 					</thead>
 					<tbody class="my_order_table_tbody">
@@ -81,7 +86,6 @@
 							<td>2022.01.21</td>
 							<td>1</td>
 							<td>1,312,0000</td>
-							<td>결제대기</td>
 						</tr>
 					</tbody>
 				</table>
