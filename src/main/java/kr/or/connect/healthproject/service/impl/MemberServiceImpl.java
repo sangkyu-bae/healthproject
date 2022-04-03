@@ -312,6 +312,17 @@ public class MemberServiceImpl implements MemberService{
 		return reservationInfoDao2.updateReservationInfo(vo);
 	}
 
+	
+	/*
+	 * @params Map
+	 * 기간에 따른 주문 내역 조회
+	 */
+	@Override
+	@Transactional
+	public List<Map<String, Object>> selectMemeberOrder(Map<String, Object> params) throws Exception {
+		return memberReservationInfoDao.selectMemeberOrder(params);
+	}
+
 
 
 }

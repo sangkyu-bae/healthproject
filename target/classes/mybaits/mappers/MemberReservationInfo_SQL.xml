@@ -13,5 +13,32 @@
 		b.count=#{count}
 	where a.id=#{id}
 	</update>
+	
+	<select id="kr.or.connect.healthproject.member.dao.MemberReservationInfoDao.selectMemeberOrder" parameterType="java.util.HashMap"  resultType="CamelListMap" >
+	SELECT 
+		b.description,
+		a.cancle_flag,
+	    a.id as reservation_info_id,
+	    c.price,c.discount_rate,
+	    d.count,
+	    a.create_date, 
+	    a.reservation_date
+	FROM 
+		reservation_info a,
+	    product b,
+	    product_price c,
+	    reservation_info_price d
+	WHERE 
+		1=1 
+		and a.product_id=b.id
+		and b.id=c.product_id
+		and a.id=d.reservation_info_id
+		and a.user_id=#{userId}
+		<if test="startDate !=null">
+		and a.reservation_date between #{startDate} and #{lastDate}
+		</if>
+	    and a.cancle_flag between 1 and 5 order by a.cancle_flag;
+		
+	</select>
 </mapper>
   

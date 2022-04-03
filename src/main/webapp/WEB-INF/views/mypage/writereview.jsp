@@ -10,7 +10,6 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link href="${path}/resources/css/orderlistopt.css" rel="stylesheet" type="text/css">
-
 <div class="mypage_container">
 	<div class="mypage_head_box">MYPAGE</div>
 	<div class="mypage_filter_wrap mypage_float_box">

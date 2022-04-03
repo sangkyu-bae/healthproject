@@ -16,7 +16,7 @@ function moveText(){
 		}
 		count++;
 		
-	},3000);
+	},2000);
 }
 ///상단 네비영역 클릭시 색상변화
 function clickName(){
@@ -1801,27 +1801,20 @@ document.addEventListener("DOMContentLoaded",function(){
 		getDetailProductData();
 		getDetailProductComment();
 	}else{
+		clickName();
+		moveText();
 		var scpath=scpasedUrl();
 		if(scpath==='loginform'){
-			moveText();
-			clickName();
 			locationAddmemeber();
 			checkLoginSubmit();
 		}else if(scpath==='joinform'){
-			moveText();
-			clickName();
+
 		}else if(scpath==='mycart'){
-			moveText();
-			clickName();
 			getMycartProduct();
 			
 		}else if(scpath==='mypage'){
-			moveText();
-			clickName();
 		    getMyPageData();
 		}else if(scpath==='orderform'){
-			moveText();
-			clickName();
 			//getMycartData();
 		}
 		

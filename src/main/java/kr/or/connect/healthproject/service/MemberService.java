@@ -59,4 +59,10 @@ public interface MemberService extends UserDbService{
 	 * 예약정보 시간, 예약 수량 변경하는 메소드
 	 */	
 	public int updateReservationInfos(kr.or.connect.healthproject.member.dto.ReservationInfo vo) throws Exception;
+	
+	/*
+	 * @params Map
+	 * 기간에 따른 주문 내역 조회
+	 */
+	public List<Map<String, Object>> selectMemeberOrder(Map<String, Object> params) throws Exception;
 }

@@ -1,5 +1,8 @@
 package kr.or.connect.healthproject.member.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,5 +21,12 @@ public class MemberReservationInfoDao {
 	public int updateReservationInfo(MemberReservationInfo info) throws Exception{
 		//return sessionTemplate.update("kr.or.connect.healthproject.dao.SelectPromotionsDao.updateReservationInfo",info);
 		return sessionTemplate.update("kr.or.connect.healthproject.member.dao.MemberReservationInfoDao.updateReservationInfo",info);
+	}
+	/*
+	 * @params Map
+	 * 기간에 따른 주문 내역 조회
+	 */
+	public List<Map<String, Object>> selectMemeberOrder(Map<String, Object> params) throws Exception{
+		return sessionTemplate.selectList("kr.or.connect.healthproject.member.dao.MemberReservationInfoDao.selectMemeberOrder",params);
 	}
 }

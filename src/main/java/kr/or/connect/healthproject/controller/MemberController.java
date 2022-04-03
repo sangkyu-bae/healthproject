@@ -210,11 +210,27 @@ public class MemberController {
 	   
 	   @GetMapping("/order_list_opt")
 	   public String orderListInfo(Model model,
-			   Principal principal,
-			   @RequestParam(name="searchPeriod",required = false,defaultValue = "0") String searchPeriod ) {
-		  Map<String, Object>params=new HashMap<>();
+			@RequestParam(name="startDate", required = false , defaultValue = "0") String startDate,
+			@RequestParam(name="lastDate", required = false , defaultValue = "0") String lastDate,
+			Principal principal,
+			HttpServletRequest request )throws Exception {
+		  String loginId=principal.getName();
+		  User user= memberService.getUse(loginId);
 		  
-		  params.put("searchPeriod", searchPeriod);
+		  Map<String, Object>params=new HashMap<>();
+		  params.put("userId", user.getId());
+		  if(startDate.equals("0")) {
+			  
+		  }else {
+			  params.put("startDate", startDate);
+			  params.put("lastDate", lastDate);
+		  }
+		
+		  
+		  List<Map<String, Object>> orderList=memberService.selectMemeberOrder(params);
+		  
+		  model.addAttribute("orderList", orderList);
+		 
 		   
 		   return "members/orderlistopt.web";
 	   }
