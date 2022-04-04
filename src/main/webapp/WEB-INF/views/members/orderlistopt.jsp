@@ -76,13 +76,15 @@
 						</tr>
 					</thead>
 					<tbody class="my_order_table_tbody">
-						<tr>
-							<td>에버캠프 시그니처 스카이뷰</td>
-							<td>2022.01.21</td>
-							<td>1</td>
-							<td>1,312,0000</td>
-							<td>결제대기</td>
-						</tr>
+						<c:forEach var="list" items="${orderList}"  >
+							<tr>
+								<td>${list.description }</td>
+								<td>${list.reservationDate }</td>
+								<td>${list.price }</td>
+								<td>${list.price }</td>
+								<td>결제대기</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>

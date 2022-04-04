@@ -14,7 +14,7 @@
 	where a.id=#{id}
 	</update>
 	
-	<select id="kr.or.connect.healthproject.member.dao.MemberReservationInfoDao.selectMemeberOrder" parameterType="java.util.HashMap"  resultType="CamelListMap" >
+	<select id="kr.or.connect.healthproject.member.dao.MemberReservationInfoDao.selectMemeberOrder" parameterType="java.util.HashMap"  resultType="camlemap" >
 	SELECT 
 		b.description,
 		a.cancle_flag,

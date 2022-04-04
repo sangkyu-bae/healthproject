@@ -229,6 +229,8 @@ public class MemberController {
 		  
 		  List<Map<String, Object>> orderList=memberService.selectMemeberOrder(params);
 		  
+		  System.out.println(orderList.get(0).get("createDate"));
+		  
 		  model.addAttribute("orderList", orderList);
 		 
 		   
