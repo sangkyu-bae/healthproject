@@ -22,7 +22,7 @@
 	    c.price,c.discount_rate,
 	    d.count,
 	    a.create_date, 
-	    a.reservation_date
+	    replace (substring_index ( a.reservation_date, ' ',1),'-','.') as reservation_date
 	FROM 
 		reservation_info a,
 	    product b,

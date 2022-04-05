@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -230,8 +231,37 @@ public class MemberController {
 		  List<Map<String, Object>> orderList=memberService.selectMemeberOrder(params);
 		  
 		  System.out.println(orderList.get(0).get("createDate"));
+		  //String cd=(String) orderList.get(0).get("createDate");
+		  for(Map<String, Object>map:orderList) {
+			  String cd=(String) map.get("reservationDate");
+			  String[] array =cd.split("T");
+			  
+			  cd= array[0];
+			  cd=cd.replace("-", ".");
+			  System.out.println(cd);
+			  map.put("reservationDates", cd);
+			  System.out.println("date?"+(String) map.get("reservationDates"));
+		  }
+
+		  model.addAttribute("orderList",orderList);
 		  
-		  model.addAttribute("orderList", orderList);
+		  /*
+		  Iterator it =orderList.iterator();
+		  
+		  
+		  while(it.hasNext()) {
+			  String key = (String) it.next();
+			  System.out.println(key);
+			  
+		  }
+		 
+		  */
+		  /*
+		for(Map<String, Object> map: orderList) {
+			for(Map.Entry<String,Object> entry : map.entrySet()) {
+				System.out.println(entry.getKey()+"-"+entry.getValue());
+			}
+		}*/
 		 
 		   
 		   return "members/orderlistopt.web";
