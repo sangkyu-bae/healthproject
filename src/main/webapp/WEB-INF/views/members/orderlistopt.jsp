@@ -72,17 +72,17 @@
 							<th scope="col">주문일자</th>
 							<th scope="col">주문번호</th>
 							<th scope="col">주문금액</th>
-							<th scope="col" colspan="2">주문 상태</th>
+							<th scope="col" colspan="2">주문상태</th>
 						</tr>
 					</thead>
 					<tbody class="my_order_table_tbody">
-						<c:forEach var="list" items="${orderList}"  >
+						<c:forEach var="list" items="${orderList}" varStatus="status" >
 							<tr>
 								<td>${list.description }</td>
 								<td>${list.reservationDate }</td>
-								<td>${list.price }</td>
-								<td>${list.price }</td>
-								<td>결제대기</td>
+								<td>${status.count }</td>
+								<td>${list.resultprice }</td>
+								<td>${list.namestring}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -91,3 +91,38 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	/*검색 기간 클릭시 날짜 세팅*/
+	function setPriod(){
+		var now = new Date();
+		console.log(now);
+		now.setDate(now.getDate()-7);
+		
+		var year=now.getFullYear();
+		var month = now.getMonth()+1;
+		var day=now.getDate();
+		
+		var startDateMonth = now.getMonth();
+		var startDateDay=now.getDate()-7;
+		
+		console.log(day);
+		/*
+		var concat='0';
+		
+		var a= month.toString();
+		var b= day.toString();
+		
+		if(a.length==1){
+			a=concat+a
+		}
+		if(b.length==1){
+			b=concat+b
+		}
+		
+		console.log(year+"."+a+"."+b);
+		*/
+	}
+	
+	setPriod();
+</script>

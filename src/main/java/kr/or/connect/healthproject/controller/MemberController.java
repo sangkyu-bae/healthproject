@@ -217,7 +217,7 @@ public class MemberController {
 			HttpServletRequest request )throws Exception {
 		  String loginId=principal.getName();
 		  User user= memberService.getUse(loginId);
-		  
+		  NumberFormat numberFormat = NumberFormat.getInstance();
 		  Map<String, Object>params=new HashMap<>();
 		  params.put("userId", user.getId());
 		  if(startDate.equals("0")) {
@@ -230,38 +230,36 @@ public class MemberController {
 		  
 		  List<Map<String, Object>> orderList=memberService.selectMemeberOrder(params);
 		  
-		  System.out.println(orderList.get(0).get("createDate"));
-		  //String cd=(String) orderList.get(0).get("createDate");
-		  for(Map<String, Object>map:orderList) {
-			  String cd=(String) map.get("reservationDate");
-			  String[] array =cd.split("T");
+		  String flag="";
+		  String nameString="";
+		  String price="";
+		  for(Map<String, Object>m : orderList) {
+			
+			  int prices=Integer.parseInt(String.valueOf (m.get("price")));
+			  int count =Integer.parseInt(String.valueOf(m.get("count")));
+		
+			  int resultPrice=prices*count;
+			  price=numberFormat.format(resultPrice);
+			  flag=(String) m.get("cancleFlag");
+			  	if(flag.equals("1")){
+					nameString="결제대기";
+				}else if(flag.equals("2")){
+					nameString="배송중";
+				}else if(flag.equals("3")){
+					nameString="배송완료";
+				}else if(flag.equals("4")){
+					nameString="구매확정";
+				}else if(flag.equals("5")){
+					nameString="취소";
+				}
 			  
-			  cd= array[0];
-			  cd=cd.replace("-", ".");
-			  System.out.println(cd);
-			  map.put("reservationDates", cd);
-			  System.out.println("date?"+(String) map.get("reservationDates"));
+			  m.put("resultprice", price);
+			  m.put("namestring",nameString);
 		  }
-
+		  
+		  
+		  
 		  model.addAttribute("orderList",orderList);
-		  
-		  /*
-		  Iterator it =orderList.iterator();
-		  
-		  
-		  while(it.hasNext()) {
-			  String key = (String) it.next();
-			  System.out.println(key);
-			  
-		  }
-		 
-		  */
-		  /*
-		for(Map<String, Object> map: orderList) {
-			for(Map.Entry<String,Object> entry : map.entrySet()) {
-				System.out.println(entry.getKey()+"-"+entry.getValue());
-			}
-		}*/
 		 
 		   
 		   return "members/orderlistopt.web";
