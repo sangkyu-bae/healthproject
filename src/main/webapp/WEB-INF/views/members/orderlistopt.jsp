@@ -30,14 +30,14 @@
 			</div>
 			<div>
 				<div class="n-radio-tab">
-					<input type="radio" class="period_btn" name="radioTabGuide">
-					<label> 1주일</label>
-					<input type="radio" class="period_btn" name="radioTabGuide">
-					<label> 1개월</label>
-					<input type="radio" class="period_btn" name="radioTabGuide">
-					<label> 3개월</label>
-					<input type="radio" class="period_btn" name="radioTabGuide">
-					<label> 전체시기</label>
+					<input type="radio" class="period_btn" id="radioTabGuide0" name="radioTabGuide">
+					<label for="radioTabGuide0"> 1주일</label>
+					<input type="radio" class="period_btn" id="radioTabGuide1" name="radioTabGuide">
+					<label for="radioTabGuide1"> 1개월</label>
+					<input type="radio" class="period_btn" id="radioTabGuide2" name="radioTabGuide">
+					<label for="radioTabGuide2"> 3개월</label>
+					<input type="radio" class="period_btn" id="radioTabGuide3" name="radioTabGuide">
+					<label for="radioTabGuide3"class="clicks"> 전체시기</label>
 				</div>
 				<div class="n-radio-tab">
 					<div class="n-datepicker sb">

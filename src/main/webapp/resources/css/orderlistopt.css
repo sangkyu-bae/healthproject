@@ -59,6 +59,12 @@ label{
 	cursor: pointer;
 }
 
+.clicks{
+	border-color: #000000;
+}
+
+
+
 /*writereview */
 .tab-btn{
 	float: left;
