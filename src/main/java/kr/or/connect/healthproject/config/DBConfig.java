@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 @EnableTransactionManagement
 public class DBConfig implements TransactionManagementConfigurer{
 	private String driverClassName = "com.mysql.cj.jdbc.Driver";
-	private String url = "jdbc:mysql://192.168.0.138/campingshop?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
-	private String username = "tkdrb136";
-	private String password = "wnsvaf309!";
+	private String url = "jdbc:mysql://localhost:3306/campingshop?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
+	private String username = "root";
+	private String password = "tkdrb136";
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();

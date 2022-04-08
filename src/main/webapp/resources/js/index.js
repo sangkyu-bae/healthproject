@@ -112,6 +112,8 @@ function moveSectionImg(){
 		}
 }
 ///////상단 프로모션 이미지 가져오기
+console.log(path);
+
 function getPromotionImage(data){
 	var html=``;
 	var promotion=data['promotionList'];
@@ -119,7 +121,7 @@ function getPromotionImage(data){
 	for(var i=0;i<promotion.length;i++){
 		html+=` <li class="item_list">
                   <a href="">
-                    <img src="http://localhost:8080/healthproject/resources/img/${promotion[i].saveFileName}" alt="${promotion[i].description}">
+                    <img src="${path}/resources/img/${promotion[i].saveFileName}" alt="${promotion[i].description}">
                   </a> 
 				  <div class="item_title">
                     ${promotion[i].description}
@@ -136,7 +138,7 @@ function getPromotionImage(data){
 }
 function getData(){
 	$.ajax({
-		url : "http://localhost:8080/healthproject/api/getpromotion",
+		url : `${path}/api/getpromotion`,
         dataType : "json",
 		method:"GET",
 	    contentType: "application/json; charset=utf-8",
@@ -150,10 +152,10 @@ function setShopNowHerf(){
 	var firstBtn=document.querySelector('.first_btn');
 	var btns=document.querySelector(".button-box");
 	firstBtn.addEventListener('click',function(evt){
-		location.href='http://localhost:8080/healthproject/shop';
+		location.href=`${path}/shop`;
 	});
 	btns.addEventListener('click',function(evt){
-		location.href='http://localhost:8080/healthproject/shop';
+		ocation.href=`${path}/shop`;
 	});
 }
 ////////////
@@ -161,7 +163,7 @@ function setShopNowHerf(){
 function getProduct(start){
 	var start=start;
 	$.ajax({
-		url : "http://localhost:8080/healthproject/api/getproduct?start="+start,
+		url : `${path}/api/getproduct?start=`+start,
         dataType : "json",
 		method:"GET",
 	    contentType: "application/json; charset=utf-8",
@@ -189,10 +191,10 @@ function createProduct(data){
 		price=price.toLocaleString('ko-KR');
 		html+=` <li class="product_item">
                   <a href="http://localhost:8080/healthproject/product?id=${product[i].productId}">
-                    <img src="http://localhost:8080/healthproject/resources/img/${product[i].saveFileName}" alt="${product[i].description}">
+                    <img src="${path}/resources/img/${product[i].saveFileName}" alt="${product[i].description}">
                   </a>
                   <div class="product_view">
-                    <a href="http://localhost:8080/healthproject/product?id=${product[i].productId}">
+                    <a href="${path}/product?id=${product[i].productId}">
                         Qucik View
                     </a>
                   </div>
@@ -250,12 +252,12 @@ function locationAddmemeber(){
 			var textName=evt.target.firstElementChild.innerText;
 			console.log(textName);
 			if(textName==='회원가입'){
-				location.href='http://localhost:8080/healthproject/members/joinform';
+				location.href=`${path}/members/joinform`;
 			}
 		}else if(evt.target.tagName==='SPAN'){
 			console.log(evt.target.innerText);
 			if(evt.target.innerText==='회원가입'){
-				location.href='http://localhost:8080/healthproject/members/joinform';
+				location.href=`${path}/members/joinform`;
 			}
 		}
 	})
@@ -357,7 +359,7 @@ function checkSubmit(){
 //////////////
 ///////////////shop페이지 스크립트
 function getProductData(categoryId,sort){
-	var url="http://localhost:8080/healthproject/api/getallproduct";
+	var url=`${path}/api/getallproduct`;
 	var id =categoryId;
 	if(id!=undefined){
 		url+="?id="+id;
@@ -399,7 +401,7 @@ function getProductImg(data){
 			html+=`
 			<li class="product_img_item" data-prid="${data[i].id}">
                  <a href="product?id=${data[i].id}">
-                   <img src="http://localhost:8080/healthproject/resources/img/${data[i].saveFileName}" alt="${data[i].description}">
+                   <img src="${path}/resources/img/${data[i].saveFileName}" alt="${data[i].description}">
                  </a>
                  <div class="product_view">
                    <a href="product?id=${data[i].id}">
@@ -419,7 +421,7 @@ function getProductImg(data){
 			price=price.toLocaleString('ko-KR');
 			html+=`<li class="product_img_item" data-prid="${data[i].id}">
                   <a href="product?id=${data[i].id}">
-                    <img src="http://localhost:8080/healthproject/resources/img/${data[i].saveFileName}" alt="${data[i].description}">
+                    <img src="${path}/resources/img/${data[i].saveFileName}" alt="${data[i].description}">
                   </a>
                   <div class="product_view">
                     <a href="product?id=${data[i].id}">
@@ -552,7 +554,7 @@ function getproductId(){
 function getDetailProductData(){
 	id=getproductId();
 	$.ajax({
-		url : "http://localhost:8080/healthproject/api/getdetalipr?id="+id,
+		url : `${path}/api/getdetalipr?id=`+id,
         dataType : "json",
 		method:"GET",
 	    contentType: "application/json; charset=utf-8",
@@ -609,7 +611,7 @@ function setMovePage(data,idList,id){
 	var id=id;
 	var idList=idList;
 	if(data===null){
-		location =`http://localhost:8080/healthproject/product?id=7`;
+		location =`${path}/product?id=7`;
 	}
 	var first=idList[0].id;
 	var last=idList.length-1;
@@ -654,7 +656,7 @@ function getDetailPr(data){
               <a href="shop" class="nav_link">Shop</a>
               <span class="nav_pr">I'm a product</span>
             </div>
-            <img src="http://localhost:8080/healthproject/resources/img/${data.saveFileName}" alt="${data.description}">
+            <img src="${path}/resources/img/${data.saveFileName}" alt="${data.description}">
           </div>
           <div class="pr_info">
              ${data.content}
@@ -824,7 +826,7 @@ function addProductReserve(data){
 		"count":count
 	}
 	$.ajax({
-		url : "http://localhost:8080/healthproject/api/addmemberproducts?productId="+id+"&productSizeId="+productSize,
+		url : `${path}/api/addmemberproducts?productId="+id+"&productSizeId=`+productSize,
         dataType : "json",
 		contentType : false,
     	processData : false,
@@ -836,7 +838,7 @@ function addProductReserve(data){
 		data:JSON.stringify(data),
 		method:"post",
         success : function(data) {
-				window.location.href = "http://localhost:8080/healthproject/members/mycart";
+				window.location.href = `${path}/members/mycart`;
 		}
 	})
 	
@@ -857,9 +859,9 @@ function nextOrprev(changedata){///changedata1이면 뒤로 2면 앞으로
 	var id=getproductId();
 	console.log(id);
 	if(changedata===1){
-		location =`http://localhost:8080/healthproject/product?id=${--id}`
+		location =`${path}/product?id=${--id}`
 	}else if(changedata===2){
-		location=`http://localhost:8080/healthproject/product?id=${++id}`
+		location=`${path}/product?id=${++id}`
 	}
 }
 //////상품 수량 증감
@@ -895,7 +897,7 @@ function changeDisplay(){
 function getDetailProductComment(){
 	var id=getproductId();
 	$.ajax({
-		url : "http://localhost:8080/healthproject/api/getcomment?productId="+id,
+		url : `${path}/api/getcomment?productId=`+id,
         dataType : "json",
 		method:"GET",
 	    contentType: "application/json; charset=utf-8",
@@ -1126,7 +1128,7 @@ function addQnaAjax(){
 	var checkNum=validation(titleCategory,text);
 	if(checkNum===1){	
 			$.ajax({
-			url : "http://localhost:8080/healthproject/api/addquestion?productId="+productId+"&titleCategory="+titleCategory+"&text="+text.value,
+			url : `${path}/api/addquestion?productId=`+productId+"&titleCategory="+titleCategory+"&text="+text.value,
 	        dataType : "json",
 			contentType : false,
 	    	processData : false,
@@ -1137,7 +1139,7 @@ function addQnaAjax(){
 		    type : "post",
 			method:"post",
 	        success : function(data) {
-					window.location.href = "http://localhost:8080/healthproject/product?id="+productId;
+					window.location.href = `${path}/product?id=`+productId;
 			}
 		})
 	}
@@ -1201,7 +1203,7 @@ function Unix_timestamp(t){
 ////////
 function getMycartProduct(){
 	$.ajax({
-		url : "http://localhost:8080/healthproject/api/getcartproduct",
+		url : `${path}/api/getcartproduct`,
         dataType : "json",
 		method:"GET",
 	    contentType: "application/json; charset=utf-8",
@@ -1225,7 +1227,7 @@ function getmyCartImg(data){
 		html+=`<li class="my_cart_list">
                 <div class="cart_section">
                   <div class="cart_img_box cart_section_box">
-                    <img src="http://localhost:8080/healthproject/resources/img/${data[i].saveFileName}" alt="${data[i].description}">
+                    <img src="${path}/resources/img/${data[i].saveFileName}" alt="${data[i].description}">
                   </div>
                   <div class="cart_section_box cart_product_info">
                     <div class="cart_product_name">
@@ -1387,7 +1389,7 @@ function clickDelteBtn(id){
 			var path=pasedUrl();
 			if(path==='product'){
 				if(id===undefined){
-					window.location.href = "http://localhost:8080/healthproject/members/login";
+					window.location.href = `${path}/members/login`;
 				}else{
 					addProductReserve(id);
 				}
@@ -1411,12 +1413,12 @@ function setHeigths(){
 function deleteAjax(id){
 	var id=id
 	$.ajax({
-		url : "http://localhost:8080/healthproject/api/deleteReserve?id="+id,
+		url : `${path}/api/deleteReserve?id=`+id,
         dataType : "json",
 		method:"PUT",
 	    contentType: "application/json; charset=utf-8",
         success : function(data) {
-				window.location.href = "http://localhost:8080/healthproject/members/mycart";
+				window.location.href = `${parh}/members/mycart`;
 		}
 	})
 }
@@ -1426,7 +1428,7 @@ function deleteAjax(id){
 function getMyPageData(){
 	id=getproductId();
 	$.ajax({
-		url : "http://localhost:8080/healthproject/api/getmylist",
+		url : `${path}/api/getmylist`,
         dataType : "json",
 		method:"GET",
 	    contentType: "application/json; charset=utf-8",
