@@ -112,7 +112,6 @@ function moveSectionImg(){
 		}
 }
 ///////상단 프로모션 이미지 가져오기
-console.log(path);
 
 function getPromotionImage(data){
 	var html=``;

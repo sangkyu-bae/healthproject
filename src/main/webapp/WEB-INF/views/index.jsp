@@ -4,6 +4,19 @@
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	<c:set var="path" value="${pageContext.request.contextPath}" />
+<style>
+	.notice_file{
+	  background: url(${path}/resources/img/main/hi_2.png)center/cover no-repeat;
+	  width: 400px;
+	  height: 400px;
+	}
+	.top-section{
+	  position: relative;
+	  height: 755px;
+	  background: url(${path}/resources/img/main/hi.png)center/cover no-repeat;
+	}
+</style>
 <div class="section-container">
 	<div class="event_lst_box">
 		<div class="notice_file box_item">
@@ -137,26 +150,34 @@
 	<div class="follow_list_wrap">
 		<ul class="follow_list">
 			<li class="follow_item"><a href="#"> <img
-					src="http://localhost:8080/healthproject/resources/img/follow/01.jpg"
+					src="${path }/resources/img/follow/01.jpg"
 					alt="">
 			</a>
 				<div class="dimed_text">skjafkdj</div></li>
 			<li class="follow_item"><a href="#"> <img
-					src="http://localhost:8080/healthproject/resources/img/follow/02.jpg"
+					src="${path }/resources/img/follow/02.jpg"
 					alt="">
 			</a>
 				<div class="dimed_text">skjafkdj</div></li>
 			<li class="follow_item"><a href="#"> <img
-					src="http://localhost:8080/healthproject/resources/img/follow/03.jpg"
+					src="${path }/resources/img/follow/03.jpg"
 					alt="">
 			</a>
 				<div class="dimed_text">skjafkdj</div></li>
 			<li class="follow_item"><a href="#"> <img
-					src="http://localhost:8080/healthproject/resources/img/follow/04.jpg"
+					src="${path }/resources/img/follow/04.jpg"
 					alt="">
 			</a>
 				<div class="dimed_text">skjafkdj</div></li>
 		</ul>
 	</div>
 </div>
+
+<script>
+	function background(){
+		var notice_file=document.querySelector(".notice_file ");
+		notice_file.stlye.backgroundImage="url"
+	}
+	background();
+</script>
 

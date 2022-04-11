@@ -102,11 +102,13 @@ body{
   width: 100%;
   height: 400px;
 }
+/*
 .notice_file{
   background: url(http://localhost:8080/healthproject/resources/img/main/hi_2.png)center/cover no-repeat;
   width: 400px;
   height: 400px;
 }
+*/
 .event_lst_box img{
   width: 100%;
   height: 100%;
@@ -215,12 +217,13 @@ body{
   font-weight: bold;
 }
 
-
+/*
 .top-section{
   position: relative;
   height: 755px;
   background: url(http://localhost:8080/healthproject/resources/img/main/hi.png)center/cover no-repeat;
 }
+*/
 .text-title-box{
   position: absolute;
   top:14%;

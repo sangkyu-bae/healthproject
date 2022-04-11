@@ -8,7 +8,9 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
+<script type="text/javascript"  src ="${path }/resources/js/mypageCommon.js"> </script>
 <link href="${path}/resources/css/orderlistopt.css" rel="stylesheet" type="text/css">
 
 <div class="mypage_container">
@@ -28,31 +30,31 @@
 			<div class="mypage_section_head sksk">
 				<h2>주문내역 조회</h2>
 			</div>
-			<div>
+			<div class="n-table-filter">
 				<div class="n-radio-tab">
-					<input type="radio" class="period_btn" id="radioTabGuide0" name="radioTabGuide">
-					<label for="radioTabGuide0"> 1주일</label>
-					<input type="radio" class="period_btn" id="radioTabGuide1" name="radioTabGuide">
-					<label for="radioTabGuide1"> 1개월</label>
-					<input type="radio" class="period_btn" id="radioTabGuide2" name="radioTabGuide">
-					<label for="radioTabGuide2"> 3개월</label>
-					<input type="radio" class="period_btn" id="radioTabGuide3" name="radioTabGuide">
-					<label for="radioTabGuide3"class="clicks"> 전체시기</label>
+					<input type="radio" onclick="setPriod('1week')" class="period_btn" id="radioTabGuide0" name="radioTabGuide">
+					<label  for="radioTabGuide0" onclick="setBorder(this)"> 1주일</label>
+					<input onclick="setPriod('1month')" type="radio" class="period_btn"  id="radioTabGuide1" name="radioTabGuide">
+					<label  for="radioTabGuide1" onclick="setBorder(this)"> 1개월</label>
+					<input type="radio" onclick="setPriod('3month')" class="period_btn" id="radioTabGuide2" name="radioTabGuide">
+					<label for="radioTabGuide2" onclick="setBorder(this)"> 3개월</label>
+					<input type="radio" class="period_btn" onclick="setPriod('all')" id="radioTabGuide3" name="radioTabGuide">
+					<label for="radioTabGuide3" onclick="setBorder(this)" class="clicks"> 전체시기</label>
 				</div>
-				<div class="n-radio-tab">
+				<div class="n-radio-tab n-right">
 					<div class="n-datepicker sb">
-						<input type="text" class="n-input" name="dt_fr_input" value="" placeholder="-" onblur="checkDateFormat(this);">
+						<input type="text" id="starts"class="n-input" name="dt_fr_input" value="" placeholder="-">
 						<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
 					</div>
 					<div class="n-datepicker sg">
 						~
 					</div>
 					<div class="n-datepicker ">
-						<input type="text" class="n-input" name="dt_to_input" value="" placeholder="-" onblur="checkDateFormat(this);">
+						<input type="text" id="lasts" class="n-input" name="dt_to_input" value="" placeholder="-">
 						<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
 					</div>
 				</div>
-			
+				<button type="button" class="n-btn btn-sm btn-accent" onclick="search()">조회</button>
 			</div>
 			
 			
@@ -92,37 +94,3 @@
 	</div>
 </div>
 
-<script>
-	/*검색 기간 클릭시 날짜 세팅*/
-	function setPriod(){
-		var now = new Date();
-		console.log(now);
-		now.setDate(now.getDate()-7);
-		
-		var year=now.getFullYear();
-		var month = now.getMonth()+1;
-		var day=now.getDate();
-		
-		var startDateMonth = now.getMonth();
-		var startDateDay=now.getDate()-7;
-		
-		console.log(day);
-		/*
-		var concat='0';
-		
-		var a= month.toString();
-		var b= day.toString();
-		
-		if(a.length==1){
-			a=concat+a
-		}
-		if(b.length==1){
-			b=concat+b
-		}
-		
-		console.log(year+"."+a+"."+b);
-		*/
-	}
-	
-	setPriod();
-</script>
