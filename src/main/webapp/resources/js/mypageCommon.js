@@ -51,7 +51,7 @@
 		var startDay=document.querySelector('#starts');
 		const checkDay=/\d{4}.\d{2}.\d{2}/;
 		if(lastDay==""&&startDay==""){
-			
+			console.log("sjad");
 		}else{
 			var startCheck=checkDay.test(startDay.value);
 			var lastCheck=checkDay.test(lastDay.value);
