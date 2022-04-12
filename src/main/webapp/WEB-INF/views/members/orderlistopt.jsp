@@ -41,23 +41,24 @@
 					<input type="radio" class="period_btn" onclick="setPriod('all')" id="radioTabGuide3" name="radioTabGuide">
 					<label for="radioTabGuide3" onclick="setBorder(this)" class="clicks"> 전체시기</label>
 				</div>
-				<div class="n-radio-tab n-right">
-					<div class="n-datepicker sb">
-						<input type="text" id="starts"class="n-input" name="dt_fr_input" value="" placeholder="-">
-						<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
+				<form id="frm" action="${path }/members/order_list_opt">
+					<div class="n-radio-tab n-right">
+						<div class="n-datepicker sb">
+							<input type="text" id="starts"class="n-input" name="startDate" value="" placeholder="-">
+								<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
+							</div>
+							<div class="n-datepicker sg">
+								~
+							</div>
+							<div class="n-datepicker ">
+								<input type="text" id="lasts" class="n-input" name="lastDate" value="" placeholder="-">
+								<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
+							</div>
+							<input type="hidden" name="period">
 					</div>
-					<div class="n-datepicker sg">
-						~
-					</div>
-					<div class="n-datepicker ">
-						<input type="text" id="lasts" class="n-input" name="dt_to_input" value="" placeholder="-">
-						<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
-					</div>
-				</div>
-				<button type="button" class="n-btn btn-sm btn-accent" onclick="search()">조회</button>
+					<button type="button" class="n-btn btn-sm btn-accent" onclick="search()">조회</button>
+				</form>
 			</div>
-			
-			
 			<div class="my_order_table_box">
 				<table class="my_order_table">
 					<colgroup>

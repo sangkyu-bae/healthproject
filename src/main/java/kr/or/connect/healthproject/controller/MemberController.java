@@ -213,6 +213,7 @@ public class MemberController {
 	   public String orderListInfo(Model model,
 			@RequestParam(name="startDate", required = false , defaultValue = "0") String startDate,
 			@RequestParam(name="lastDate", required = false , defaultValue = "0") String lastDate,
+			@RequestParam(name="period",required = false, defaultValue = "0") int period,
 			Principal principal,
 			HttpServletRequest request )throws Exception {
 		  String loginId=principal.getName();

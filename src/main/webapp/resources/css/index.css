@@ -8,6 +8,10 @@ header{
 body{
   padding-top:130px;
 }
+
+section{
+	min-height: 500px;
+}
 .fix-head{
   background-color: white;
   color: white;
