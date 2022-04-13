@@ -54,20 +54,49 @@
 		}else{
 			var startCheck=checkDay.test(startDay.value);
 			var lastCheck=checkDay.test(lastDay.value);
+			var checkPeriod=getCheckPeriod();
 			
 			if(startCheck===true&&lastCheck===true){
+				var period=document.querySelector("#period");
+				period.value=checkPeriod;
 				document.querySelector('#frm').submit();
+				
 			}else{
 				alert("날짜 형식이 잘못되었습니다.");
 			}
 		}
 	}
-	
+	/*조회 기간 확인*/
 	function getCheckPeriod(){
-		var a= document.querySelectorAll('label');
-		for(var i=0;i<a.length;i++){
-		  	if(a[i].className=='clicks'){
-		        
-			}
+		var label= document.querySelectorAll('label');
+		var check;
+		for(var i=0;i<label.length;i++){
+		  	if(label[i].className=='clicks'){
+		        check=i;
+		        break;
+			}	
 		}
+		return check;
 	}
+	/*검색 기간 보더 주기 위한 확인 */
+	function getCheckPeriod(){
+		let params = (new URL(document.location)).searchParams;
+		let period = params.get('period'); 
+		var label= document.querySelectorAll('label');
+		
+		if(period==0){
+			label[0].classList.add('clicks');
+		}else if(period==1){
+			label[1].classList.add('clicks');
+		}else if(period==2){
+			label[2].classList.add('clicks');
+		}else{
+			label[3].classList.add('clicks');
+			
+		}
+	
+	}
+	document.addEventListener("DOMContentLoaded",function(){
+		getCheckPeriod();
+	})
+	

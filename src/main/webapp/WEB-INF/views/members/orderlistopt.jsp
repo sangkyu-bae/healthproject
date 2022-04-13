@@ -33,13 +33,13 @@
 			<div class="n-table-filter">
 				<div class="n-radio-tab">
 					<input type="radio" onclick="setPriod('1week')" class="period_btn" id="radioTabGuide0" name="radioTabGuide">
-					<label  for="radioTabGuide0" onclick="setBorder(this)"> 1주일</label>
+					<label  for="radioTabGuide0" onclick="setBorder(this);getCheckPeriod()"> 1주일</label>
 					<input onclick="setPriod('1month')" type="radio" class="period_btn"  id="radioTabGuide1" name="radioTabGuide">
-					<label  for="radioTabGuide1" onclick="setBorder(this)"> 1개월</label>
+					<label  for="radioTabGuide1" onclick="setBorder(this);getCheckPeriod()"> 1개월</label>
 					<input type="radio" onclick="setPriod('3month')" class="period_btn" id="radioTabGuide2" name="radioTabGuide">
-					<label for="radioTabGuide2" onclick="setBorder(this)"> 3개월</label>
+					<label for="radioTabGuide2" onclick="setBorder(this);getCheckPeriod()"> 3개월</label>
 					<input type="radio" class="period_btn" onclick="setPriod('all')" id="radioTabGuide3" name="radioTabGuide">
-					<label for="radioTabGuide3" onclick="setBorder(this)" class="clicks"> 전체시기</label>
+					<label for="radioTabGuide3" onclick="setBorder(this);getCheckPeriod()" > 전체시기</label>
 				</div>
 				<form id="frm" action="${path }/members/order_list_opt">
 					<div class="n-radio-tab n-right">
@@ -54,7 +54,7 @@
 								<input type="text" id="lasts" class="n-input" name="lastDate" value="" placeholder="-">
 								<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
 							</div>
-							<input type="hidden" name="period">
+							<input type="hidden" id="period" name="period">
 					</div>
 					<button type="button" class="n-btn btn-sm btn-accent" onclick="search()">조회</button>
 				</form>
