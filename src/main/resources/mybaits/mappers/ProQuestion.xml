@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="kr.or.connect.healthproject.member.dao.ProQuestionDao">
+ 
+ 	<select id="selectProductQuestion" parameterType="java.util.HashMap"  resultType="camlemap">
+		SELECT 
+		 b.description
+		 ,a.text
+		 ,d.name
+		 ,replace (substring_index ( a.create_date, ' ',1),'-','.') as create_date
+		 ,a.question_answer
+		FROM
+			product_question a
+		    ,product b
+		    ,user c
+		    ,title_category d
+		WHERE
+			1=1
+			AND a.product_id=b.id
+		    AND a.user_id=c.id
+		    AND a.title_category_id=d.id
+		    AND a.user_id=#{userId}
+		    <if test="startDate !=null">
+			AND a.create_date between #{startDate} and #{lastDate}
+			</if>
+		   order by question_answer desc
+ 	</select>
+ 	
+ 	
+ </mapper>

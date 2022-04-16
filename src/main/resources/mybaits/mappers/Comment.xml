@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="kr.or.connect.healthproject.member.dao.CommentDao">
+  	<select id="selectComment" parameterType="java.util.HashMap"  resultType="camlemap" >
+  	SELECT 
+		a.comment
+	    ,a.score
+	    ,b.description
+	FROM 
+		reservation_user_comment a
+	    ,product b
+	    ,user c
+	WHERE 1=1
+		and a.product_id=b.id
+	    and a.user_id=c.id
+	    and a.user_id=#{userId}
+  	</select>
+  </mapper>

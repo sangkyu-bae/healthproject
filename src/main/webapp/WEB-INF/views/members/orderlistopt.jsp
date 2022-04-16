@@ -21,7 +21,7 @@
 			<ul class="mypage_fiter_ul">
 				<li class="mypage_fiter_list" style="font-weight: bold;"><a href="${path}/members/order_list_opt">주문 내역 조회</a></li>
 				<li class="mypage_fiter_list"><a href="${path}/mypage/write_review">구매후기</a></li>
-				<li class="mypage_fiter_list"><a href="#">상품문의</a></li>
+				<li class="mypage_fiter_list"><a href="${path }/mypage/qa">상품문의</a></li>
 			</ul>
 		</div>
 	</div>
@@ -33,13 +33,13 @@
 			<div class="n-table-filter">
 				<div class="n-radio-tab">
 					<input type="radio" onclick="setPriod('1week')" class="period_btn" id="radioTabGuide0" name="radioTabGuide">
-					<label  for="radioTabGuide0" onclick="setBorder(this);getCheckPeriod()"> 1주일</label>
+					<label  for="radioTabGuide0" onclick="setBorder(this)"> 1주일</label>
 					<input onclick="setPriod('1month')" type="radio" class="period_btn"  id="radioTabGuide1" name="radioTabGuide">
-					<label  for="radioTabGuide1" onclick="setBorder(this);getCheckPeriod()"> 1개월</label>
+					<label  for="radioTabGuide1" onclick="setBorder(this)"> 1개월</label>
 					<input type="radio" onclick="setPriod('3month')" class="period_btn" id="radioTabGuide2" name="radioTabGuide">
-					<label for="radioTabGuide2" onclick="setBorder(this);getCheckPeriod()"> 3개월</label>
+					<label for="radioTabGuide2" onclick="setBorder(this)"> 3개월</label>
 					<input type="radio" class="period_btn" onclick="setPriod('all')" id="radioTabGuide3" name="radioTabGuide">
-					<label for="radioTabGuide3" onclick="setBorder(this);getCheckPeriod()" > 전체시기</label>
+					<label for="radioTabGuide3" onclick="setBorder(this)" > 전체시기</label>
 				</div>
 				<form id="frm" action="${path }/members/order_list_opt">
 					<div class="n-radio-tab n-right">

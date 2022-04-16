@@ -54,7 +54,7 @@
 		}else{
 			var startCheck=checkDay.test(startDay.value);
 			var lastCheck=checkDay.test(lastDay.value);
-			var checkPeriod=getCheckPeriod();
+			var checkPeriod=getCheckPeriods();
 			
 			if(startCheck===true&&lastCheck===true){
 				var period=document.querySelector("#period");
@@ -67,7 +67,7 @@
 		}
 	}
 	/*조회 기간 확인*/
-	function getCheckPeriod(){
+	function getCheckPeriods(){
 		var label= document.querySelectorAll('label');
 		var check;
 		for(var i=0;i<label.length;i++){

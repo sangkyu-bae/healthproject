@@ -1,5 +1,10 @@
 package kr.or.connect.healthproject.controller;
 
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.connect.healthproject.login.dto.User;
 import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
 import kr.or.connect.healthproject.service.MemberService;
@@ -24,9 +31,73 @@ public class MyPageController {
 	  
 	  @GetMapping("/write_review")
 	  public String writeReview(Model model,
-			  HttpServletRequest request) {
+			  HttpServletRequest request,
+			  @RequestParam(name="startDate", required = false, defaultValue = "0")String startDate
+			  ,@RequestParam(name="lastDate",required = false,defaultValue = "0")String lastDate
+			  ,@RequestParam(name="period",required = false, defaultValue = "0")int period
+			  ,Principal principal) throws Exception {
+		  String loginId=principal.getName();
+		  User user=memberService.getUse(loginId);
 		  
-		  return "mypage/writereview.web";
+		  Map<String, Object>params=new HashMap<>();
+		  params.put("userId", user.getId());
+		  
+		  if(startDate.equals("0")){
+			  
+		  }else {
+			  params.put("startDate", startDate);
+			  params.put("lastDate", lastDate);
+		  }
+		  
+		  params.put("buyComplate", 1);
+		  List<Map<String, Object>> orderList=memberService.selectMemeberOrder(params);
+		  
+		  model.addAttribute("orderList", orderList);
+		  
+		  
+		  return "mypage/writereview.web"; 
+	  }
+	  @GetMapping("/review")
+	  public String review(Model model
+			  ,Principal principal) throws Exception {
+		  String loginId=principal.getName();
+		  User user =memberService.getUse(loginId);
+		  
+		  Map<String, Object>map=new HashMap<>();
+		  map.put("userId", user.getId());
+		  
+		  List<Map<String, Object>> commentList=memberService.selectComment(map);
+		  
+		  model.addAttribute("commentList",commentList);
+		  
+		  
+		  return "mypage/review.web";
+		  
 	  }
 	  
+	  @GetMapping("/qa")
+	  public String qa(Model model
+			  ,Principal principal
+			  ,@RequestParam(name="startDate", required = false, defaultValue = "0")String startDate
+			  ,@RequestParam(name="lastDate",required = false,defaultValue = "0")String lastDate
+			  ,@RequestParam(name="period",required = false, defaultValue = "0")int period
+			  )throws Exception {
+		  String loginId=principal.getName();
+		  User user=memberService.getUse(loginId);
+		  Map<String, Object>params=new HashMap<>();
+		  
+		  params.put("userId", user.getId());
+		  if(startDate.equals("0")){
+			  
+		  }else {
+			  params.put("startDate", startDate);
+			  params.put("lastDate", lastDate);
+		  }
+		  List<Map<String, Object>> questionList=memberService.selectProductQuestion(params);
+		  
+		  model.addAttribute("questionList",questionList);
+		  
+		  
+		  return "mypage/qa.web";
+	  }
 }

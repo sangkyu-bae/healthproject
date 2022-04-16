@@ -3,6 +3,8 @@ package kr.or.connect.healthproject.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.DocFlavor.STRING;
+
 import kr.or.connect.healthproject.dto.FileInfo;
 import kr.or.connect.healthproject.login.dto.BuyCount;
 import kr.or.connect.healthproject.login.dto.BuyInfo;
@@ -65,4 +67,16 @@ public interface MemberService extends UserDbService{
 	 * 기간에 따른 주문 내역 조회
 	 */
 	public List<Map<String, Object>> selectMemeberOrder(Map<String, Object> params) throws Exception;
+	
+	/*
+	 * @params Map
+	 * 로그인된 사용자 코멘트 조회
+	 */
+	public List<Map<String, Object>> selectComment(Map<String, Object>params) throws Exception;
+
+	/*
+	 * @params Map
+	 * 로그인된 사용자 상품문의 내역 조히
+	 */
+	public List<Map<String, Object>>selectProductQuestion(Map<String, Object>params) throws Exception;
 }

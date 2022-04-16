@@ -39,7 +39,9 @@ import kr.or.connect.healthproject.login.dto.ReservationUserComment;
 import kr.or.connect.healthproject.login.dto.ReservationUserCommentImage;
 import kr.or.connect.healthproject.login.dto.User;
 import kr.or.connect.healthproject.login.dto.UserRole;
+import kr.or.connect.healthproject.member.dao.CommentDao;
 import kr.or.connect.healthproject.member.dao.MemberReservationInfoDao;
+import kr.or.connect.healthproject.member.dao.ProQuestionDao;
 import kr.or.connect.healthproject.member.dto.MemberReservationInfo;
 import kr.or.connect.healthproject.service.MemberService;
 import kr.or.connect.healthproject.service.security.UserEntity;
@@ -87,7 +89,12 @@ public class MemberServiceImpl implements MemberService{
 	 kr.or.connect.healthproject.member.dao.OrderListsDao dao;
 	 @Autowired
 	 kr.or.connect.healthproject.member.dao.ReservationInfoDaos reservationInfoDao2;
+	 @Autowired
+	 CommentDao commentDao;
+	 @Autowired
+	 ProQuestionDao proQuestionDao; 
 	 //
+	 
 	 @Autowired
 	 SelectPromotionDao selectPromotionDao;
 	@Override
@@ -321,6 +328,26 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional
 	public List<Map<String, Object>> selectMemeberOrder(Map<String, Object> params) throws Exception {
 		return memberReservationInfoDao.selectMemeberOrder(params);
+	}
+	/*
+	 * @params Map
+	 * 로그인된 사용자 리뷰 조회
+	 */
+	@Override
+	@Transactional
+	public List<Map<String, Object>> selectComment(Map<String, Object> params) throws Exception {
+		
+		return commentDao.selectComment(params);
+	}
+
+	/*
+	 * @parmas Map
+	 * 로그인된 사용자 상품문의 조회
+	 */
+	@Override
+	@Transactional
+	public List<Map<String, Object>> selectProductQuestion(Map<String, Object> params) throws Exception {
+		return proQuestionDao.selectProductQuestion(params);
 	}
 
 

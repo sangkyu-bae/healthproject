@@ -85,7 +85,26 @@ label{
     vertical-align: middle;
     -webkit-transition: bord;
 }
-
+.n-table-none:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.n-table-none {
+    height: 400px;
+    text-align: center;
+    border-bottom: 1px solid #f5f5f5;
+}
+.n-table-none > span {
+    display: inline-block;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    color: #777777;
+    line-height: 21px;
+    vertical-align: middle;
+}
 /*writereview */
 .tab-btn{
 	float: left;
