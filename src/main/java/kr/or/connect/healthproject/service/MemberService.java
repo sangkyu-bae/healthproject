@@ -79,4 +79,11 @@ public interface MemberService extends UserDbService{
 	 * 로그인된 사용자 상품문의 내역 조히
 	 */
 	public List<Map<String, Object>>selectProductQuestion(Map<String, Object>params) throws Exception;
+	
+	/*
+	 * @params Map
+	 * qa 답변 가져오기
+	 */
+	public Map<String, Object>selectQaAnwser(Map<String, Object>params) throws Exception;
+	
 }

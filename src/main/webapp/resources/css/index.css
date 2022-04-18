@@ -1334,10 +1334,10 @@ tbody td{
   color: rgba(73, 7, 19, 0.6);
 }
 .cart_product_qut{
-  position: relative;
-  width: 76px;
-  height: 13px;
-  margin-left: 50px;
+      position: relative;
+    width: 82px;
+    height: 23px;
+    margin-left: 50px;
 }
 .qtn_boxs{
   font-size: 18px;
@@ -1350,7 +1350,7 @@ tbody td{
 .plus_box{
   position: absolute;
   top: 0;
-  right: -11px;
+  right: -1px;
   bottom: 0;
 }
 .min_box{

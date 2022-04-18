@@ -87,23 +87,48 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="list" items="${questionList }" varStatus="status">
-								<tr>
-									<td >${list.description }</td>
-									<td >${list.text }</td>
-									<td>${list.name }</td>
-									<td>${list.createDate}</td>
-									<c:choose>
-										<c:when test="${list.questionAnswer ==1 }">
-											<td>답변완료</td>
-										</c:when>
-										<c:otherwise>
+								<c:choose>
+									<c:when test="${list.questionAnswer ==1 }">
+										<tr class="question_anwser moreQa" onclick="getQaAnwser('${list.productQuestionId}',this)">
+											<td >${list.description }</td>
+											<td >${list.text }</td>
+											<td>${list.name }</td>
+											<td>${list.createDate}</td>
+											<td >답변완료</td>
+										</tr>
+										<!--  
+										<tr class="comment_head" >
+							                <td colspan="6" style="text-align: left">
+							                  <div class="content_object">
+							                    ${list.description}
+							                  </div>
+							                  <p>
+							                 	 ${list.text}
+							                  </p>
+							                </td>
+						              </tr>
+						              <tr class="conect_feedback_comment " >
+						                <td class="admin_name" style="text-align: left">
+						                  담당자
+						                </td>
+						                <td class="admin_info" colspan="6" style="text-align: left">
+						                  dddd
+						                </td>
+						              </tr>	
+						              -->
+									</c:when>
+									<c:otherwise>
+										<tr class="question_anwser">
+											<td >${list.description }</td>
+											<td >${list.text }</td>
+											<td>${list.name }</td>
+											<td>${list.createDate}</td>
 											<td>답변대기</td>
-										</c:otherwise>
-									</c:choose>
-									
-								</tr>
+										</tr>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
-									</tbody>
+							</tbody>
 							</table>
 						</c:otherwise>
 					</c:choose>

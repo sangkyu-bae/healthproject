@@ -34,7 +34,7 @@ public class MyPageController {
 			  HttpServletRequest request,
 			  @RequestParam(name="startDate", required = false, defaultValue = "0")String startDate
 			  ,@RequestParam(name="lastDate",required = false,defaultValue = "0")String lastDate
-			  ,@RequestParam(name="period",required = false, defaultValue = "0")int period
+			  ,@RequestParam(name="period",required = false, defaultValue = "4")int period
 			  ,Principal principal) throws Exception {
 		  String loginId=principal.getName();
 		  User user=memberService.getUse(loginId);
@@ -80,7 +80,7 @@ public class MyPageController {
 			  ,Principal principal
 			  ,@RequestParam(name="startDate", required = false, defaultValue = "0")String startDate
 			  ,@RequestParam(name="lastDate",required = false,defaultValue = "0")String lastDate
-			  ,@RequestParam(name="period",required = false, defaultValue = "0")int period
+			  ,@RequestParam(name="period",required = false, defaultValue = "4")int period
 			  )throws Exception {
 		  String loginId=principal.getName();
 		  User user=memberService.getUse(loginId);

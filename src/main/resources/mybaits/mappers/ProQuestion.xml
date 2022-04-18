@@ -7,7 +7,8 @@
  
  	<select id="selectProductQuestion" parameterType="java.util.HashMap"  resultType="camlemap">
 		SELECT 
-		 b.description
+		a.id as product_question_id
+		, b.description
 		 ,a.text
 		 ,d.name
 		 ,replace (substring_index ( a.create_date, ' ',1),'-','.') as create_date

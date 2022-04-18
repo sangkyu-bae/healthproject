@@ -6,7 +6,7 @@
 <div class="foot_section">
 	<div class="foot_wrap">
 		<div class="foot_text">
-			<span>© 2021 product bae-Sang-Kyu</span><br> <span>Proudly
+			<span>© 2022 product bae-Sang-Kyu</span><br> <span>Proudly
 				created with uwiv29l@naver.com</span>
 		</div>
 	</div>

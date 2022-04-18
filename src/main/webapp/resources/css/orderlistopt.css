@@ -105,6 +105,9 @@ label{
     line-height: 21px;
     vertical-align: middle;
 }
+.moreQa:hover{
+	cursor: pointer;
+}
 /*writereview */
 .tab-btn{
 	float: left;

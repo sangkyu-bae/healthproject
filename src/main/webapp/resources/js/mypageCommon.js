@@ -48,7 +48,9 @@
 		var lastDay=document.querySelector("#lasts");
 		var startDay=document.querySelector('#starts');
 		const checkDay=/\d{4}.\d{2}.\d{2}/;
+		var period=document.querySelector("#period");
 		if(lastDay.value==""&&startDay.value==""){
+			period.value=4;
 			document.querySelector('#frm').submit();
 			
 		}else{
@@ -57,7 +59,6 @@
 			var checkPeriod=getCheckPeriods();
 			
 			if(startCheck===true&&lastCheck===true){
-				var period=document.querySelector("#period");
 				period.value=checkPeriod;
 				document.querySelector('#frm').submit();
 				
@@ -82,6 +83,7 @@
 	function getCheckPeriod(){
 		let params = (new URL(document.location)).searchParams;
 		let period = params.get('period'); 
+		console.log("period"+period);
 		var label= document.querySelectorAll('label');
 		
 		if(period==0){
@@ -94,8 +96,61 @@
 			label[3].classList.add('clicks');
 			
 		}
-	
 	}
+	
+	/*답변 완료된 qa 목록 클릭시 비동기로 답변 불러오기*/
+	function getQaAnwser(productQuestionId,element){
+		var nextElement=element.nextElementSibling;
+		
+		if(nextElement.className=='comment_head'){
+			if(nextElement.style.display==''||nextElement.style.display=='block'){
+				nextElement.style.display='none';
+				nextElement.nextElementSibling.style.display='none';
+			}else{
+				nextElement.style.display='';
+				nextElement.nextElementSibling.style.display='';
+			}
+		}else{
+			$.ajax({
+				url : `${path}/api/getQaAnwser?productQuestionId=`+productQuestionId,
+		        dataType : "json",
+				contentType : false,
+		    	processData : false,
+				headers : {
+					    "Accept" : "application/json",
+					    "Content-Type" : "application/json;charset=utf-8"
+					},
+			    type : "get",
+				method:"get",
+		        success : function(data) {
+						addQaAnwser(data,element);
+				}
+			})
+		}
+	}
+	/*qa 답변 뷰화면에 붙이기 */
+	function addQaAnwser(data,element){
+		var html=`<tr class="comment_head"  >
+							                <td colspan="6" style="text-align: left">
+							                  <div class="content_object">
+							                    ${data.description}
+							                  </div>
+							                  <p>
+							                 	 ${data.questionText}
+							                  </p>
+							                </td>
+						              </tr>
+						              <tr class="conect_feedback_comment " >
+						                <td class="admin_name" style="text-align: left">
+						                  담당자
+						                </td>
+						                <td class="admin_info" colspan="6" style="text-align: left">
+						                  ${data.anwserText}
+						                </td>
+						              </tr>	`
+		$(element).after(html);			      
+	}
+	
 	document.addEventListener("DOMContentLoaded",function(){
 		getCheckPeriod();
 	})

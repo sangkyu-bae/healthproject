@@ -42,6 +42,7 @@ import kr.or.connect.healthproject.login.dto.UserRole;
 import kr.or.connect.healthproject.member.dao.CommentDao;
 import kr.or.connect.healthproject.member.dao.MemberReservationInfoDao;
 import kr.or.connect.healthproject.member.dao.ProQuestionDao;
+import kr.or.connect.healthproject.member.dao.QaAnwserDao;
 import kr.or.connect.healthproject.member.dto.MemberReservationInfo;
 import kr.or.connect.healthproject.service.MemberService;
 import kr.or.connect.healthproject.service.security.UserEntity;
@@ -93,6 +94,8 @@ public class MemberServiceImpl implements MemberService{
 	 CommentDao commentDao;
 	 @Autowired
 	 ProQuestionDao proQuestionDao; 
+	 @Autowired
+	 QaAnwserDao qaAnwserDao;
 	 //
 	 
 	 @Autowired
@@ -348,6 +351,16 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional
 	public List<Map<String, Object>> selectProductQuestion(Map<String, Object> params) throws Exception {
 		return proQuestionDao.selectProductQuestion(params);
+	}
+
+	/*
+	 * @params Map
+	 * qa 답변 가져오기
+	 */
+	@Override
+	@Transactional
+	public Map<String, Object> selectQaAnwser(Map<String, Object> params) throws Exception {
+		return qaAnwserDao.selectQaAnwser(params);
 	}
 
 
