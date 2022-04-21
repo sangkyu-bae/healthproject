@@ -133,3 +133,16 @@ label{
 .tab-group{
 	 padding-top: 10px;
 }
+
+
+/*버튼*/
+.add_review{
+	    background-color: #000000;
+    color: white;
+    border: none;
+    width: 90px;
+    height: 30px;
+}
+.add_review:hover {
+	cursor: pointer;
+}

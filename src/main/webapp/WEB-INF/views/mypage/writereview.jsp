@@ -95,9 +95,13 @@
 							<c:forEach var="list" items="${orderList }" varStatus="status">
 								<tr>
 									<td>${list.description }</td>
-									<td>${list.modifyDate }</td>
-									<td>${status.count }</td>
-									<td>1,312,0000</td>
+									<td>${list.reservationDate }</td>
+									<td class="add_wrap">
+						                  <button  class="add_review" value="등록하기">등록하기</button>
+                   					</td>
+									<td>
+										 <button  class="add_review" value="등록하기">등록하기</button>
+									</td>
 								</tr>
 							</c:forEach>
 									</tbody>

@@ -79,6 +79,15 @@
 						</tr>
 					</thead>
 					<tbody class="my_order_table_tbody">
+					<c:choose>
+						<c:when test="${empty orderList }">
+								</tbody>
+							</table>
+							<p class="n-table-none">
+								<sapn>등록된 주문이 없습니다. </sapn>
+							</p>
+						</c:when>
+						<c:otherwise>
 						<c:forEach var="list" items="${orderList}" varStatus="status" >
 							<tr>
 								<td>${list.description }</td>
@@ -90,6 +99,9 @@
 						</c:forEach>
 					</tbody>
 				</table>
+						</c:otherwise>
+					</c:choose>
+						
 			</div>
 		</div>
 	</div>
