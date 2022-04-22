@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.connect.healthproject.login.dto.ReservationUserComment;
 import kr.or.connect.healthproject.login.dto.User;
 import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
@@ -100,4 +103,35 @@ public class MyPageController {
 		  
 		  return "mypage/qa.web";
 	  }
+	  /*
+	   *리뷰작성 페이지 
+	   */
+	  @GetMapping("/basic_review_write")
+	  public String basicReviewWrite(Principal principal,
+			  @ModelAttribute ReservationUserComment comment,
+			  Model model) throws Exception{
+		  
+		  model.addAttribute("comment",comment);
+		  
+		 
+		  return "mypage/basicReviewWrite.web";
+	  }
+	  /*
+	   * 리뷰작성 등록
+	   */
+	  @PostMapping("/review_add")
+	  public String reviewAdd(@ModelAttribute ReservationUserComment comment,
+			  Principal principal) throws Exception{
+		  
+		  String loginId=principal.getName();
+		  
+		  User user =memberService.getUse(loginId);
+		  comment.setUserId(user.getId());
+		  
+		  memberService.addReservationUserComment(comment);
+		  
+		  
+		  return "redirect:/members/mypage.web";
+	  }
+	  
 }

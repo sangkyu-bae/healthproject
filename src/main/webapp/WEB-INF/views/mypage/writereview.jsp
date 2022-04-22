@@ -12,6 +12,11 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script type="text/javascript"  src ="${path }/resources/js/mypageCommon.js"> </script>
 <link href="${path}/resources/css/orderlistopt.css" rel="stylesheet" type="text/css">
+
+<form id="write_frm" action="${path }/mypage/basic_review_write">
+	<input type="hidden" name="productId" id="write_productId">
+	<input type="hidden" name="reservationId" id="write_reservationId" >
+</form>
 <div class="mypage_container">
 	<div class="mypage_head_box">MYPAGE</div>
 	<div class="mypage_filter_wrap mypage_float_box">
@@ -100,7 +105,7 @@
 						                  <button  class="add_review" value="등록하기">등록하기</button>
                    					</td>
 									<td>
-										 <button  class="add_review" value="등록하기">등록하기</button>
+										 <button  class="add_review" onclick="addReviewLocation('${list.reservationInfoId}','${list.productId }','basic')"value="등록하기">등록하기</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -120,3 +125,24 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+	/*리뷰등록 페이지 이동*/
+	function addReviewLocation(productId,reservationId,type){
+		var frm =document.querySelector('#write_frm')
+		var frmproductId=document.querySelector('#write_productId');
+		var frmreservationId=document.querySelector('#write_reservationId');
+		
+		frmproductId.value=productId;
+		frmreservationId.value=reservationId;
+		
+		console.log(frmproductId.value);
+		console.log(frmreservationId.value);
+		
+		frm.submit();
+		
+	
+	}
+	
+</script>

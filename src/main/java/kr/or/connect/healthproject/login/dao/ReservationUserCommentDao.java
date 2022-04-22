@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -20,6 +21,9 @@ public class ReservationUserCommentDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private SimpleJdbcInsert insertAction;
 	
+	private SqlSessionTemplate sessionTemplate;
+	
+	
 	public ReservationUserCommentDao(DataSource dataSource) {
 		this.jdbc=new NamedParameterJdbcTemplate(dataSource);
 		this.insertAction=new SimpleJdbcInsert(dataSource)
@@ -30,6 +34,7 @@ public class ReservationUserCommentDao {
 		SqlParameterSource parmas=new BeanPropertySqlParameterSource(comment);
 		return insertAction.executeAndReturnKey(parmas).longValue();
 	}
+	/*
 	public int addReservationUserComment(ReservationUserComment comment) {
 		Map<String, Object>map=new HashMap<>();
 		map.put("productId", comment.getProductId());
@@ -39,6 +44,15 @@ public class ReservationUserCommentDao {
 		map.put("comment", comment.getComment());
 		
 		return jdbc.update(INSERT_RESERVATION_USER_COMMENT, map);
+	}
+	*/
+	
+	/*
+	 * @paramter ReservationUserComment
+	 * 리뷰 등록
+	 */
+	public int addReservationUserComment(ReservationUserComment vo)  throws Exception{
+		return sessionTemplate.insert("kr.or.connect.healthproject.login.dao.ReservationUserCommentDao.addReservationUserComment",vo);
 	}
 	public Long getId() {
 		return jdbc.queryForObject(GET_RESERVATION_USER_COMMENT_ID, Collections.emptyMap(), long.class);

@@ -17,6 +17,7 @@
 	<select id="kr.or.connect.healthproject.member.dao.MemberReservationInfoDao.selectMemeberOrder" parameterType="java.util.HashMap"  resultType="camlemap" >
 	SELECT 
 		@rownum := @rownum + 1 AS no,
+		b.id as product_id,
 		b.description,
 		a.cancle_flag,
 	    a.id as reservation_info_id,

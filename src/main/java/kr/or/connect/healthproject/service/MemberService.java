@@ -26,8 +26,8 @@ public interface MemberService extends UserDbService{
 	public Long addUser(User user);
 	public User getUse(String loginId);
 	
-	public Long addReservationUserComment(ReservationUserComment comment, FileInfo fileInfo);
-	public int addReservationUserComment(ReservationUserComment comment);
+	public Long addReservationUserComment(ReservationUserComment comment, FileInfo fileInfo) throws Exception;
+	public int addReservationUserComment(ReservationUserComment comment) throws Exception;
 	public Long addReservationInfo(ReservationInfo info,ReservationInfoPrice infoPrice);
 	
 	public int addreservationInfo(ReservationInfo info);

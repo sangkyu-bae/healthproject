@@ -14,9 +14,9 @@
 		<div class="mypage_fiter_head">나의 쇼핑 활동</div>
 		<div class="mypage_fiter_lst_box">
 			<ul class="mypage_fiter_ul">
-				<li class="mypage_fiter_list"><a href="${path}/members/order_list_opt">주문 내역 조회</a></li>
-				<li class="mypage_fiter_list"><a href="#">구매후기</a></li>
-				<li class="mypage_fiter_list"><a href="#">상품문의</a></li>
+				<li class="mypage_fiter_list"  style="font-weight: bold;"><a href="${path}/members/order_list_opt">주문 내역 조회</a></li>
+				<li class="mypage_fiter_list"><a href="${path }/mypage/write_review">구매후기</a></li>
+				<li class="mypage_fiter_list"><a href="${path }/mypage/qa">상품문의</a></li>
 			</ul>
 		</div>
 	</div>

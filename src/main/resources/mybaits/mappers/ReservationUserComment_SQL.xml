@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="kr.or.connect.healthproject.login.dao.ReservationUserCommentDao">
+ 	<insert id="addReservationUserComment" parameterType="ReservationUserComment">
+ 		INSERT INTO
+		 reservation_user_comment(
+		 	product_id,
+		 	reservation_info_id,
+		 	user_id,
+		 	score,
+		 	comment,
+		 	create_date,
+		 	modify_date
+		 	)
+		VALUES(
+			#{productId},
+			#{reservationInfoId},
+			#{userId},
+			#{score},
+			#{comment},
+			now(),
+			now()
+			)
+ 	</insert>
+ </mapper>

@@ -21,7 +21,7 @@
 					<li class="ul-list"><a href="/healthproject/members/loginform" class="nav-li">LOGIN</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<li class="ul-list"><a href="logout" class="nav-li">Logout</a></li>
+					<li class="ul-list"><a href="${path }/logout" class="nav-li">Logout</a></li>
 				</sec:authorize>
 
 				<sec:authorize access="!isAuthenticated()">
@@ -47,6 +47,7 @@
 	}
 	function changeNavBold(){
 		var path=pasedUrls();
+		console.log(path);
 		var navList=document.querySelectorAll('.nav-li');
 		if(path.indexOf('index')>-1){
 			navList[0].classList.add('chcke');
@@ -54,6 +55,8 @@
 			navList[5].classList.add('chcke');
 		}else if(path.indexOf('product')>-1){
 			navList[1].classList.add('chcke');
+		}else if(path.indexOf('order_list_opt')>-1||path.indexOf('write_review')>-1||path.indexOf('review')>-1||path.indexOf('qa')>-1){
+			navList[3].classList.add('chcke');
 		}else{
 			for(var i=0;i<navList.length;i++){
 				var href=navList[i].href;
@@ -64,5 +67,7 @@
 			}
 		}
 	}
+	
+	
 	changeNavBold();
 </script>

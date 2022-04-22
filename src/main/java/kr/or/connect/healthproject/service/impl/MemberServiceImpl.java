@@ -148,7 +148,7 @@ public class MemberServiceImpl implements MemberService{
 ////사진이 있을때
 	@Override
 	@Transactional(readOnly = false)
-	public Long addReservationUserComment(ReservationUserComment comment,FileInfo fileInfo) {
+	public Long addReservationUserComment(ReservationUserComment comment,FileInfo fileInfo) throws Exception {
 		//Long reservationid=reservationUserCommentDao.insertReservationUserComment(comment);
 		reservationUserCommentDao.addReservationUserComment(comment);
 		Long reservationid=reservationUserCommentDao.getId();
@@ -166,10 +166,14 @@ public class MemberServiceImpl implements MemberService{
 		
 		return reservationid;
 	}
-	///사진이 없을때
+	/*
+	 * @paramater ReservationUserCommnet
+	 * 리뷰 사진 없을때
+	 * 리뷰등록
+	 */
 	@Override
 	@Transactional(readOnly = false)
-	public int addReservationUserComment(ReservationUserComment comment) {
+	public int addReservationUserComment(ReservationUserComment comment) throws Exception {
 		int reservationid=reservationUserCommentDao.addReservationUserComment(comment);
 		
 		return reservationid;

@@ -83,7 +83,7 @@
 	function getCheckPeriod(){
 		let params = (new URL(document.location)).searchParams;
 		let period = params.get('period'); 
-		console.log("period"+period);
+		
 		var label= document.querySelectorAll('label');
 		
 		if(period==0){

@@ -16,6 +16,7 @@
 		<typeAlias type="kr.or.connect.healthproject.member.dto.OrderList" alias="OrderList"/>
 		<typeAlias type="kr.or.connect.healthproject.member.dto.ReservationInfo" alias="ReservationInfo"/>
 		<typeAlias type="kr.or.connect.healthproject.config.CamelListMap" alias="camlemap"/>
+		<typeAlias type="kr.or.connect.healthproject.login.dto.ReservationUserComment" alias="ReservationUserComment"/>
 	</typeAliases>
   
   

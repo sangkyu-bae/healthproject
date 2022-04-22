@@ -103,7 +103,7 @@ public class MemberApiController {
 			@RequestParam(name="reservationInfoId")Long reservationInfoId,
 			@RequestParam(name="score")double score,
 			@RequestParam(name="file", required=false)MultipartFile file,
-			Principal principal){
+			Principal principal) throws Exception{
 		
 		String messesge="";
 		String loginId=principal.getName();
