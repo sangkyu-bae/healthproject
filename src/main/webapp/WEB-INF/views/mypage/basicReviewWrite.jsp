@@ -23,6 +23,8 @@
 	.reviwe_box {
 		width: 100%;
 	}
+	
+	
 	 .star {
     position: relative;
     font-size: 2rem;
@@ -47,8 +49,8 @@
 
 </style>
 <form method="post" action="${path }/mypage/review_add" id="review_frm">
-	<input type="hidden" id="productId" name="productId">
-	<input type="hidden" id="reservationInfoId" name="reservationInfoId">
+	<input type="hidden" id="productId" name="productId" value="${comment.productId }">
+	<input type="hidden" id="reservationInfoId" name="reservationInfoId" value ="${comment.reservationInfoId}">
 	<input type="hidden" id="score" name="score">
 	<input type="hidden" id="comment" name="comment">
 </form>
@@ -63,7 +65,7 @@
                내용
               </div>
               <div class="qna_categor">
-                <textarea name="name" rows="10" cols="68" placeholder="내용 입력"></textarea>
+                <textarea name="name" id="review_text" rows="10" cols="68" placeholder="내용 입력(5자이상)"></textarea>
               </div>
             </div>
             <div class="">
@@ -71,24 +73,24 @@
 		         <div class="star_box">
 					<span class="star"> ★★★★★ 
 						<span>★★★★★</span>
-						 <input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10">
+						<input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10">
 					</span>
 					<div class="review_score">
-						<span class="score_num">3.0/</span><span class="score_standard">5</span>
+						<span class="score_num">0.0/</span><span class="score_standard">5</span>
 					</div>
 				</div>
             </div>
           </div>
           <div class="qna_box_container">
             <div class="question_head">
-              <h2>상품문의 안내</h2>
+              <h2>상품후기 안내</h2>
             </div>
             <div class="question_section">
               <div class="question_section_box">
                 <ul class="question_section_ul">
                   <li class="question_section_list">
                     <p>
-                      - 상품문의는 재입고, 사이즈, 배송 등 상품에 대하여 브랜드 담당자에게 문의하는 게시판입니다.
+                      - 상품후기 상품의 후기를 등록하는 게시판입니다.
                     </p>
                   </li>
                   <li class="question_section_list actent">
@@ -107,12 +109,44 @@
             </div>
             <div class="question_btn_wrap">
               <button type="button" class="question_cancle"name="button">취소</button>
-              <button type="button" class="question_add"name="button">등록하기</button>
+              <button type="button" onclick="checkFrm()" class="question_add"name="button">등록하기</button>
             </div>
           </div>
           
-        <script>
-const drawStar = (target) => {
-    document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
-  }
+<script>
+	const drawStar = (target) => {
+	    $(`.star span`).css({ width: target.value * 10+"%"});
+	    
+		var reviewValue=5.0;
+		reviewValue=(reviewValue/10)*target.value;
+		
+		$('.score_num').text(reviewValue+"/");
+		
+	  }
+		
+	function checkFrm(){
+		var reviewText=document.querySelector('#review_text');
+		var reviewValue=document.querySelector('.score_num');
+		var text=reviewValue.innerText.split('/');
+		
+		if(reviewText.textLength<6){
+			alert("내용을 입력하세요");
+			reviewText.focus();
+			return false;
+		}else if(text[0]=="0"||text[0]=="0.0"){
+			alert("평점을 등록하세요");
+			reviewValue.focus();
+			return false;
+		}
+		
+		var score=document.querySelector("#score");
+		var comment=document.querySelector("#comment");
+		
+		score.value=text[0];
+		comment.value=reviewText.value;
+		
+		var frm=document.querySelector("#review_frm");
+		frm.submit();
+		
+	}
 </script>

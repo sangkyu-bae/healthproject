@@ -13,9 +13,9 @@
 <script type="text/javascript"  src ="${path }/resources/js/mypageCommon.js"> </script>
 <link href="${path}/resources/css/orderlistopt.css" rel="stylesheet" type="text/css">
 
-<form id="write_frm" action="${path }/mypage/basic_review_write">
+<form id="write_frm" method="post" action="${path }/mypage/basic_review_write">
 	<input type="hidden" name="productId" id="write_productId">
-	<input type="hidden" name="reservationId" id="write_reservationId" >
+	<input type="hidden" name="reservationInfoId" id="write_reservationId" >
 </form>
 <div class="mypage_container">
 	<div class="mypage_head_box">MYPAGE</div>

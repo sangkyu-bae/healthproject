@@ -127,7 +127,7 @@ public class MemberController {
 	      if(productId==null||productSizeId==null||count==null) {
 	         healthprojectService.alert(response, "구매 정보가 미설정 되었습니다.");
 	         String referer=request.getHeader("Referer");
-	         return "redirect:"+referer;
+	         return "redirect:"+referer+".web";
 	      }
 	      
 	      ReservationInfo info=new ReservationInfo();
@@ -145,7 +145,7 @@ public class MemberController {
 	      //memberService.addReservationInfo(info,infoPrice);
 	      MyCart cart=memberService.getMaxCartPr(user.getId());
 	      redirectAttributes.addAttribute("checkPoint", "123");
-	      return "redirect:/members/orderform";
+	      return "redirect:/members/orderform.web";
 	   }
 
 

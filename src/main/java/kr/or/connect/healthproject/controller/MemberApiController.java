@@ -236,6 +236,7 @@ public class MemberApiController {
     })
 	@GetMapping(path="/getmylist")
 	public Map<String, Object>getMyList(Principal principal){
+		
 		String loginId=principal.getName();
 		User user=memberService.getUse(loginId);
 		

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -106,7 +107,7 @@ public class MyPageController {
 	  /*
 	   *리뷰작성 페이지 
 	   */
-	  @GetMapping("/basic_review_write")
+	  @PostMapping("/basic_review_write")
 	  public String basicReviewWrite(Principal principal,
 			  @ModelAttribute ReservationUserComment comment,
 			  Model model) throws Exception{
@@ -118,20 +119,34 @@ public class MyPageController {
 	  }
 	  /*
 	   * 리뷰작성 등록
+	   * @params ReservationUserComment
 	   */
 	  @PostMapping("/review_add")
 	  public String reviewAdd(@ModelAttribute ReservationUserComment comment,
-			  Principal principal) throws Exception{
+			  Principal principal,
+			  HttpServletResponse response,
+			  HttpServletRequest request) throws Exception{
 		  
 		  String loginId=principal.getName();
+		  
+		  
+		  if(comment.getComment()==null||
+			 (comment.getProductId()==null||comment.getProductId()==0)||
+			 comment.getScore()==0.0||
+			 comment.getReservationInfoId()==null|| comment.getReservationInfoId()==0) {
+			  healthprojectService.alert(response, "리뷰 작성요소가 미설정되었습니다.");
+		      String referer=request.getHeader("Referer");
+		      return "redirect:"+referer+".web";
+		  }
 		  
 		  User user =memberService.getUse(loginId);
 		  comment.setUserId(user.getId());
 		  
-		  memberService.addReservationUserComment(comment);
+		  
+		 //memberService.addReservationUserComment(comment);
 		  
 		  
-		  return "redirect:/members/mypage.web";
+		  return "redirect:/members/mypage";
 	  }
 	  
 }
