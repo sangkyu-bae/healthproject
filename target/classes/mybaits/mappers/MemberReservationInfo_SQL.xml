@@ -52,6 +52,7 @@
 		<choose>
 			<when test="buyComplate!=null">
 				and a.cancle_flag =4
+				and a.id not in(select reservation_info_id from reservation_user_comment)
 			</when>
 			<otherwise>
 				and a.cancle_flag between 1 and 5 order by a.cancle_flag;

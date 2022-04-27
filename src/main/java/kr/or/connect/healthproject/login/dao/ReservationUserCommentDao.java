@@ -52,6 +52,8 @@ public class ReservationUserCommentDao {
 	 * 리뷰 등록
 	 */
 	public int addReservationUserComment(ReservationUserComment vo)  throws Exception{
+		System.out.println("vo?"+vo);
+		
 		return sessionTemplate.insert("kr.or.connect.healthproject.login.dao.ReservationUserCommentDao.addReservationUserComment",vo);
 	}
 	public Long getId() {

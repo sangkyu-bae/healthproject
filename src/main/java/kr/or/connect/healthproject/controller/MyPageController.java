@@ -125,7 +125,8 @@ public class MyPageController {
 	  public String reviewAdd(@ModelAttribute ReservationUserComment comment,
 			  Principal principal,
 			  HttpServletResponse response,
-			  HttpServletRequest request) throws Exception{
+			  HttpServletRequest request,
+			  Model model) throws Exception{
 		  
 		  String loginId=principal.getName();
 		  
@@ -143,10 +144,13 @@ public class MyPageController {
 		  comment.setUserId(user.getId());
 		  
 		  
-		 //memberService.addReservationUserComment(comment);
+		  model.addAttribute("msg", "insert Review.");
+		  model.addAttribute("url", "/members/mypage");
+	
+		 memberService.addReservationUserComment(comment);
 		  
 		  
-		  return "redirect:/members/mypage";
+		  return "redirect";
 	  }
 	  
 }
