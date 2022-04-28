@@ -13,10 +13,15 @@
 <script type="text/javascript"  src ="${path }/resources/js/mypageCommon.js"> </script>
 <link href="${path}/resources/css/orderlistopt.css" rel="stylesheet" type="text/css">
 
+
 <form id="write_frm" method="post" action="${path }/mypage/basic_review_write">
 	<input type="hidden" name="productId" id="write_productId">
 	<input type="hidden" name="reservationInfoId" id="write_reservationId" >
+	<input type="hidden" name="type" id="write_type">
 </form>
+
+ 
+
 <div class="mypage_container">
 	<div class="mypage_head_box">MYPAGE</div>
 	<div class="mypage_filter_wrap mypage_float_box">
@@ -102,7 +107,7 @@
 									<td>${list.description }</td>
 									<td>${list.reservationDate }</td>
 									<td class="add_wrap">
-						                  <button  class="add_review" value="등록하기">등록하기</button>
+						                  <button  class="add_review" onclick="addReviewLocation('${list.reservationInfoId}','${list.productId }','image')" value="등록하기">등록하기</button>
                    					</td>
 									<td>
 										 <button  class="add_review" onclick="addReviewLocation('${list.reservationInfoId}','${list.productId }','basic')"value="등록하기">등록하기</button>
@@ -129,16 +134,16 @@
 
 <script>
 	/*리뷰등록 페이지 이동*/
-	function addReviewLocation(productId,reservationId,type){
+	function addReviewLocation(reservationId,productId,type){
+		
 		var frm =document.querySelector('#write_frm')
 		var frmproductId=document.querySelector('#write_productId');
 		var frmreservationId=document.querySelector('#write_reservationId');
+		var frmtype=document.querySelector("#write_type");
 		
 		frmproductId.value=productId;
 		frmreservationId.value=reservationId;
-		
-		console.log(frmproductId.value);
-		console.log(frmreservationId.value);
+		frmtype.value=type;
 		
 		frm.submit();
 		

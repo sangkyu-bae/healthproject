@@ -1,14 +1,20 @@
 package kr.or.connect.healthproject.controller;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.velocity.runtime.resource.loader.ResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +22,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.connect.healthproject.dto.FileInfo;
 import kr.or.connect.healthproject.login.dto.ReservationUserComment;
+import kr.or.connect.healthproject.login.dto.ReservationUserCommentImage;
 import kr.or.connect.healthproject.login.dto.User;
 import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
@@ -39,7 +48,8 @@ public class MyPageController {
 			  @RequestParam(name="startDate", required = false, defaultValue = "0")String startDate
 			  ,@RequestParam(name="lastDate",required = false,defaultValue = "0")String lastDate
 			  ,@RequestParam(name="period",required = false, defaultValue = "4")int period
-			  ,Principal principal) throws Exception {
+			  ,Principal principal
+			 ) throws Exception {
 		  String loginId=principal.getName();
 		  User user=memberService.getUse(loginId);
 		  
@@ -109,12 +119,16 @@ public class MyPageController {
 	   */
 	  @PostMapping("/basic_review_write")
 	  public String basicReviewWrite(Principal principal,
-			  @ModelAttribute ReservationUserComment comment,
+			  @ModelAttribute("comment") ReservationUserComment comment,
+			  @RequestParam(name="type")String type,
 			  Model model) throws Exception{
 		  
-		  model.addAttribute("comment",comment);
+		  if(type.equals("basic")) {
+			  model.addAttribute("type","basic");
+		  }else {
+			  model.addAttribute("type","image");
+		  }
 		  
-		 
 		  return "mypage/basicReviewWrite.web";
 	  }
 	  /*
@@ -123,6 +137,7 @@ public class MyPageController {
 	   */
 	  @PostMapping("/review_add")
 	  public String reviewAdd(@ModelAttribute ReservationUserComment comment,
+			  @RequestParam(name="file", required = false)MultipartFile file,
 			  Principal principal,
 			  HttpServletResponse response,
 			  HttpServletRequest request,
@@ -130,7 +145,7 @@ public class MyPageController {
 		  
 		  String loginId=principal.getName();
 		  
-		  
+		 
 		  if(comment.getComment()==null||
 			 (comment.getProductId()==null||comment.getProductId()==0)||
 			 comment.getScore()==0.0||
@@ -140,14 +155,47 @@ public class MyPageController {
 		      return "redirect:"+referer+".web";
 		  }
 		  
+		  
 		  User user =memberService.getUse(loginId);
 		  comment.setUserId(user.getId());
 		  
+		  if(file!=null) {
+			  String root=request.getServletContext().getRealPath("/resources")+"/img/commnet/";
+			  
+			  System.out.println(root);
+				///파일 경로에 저장하기
+			  try(
+					  	FileOutputStream fos=new FileOutputStream(root+file.getOriginalFilename());
+						InputStream is= file.getInputStream();
+		        ){
+		        	    int readCount = 0;
+		        	    byte[] buffer = new byte[1024];
+		            while((readCount = is.read(buffer)) != -1){
+		                fos.write(buffer,0,readCount);
+		            }
+		        }catch(Exception ex){
+		            throw new RuntimeException("file Save Error");
+		        }
+			////파일 객체 생성 값 지정
+			FileInfo fileInfo=new FileInfo();
+			fileInfo.setContentType(file.getContentType());
+			fileInfo.setDeleteFlag(0);
+			fileInfo.setFileName(file.getOriginalFilename());
+			fileInfo.setSaveFileName("commnet/"+file.getOriginalFilename());
+			memberService.addReservationUserComment(comment, fileInfo);
+		System.out.println("사진 있음");
+		  
+		  }else {
+			memberService.addReservationUserComment(comment);
+			System.out.println("사진없음");
+		  }
+		  
+	
+		  
 		  
 		  model.addAttribute("msg", "insert Review.");
-		  model.addAttribute("url", "/members/mypage");
+		  model.addAttribute("url", "/mypage/review");
 	
-		 memberService.addReservationUserComment(comment);
 		  
 		  
 		  return "redirect";
