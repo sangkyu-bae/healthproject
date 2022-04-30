@@ -14,6 +14,9 @@
 		</div>
 		<div class="navbar-nav">
 			<ul class="navbar_ul">
+				<sec:authorize access="hasRole('ADMIN')">
+				  <li class="ul-list"><a href="${path }/admin/main" class="nav-li">ADMIN</a></li>
+				</sec:authorize>
 				<li class="ul-list"><a href="/healthproject" class="nav-li">HOME</a></li>
 				<li class="ul-list"><a href="/healthproject/shop" class="nav-li">SHOP</a></li>
 

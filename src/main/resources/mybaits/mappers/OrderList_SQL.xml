@@ -11,4 +11,31 @@
 		(RESERVATION_INFO_ID,USER_ID,PAYMENT_METHOD_ID,ORDER_ADDRESS,RECIPIENT,CELL_PHONE,HOME_PHONE,DELIVERY_NOTE,CREATE_DATE,MODIFY_DATE,IMP_UID,MERCHANT_UID)
 		VALUE(#{reservationInfoId},#{userId},1,#{orderAddress},#{recipient},#{cellPhone},#{homePhone},#{deliveryNote},NOW(),NOW(),#{impUid},#{merchantUid});
 	   </insert>
+	   
+	   <select id="selectOrderList">
+	   	SELECT 
+			c.description
+			,replace (substring_index ( b.create_date, ' ',1),'-','.') as create_date
+		    ,b.delivery_note
+		    ,b.order_address
+		    ,b.recipient
+		    ,d.count
+		    ,(d.count*e.price) as total_count
+		    ,e.discount_rate
+		    ,b.cell_phone
+		    ,b.user_id
+		FROM 
+			reservation_info a
+		    ,order_list b
+		    ,product c
+		    ,reservation_info_price d
+		    ,product_price e
+		WHERE
+			1=1
+		    and a.id=b.reservation_info_id
+		    and c.id=a.product_id
+		    and a.id=d.reservation_info_id
+		    and e.id=d.product_price_id
+		    and a.cancle_flag=2
+	   </select>
    </mapper>

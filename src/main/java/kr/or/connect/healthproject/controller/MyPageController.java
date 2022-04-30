@@ -183,11 +183,9 @@ public class MyPageController {
 			fileInfo.setFileName(file.getOriginalFilename());
 			fileInfo.setSaveFileName("commnet/"+file.getOriginalFilename());
 			memberService.addReservationUserComment(comment, fileInfo);
-		System.out.println("사진 있음");
 		  
 		  }else {
 			memberService.addReservationUserComment(comment);
-			System.out.println("사진없음");
 		  }
 		  
 	
