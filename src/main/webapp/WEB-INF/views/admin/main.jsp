@@ -19,13 +19,13 @@
 		<div class="mypage_fiter_head ">페이지 관리</div>
 		<div class="mypage_fiter_lst_box">
 			<ul class="mypage_fiter_ul">
-				<li class="mypage_fiter_list"style="font-weight: bold;"" ><a href="#">주문 관리</a></li>
-				<li class="mypage_fiter_list" ><a href="#">상품 관리</a></li>
+				<li class="mypage_fiter_list"style="font-weight: bold;" ><a href="${path }/admin/main">주문 관리</a></li>
+				<li class="mypage_fiter_list" ><a href="${path }/admin/productWrite">상품 관리</a></li>
 				<li class="mypage_fiter_list"><a href="#">상품 문의 관리</a></li>
 			</ul>
 		</div>
 	</div>
-	<div class="mypage_section_box  mypage_float_box" style="width: 1120px">
+	<div class="mypage_section_box  mypage_float_box" style="width: 1120px;">
 		<div class="">
 			<div class="mypage_section_head sksk">
 				<h2>주문 관리</h2>
@@ -34,7 +34,7 @@
 						<a href="#" style="color:black;">현재 상품 주문내역</a> 
 					</div>
 					<div class="tab-btn bs">
-						<a href="#">이전 주문내역</a>
+						<a href="${path }/admin/pastOrderList">이전 주문내역</a>
 					</div>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 				<table class="my_order_table">
 					<colgroup>
 						<col style="width: 17%">
-						<col style="width: 23%">
+						<col style="width:23%">
 						<col style="">
 						<col style="">
 						<col style="">
@@ -88,11 +88,32 @@
 						</tr>
 					</thead>
 					<tbody class="my_order_table_tbody">
-						</tbody>
+					<c:choose>
+						<c:when test="${empty orderList }">
+							</tbody>
+								</table>
+								<p class="n-table-none">
+									<sapn>주문 내역이 없습니다 </sapn>
+								</p>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var ="list" items="${orderList}" >
+								<tr>
+									<td  style="text-overflow: ellipsis; overflow: hidden;white-space: nowrap;">${list.description}</td>
+									<td style="text-overflow: ellipsis; overflow: hidden;white-space: nowrap;">${list.orderAddress }</td>
+									<td>${list.recipient }</td>
+									<td>${list.count }</td>
+									<td>${list.createDate }</td>
+									<td>${list.updatetotalprice }</td>		
+								</tr>
+									
+							</c:forEach>
+							
+								</tbody>
 							</table>
-							<p class="n-table-none">
-								<sapn>주문 내역이 없습니다 </sapn>
-							</p>
+						</c:otherwise>
+					</c:choose>
+						
 						
 					
 						

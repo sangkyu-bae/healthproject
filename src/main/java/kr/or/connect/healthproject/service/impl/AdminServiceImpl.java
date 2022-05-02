@@ -15,7 +15,10 @@ import kr.or.connect.healthproject.admin.dao.ProductSizeDao;
 import kr.or.connect.healthproject.admin.dto.ProductGetSize;
 import kr.or.connect.healthproject.admin.dto.ProductQuestionAnwser;
 import kr.or.connect.healthproject.admin.dto.ProductSize;
+import kr.or.connect.healthproject.dao.CategoryDao;
+import kr.or.connect.healthproject.dto.Category;
 import kr.or.connect.healthproject.login.dao.ProductQuestionDao;
+import kr.or.connect.healthproject.member.dao.OrderListsDao;
 import kr.or.connect.healthproject.service.AdminService;
 
 @Service
@@ -30,6 +33,11 @@ public class AdminServiceImpl implements AdminService{
 	ProductGetSizeDao productGetSizeDao;
 	@Autowired
 	PayMentMethodDao payMentMethodDao;
+	@Autowired
+	OrderListsDao orderListsDao;
+	@Autowired
+	CategoryDao categoryDao;
+	
 	@Override
 	@Transactional(readOnly = false)
 	public Long insertproductQuestionAnwser(ProductQuestionAnwser anwser) {
@@ -61,5 +69,22 @@ public class AdminServiceImpl implements AdminService{
 	@Transactional
 	public List<Map<String, Object>> selectPayMentList() throws Exception {
 		return payMentMethodDao.selectPayMentList();
+	}
+	
+	/*
+	 * 고객들 주문 조회
+	 */
+	@Override
+	@Transactional
+	public List<Map<String, Object>> selectComplteOrderList(Map<String, Object>map) throws Exception {
+	
+		return orderListsDao.selectComplteOrderList(map);
+	}
+	/*
+	 * 카테고리 검색
+	 */
+	@Override
+	public List<Category> selectCategory() throws Exception {
+		return categoryDao.selectCategory();
 	}
 }

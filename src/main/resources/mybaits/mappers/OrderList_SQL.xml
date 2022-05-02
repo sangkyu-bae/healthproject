@@ -12,7 +12,7 @@
 		VALUE(#{reservationInfoId},#{userId},1,#{orderAddress},#{recipient},#{cellPhone},#{homePhone},#{deliveryNote},NOW(),NOW(),#{impUid},#{merchantUid});
 	   </insert>
 	   
-	   <select id="selectOrderList">
+	   <select id="selectComplteOrderList" parameterType="java.util.HashMap" resultType="camlemap">
 	   	SELECT 
 			c.description
 			,replace (substring_index ( b.create_date, ' ',1),'-','.') as create_date
@@ -20,7 +20,7 @@
 		    ,b.order_address
 		    ,b.recipient
 		    ,d.count
-		    ,(d.count*e.price) as total_count
+		    ,(d.count*e.price) as total_price
 		    ,e.discount_rate
 		    ,b.cell_phone
 		    ,b.user_id
@@ -36,6 +36,16 @@
 		    and c.id=a.product_id
 		    and a.id=d.reservation_info_id
 		    and e.id=d.product_price_id
-		    and a.cancle_flag=2
+		    <choose>
+		    	<when test="past !=null">
+		    		and a.cancle_flag IN(3,4)
+		    	</when>
+		    	<otherwise>
+		    		and a.cancle_flag=2
+		    	</otherwise>
+		    </choose>
+		    <if test="startDate !=null">
+		    	AND b.create_date between #{startDate} and #{lastDate}
+		    </if>
 	   </select>
    </mapper>
