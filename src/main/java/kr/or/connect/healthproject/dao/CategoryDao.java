@@ -38,7 +38,7 @@ public class CategoryDao {
 	 * 카테고리 가져오기
 	 */
 	public List<Category> selectCategory()throws Exception {
-		return sessionTemplate.selectList("kr.or.connect.healthproject.dao.selectCategory");
+		return sessionTemplate.selectList("kr.or.connect.healthproject.dao.CategoryDao.selectCategory");
 	}
 
 }

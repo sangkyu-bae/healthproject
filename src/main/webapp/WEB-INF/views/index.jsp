@@ -59,7 +59,7 @@
 		</div>
 		<div class="text-sub-box">BECOME ONE WITH NATURE</div>
 		<button type="button" name="button" class="button-box">
-			<div class="btn-box">Shop Our Range</div>
+			<a  class="btn-box" href="${path }/shop" style="text-decoration: none;color: white;">Shop Our Range</a>
 		</button>
 	</div>
 </div>

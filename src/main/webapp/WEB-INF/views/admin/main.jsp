@@ -38,36 +38,8 @@
 					</div>
 				</div>
 			</div>
-				<div class="n-table-filter">
-				<div class="n-radio-tab">
-					<input type="radio" onclick="setPriod('1week')" class="period_btn" id="radioTabGuide0" name="radioTabGuide">
-					<label  for="radioTabGuide0" onclick="setBorder(this)"> 1주일</label>
-					<input onclick="setPriod('1month')" type="radio" class="period_btn"  id="radioTabGuide1" name="radioTabGuide">
-					<label  for="radioTabGuide1" onclick="setBorder(this)"> 1개월</label>
-					<input type="radio" onclick="setPriod('3month')" class="period_btn" id="radioTabGuide2" name="radioTabGuide">
-					<label for="radioTabGuide2" onclick="setBorder(this)"> 3개월</label>
-					<input type="radio" class="period_btn" onclick="setPriod('all')" id="radioTabGuide3" name="radioTabGuide">
-					<label for="radioTabGuide3" onclick="setBorder(this)" > 전체시기</label>
-				</div>
-				<form id="frm" action="${path }/mypage/write_review">
-					<div class="n-radio-tab n-right">
-						<div class="n-datepicker sb">
-							<input type="text" id="starts"class="n-input" name="startDate" value="" placeholder="-">
-								<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
-							</div>
-							<div class="n-datepicker sg">
-								~
-							</div>
-							<div class="n-datepicker ">
-								<input type="text" id="lasts" class="n-input" name="lastDate" value="" placeholder="-">
-								<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
-							</div>
-							<input type="hidden" id="period" name="period">
-					</div>
-					<button type="button" class="n-btn btn-sm btn-accent" onclick="search()">조회</button>
-				</form>
-			</div>
-			<div class="my_order_table_box">
+				
+			<div class="my_order_table_box" style="margin-top: 65px;">
 				<table class="my_order_table">
 					<colgroup>
 						<col style="width: 17%">

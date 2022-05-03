@@ -151,6 +151,16 @@
 		$(element).after(html);			      
 	}
 	
+	/*이미지 파일 선택시 썸네일 화면 보여주기*/
+	function showThumbnail(obj){
+		const image=obj.files[0];
+		const wthumb_img=document.querySelector(".wthumb_img");
+		
+		wthumb_img.src=window.URL.createObjectURL(image);
+		wthumb_img.style.display='block';
+		console.log(image);
+	}
+	
 	document.addEventListener("DOMContentLoaded",function(){
 		getCheckPeriod();
 	})
