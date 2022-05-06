@@ -89,23 +89,43 @@ public class HealthprojectBasicApiController {
 		////파일 저장 경로 만들기
 //		String root= request.getSession().getServletContext().getRealPath("/");
 //		String addFileRoot=root+"/resources/img/product";
-		String root="C:/Users/samsung/eclipse-workspace/healthproject/src/main/webapp/resources/img/product/";
+		//String root=request.getServletContext().getRealPath("/resources")+"img/product/";
+	//String root="C:/Users/samsung/eclipse-workspace/healthproject/src/main/webapp/resources/img/product/";
 		///파일 경로에 저장하기
-		  try(
-	                // 맥일 경우 
-	                //FileOutputStream fos = new FileOutputStream("/tmp/" + file.getOriginalFilename());
-	                // 윈도우일 경우
-				  	FileOutputStream fos=new FileOutputStream(root+file.getOriginalFilename());
-					InputStream is= file.getInputStream();
-	        ){
-	        	    int readCount = 0;
-	        	    byte[] buffer = new byte[1024];
-	            while((readCount = is.read(buffer)) != -1){
-	                fos.write(buffer,0,readCount);
-	            }
-	        }catch(Exception ex){
-	            throw new RuntimeException("file Save Error");
+//		  try(
+//	                // 맥일 경우 
+//	                //FileOutputStream fos = new FileOutputStream("/tmp/" + file.getOriginalFilename());
+//	                // 윈도우일 경우
+//
+//					FileOutputStream fos=new FileOutputStream(root+file.getOriginalFilename());
+//					InputStream is= file.getInputStream();
+//	        ){
+//	        	    int readCount = 0;
+//	        	    byte[] buffer = new byte[1024];
+//	            while((readCount = is.read(buffer)) != -1){
+//	                fos.write(buffer,0,readCount);
+//	            }
+//	        }catch(Exception ex){
+//	            throw new RuntimeException("file Save Error");
+//	        }
+		String root=request.getServletContext().getRealPath("/resources")+"/img/product/";
+	
+	if(file!=null) {
+	
+		try(
+			  	FileOutputStream fos=new FileOutputStream(root+file.getOriginalFilename());
+				InputStream is= file.getInputStream();
+	    ){
+	    	    int readCount = 0;
+	    	    byte[] buffer = new byte[1024];
+	        while((readCount = is.read(buffer)) != -1){
+	            fos.write(buffer,0,readCount);
 	        }
+	    }catch(Exception ex){
+	        throw new RuntimeException("file Save Error");
+	    }
+	}
+
 		////파일 객체 생성 값 지정
 		FileInfo fileInfo=new FileInfo();
 		fileInfo.setContentType(file.getContentType());
@@ -113,7 +133,7 @@ public class HealthprojectBasicApiController {
 		fileInfo.setFileName(file.getOriginalFilename());
 		fileInfo.setSaveFileName("product/"+file.getOriginalFilename());
 
-		healthprojectService.addProduct(product, fileInfo,price);
+		//healthprojectService.addProduct(product, fileInfo,price);
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("product", product);

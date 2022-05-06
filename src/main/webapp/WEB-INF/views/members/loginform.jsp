@@ -48,7 +48,7 @@
 						file="black"></path>
 					</svg>
 				</div>
-				<input type="button" onclick="kakaoLogout()" value="테스트로그아웃">
+				<!-- <input type="button" onclick="kakaoLogout()" value="테스트로그아웃"> -->
 			</form>
 		</div>
 	</div>

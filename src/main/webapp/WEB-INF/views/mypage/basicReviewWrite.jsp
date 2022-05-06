@@ -57,6 +57,7 @@
 	margin-top: 35px;
 }
 </style>
+<script type="text/javascript"  src ="${path }/resources/js/mypageCommon.js"> </script>
 <!--  
 <form method="post" action="${path }/mypage/review_add" id="review_frm">
 	<input type="hidden" id="productId" name="productId" value="${comment.productId }">

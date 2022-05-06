@@ -5,7 +5,10 @@ import java.util.Date;
 public class ProductPrice {
 	private Long id;
 	private Long productId;
-	private String priceTypeName;
+	//private String priceTypeName;
+	
+	private String productTypeName;
+
 	private Long price;
 	private Double discountRate;
 	private Date createDate;
@@ -23,12 +26,19 @@ public class ProductPrice {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
+	public String getProductTypeName() {
+		return productTypeName;
+	}
+	public void setProductTypeName(String productTypeName) {
+		this.productTypeName = productTypeName;
+	}
+	/*
 	public String getPriceTypeName() {
 		return priceTypeName;
 	}
 	public void setPriceTypeName(String priceTypeName) {
 		this.priceTypeName = priceTypeName;
-	}
+	}*/
 	public Long getPrice() {
 		return price;
 	}

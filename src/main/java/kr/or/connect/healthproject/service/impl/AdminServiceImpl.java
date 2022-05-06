@@ -87,4 +87,13 @@ public class AdminServiceImpl implements AdminService{
 	public List<Category> selectCategory() throws Exception {
 		return categoryDao.selectCategory();
 	}
+	/*
+	 * 카테고리별 상품검색
+	 * @params Category
+	 */
+	@Override
+	public List<Map<String, Object>> selectCategoryProduct(Category vo) throws Exception {
+		
+		return categoryDao.selectCategoryProduct(vo);
+	}
 }

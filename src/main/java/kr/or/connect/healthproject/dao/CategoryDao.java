@@ -1,6 +1,7 @@
 package kr.or.connect.healthproject.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -40,5 +41,14 @@ public class CategoryDao {
 	public List<Category> selectCategory()throws Exception {
 		return sessionTemplate.selectList("kr.or.connect.healthproject.dao.CategoryDao.selectCategory");
 	}
+	
+	/*
+	 * 카테고리 별 상품 가져오기
+	 * @param categroy 
+	 */
+	public List<Map<String, Object>> selectCategoryProduct(Category vo)throws Exception{
+		return sessionTemplate.selectList("kr.or.connect.healthproject.dao.CategoryDao.selectCategoryProduct",vo);
+	}
+	
 
 }

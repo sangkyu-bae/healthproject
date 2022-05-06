@@ -123,7 +123,8 @@ public class AdminController {
 			@RequestParam(name="price")Long price,
 			@RequestParam(name="file")MultipartFile file,
 			HttpServletRequest request,
-			HttpServletResponse response
+			HttpServletResponse response,
+			Model model
 	)throws Exception {
 		
 		
@@ -140,15 +141,15 @@ public class AdminController {
 		}
 	
 		////파일 저장 경로 만들기
-		String root=request.getServletContext().getRealPath("/resources")+"img/product/";
-		System.out.println("1");
+		String root=request.getServletContext().getRealPath("/resources")+"/img/product/";
+			
+		System.out.println(product);
 		///파일 경로에 저장하기
 		if(file!=null) {
 		  try(
 				  	FileOutputStream fos=new FileOutputStream(root+file.getOriginalFilename());
 					InputStream is= file.getInputStream();
 	        ){
-			  System.out.println("2");
 	        	    int readCount = 0;
 	        	    byte[] buffer = new byte[1024];
 	            while((readCount = is.read(buffer)) != -1){
@@ -157,7 +158,6 @@ public class AdminController {
 	        }catch(Exception ex){
 	            throw new RuntimeException("file Save Error");
 	        }
-		  System.out.println("3");
 		////파일 객체 생성 값 지정
 		FileInfo fileInfo=new FileInfo();
 		fileInfo.setContentType(file.getContentType());
@@ -169,8 +169,23 @@ public class AdminController {
 		
 		}
 		
-		return "redirect:/shop";
+		model.addAttribute("msg", "insert Product.");
+		model.addAttribute("url", "/shop");
+		
+		return "redirect";
 	}
 	
+	/*
+	 *행사 상품 관리 
+	 */
+	
+	@GetMapping("/administerPromotion")
+	public String administerPromotion(Model model) throws Exception {
+		List<Category>categoryList=adminService.selectCategory(); 
+		model.addAttribute("categoryList",categoryList);
+		
+		return "admin/administerPromotion.web";
+	}
+
 }
 

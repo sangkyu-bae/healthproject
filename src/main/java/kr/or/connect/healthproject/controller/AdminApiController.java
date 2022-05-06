@@ -3,9 +3,12 @@ package kr.or.connect.healthproject.controller;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +19,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import kr.or.connect.healthproject.admin.dto.ProductQuestionAnwser;
 import kr.or.connect.healthproject.admin.dto.ProductSize;
+import kr.or.connect.healthproject.dto.Category;
 import kr.or.connect.healthproject.login.dto.User;
 import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
@@ -86,4 +90,24 @@ public class AdminApiController {
 		map.put("messeage", messeage);
 		return map;
 	}
+	
+	@ApiOperation(value = "카테고리별 상품 가져오기")
+	@ApiResponses({  // Response Message에 대한 Swagger 설명
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 500, message = "Exception")
+    })
+	@GetMapping(path="/getCategoryProduct")
+	public Map<String, Object>selectCategoryProduct(@RequestParam(name="categoryId")Long categoryId) throws Exception{
+		Category category=new Category();
+		category.setId(categoryId);
+		
+		List<Map<String,Object>>categoryProduct=adminService.selectCategoryProduct(category);
+		
+		Map<String, Object>map=new HashMap<>();
+		map.put("categoryProduct", categoryProduct);
+		
+		return map;
+	}
+
+	
 }

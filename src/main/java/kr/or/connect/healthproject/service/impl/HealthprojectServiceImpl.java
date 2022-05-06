@@ -92,8 +92,10 @@ public class HealthprojectServiceImpl implements HealthprojectService{
 		productPrice.setDiscountRate(0.00);
 		productPrice.setModifyDate(new Date());
 		productPrice.setPrice(price);
-		productPrice.setPriceTypeName("A");
+		productPrice.setProductTypeName("A");
 		productPrice.setProductId(productId);
+		
+		
 		Long productPriceId=productPriceDao.addProductPrice(productPrice);
 		//파일 등록
 		fileInfo.setCreateDate(new Date());

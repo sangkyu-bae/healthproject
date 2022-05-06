@@ -191,6 +191,7 @@
 				</tr>
 			</thead>
 			<tbody class="qna_body">
+			<!--  
 				<tr>
 					<td class="qa_anser">1</td>
 					<td class="qa_anser">답변완료</td>
@@ -207,7 +208,7 @@
 					<td class="qa_anser">ui***</td>
 					<td class="qa_anser">2022-01-02</td>
 				</tr>
-
+			-->
 			</tbody>
 		</table>
 	</div>

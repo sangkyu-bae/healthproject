@@ -25,4 +25,10 @@ public interface AdminService {
 	 * 카테고리 가져오기
 	 */
 	public List<Category> selectCategory()throws Exception;
+	/*
+	 * 카테고리별 상품 가져오기
+	 * @ params Category 
+	 */
+	public List<Map<String, Object>>selectCategoryProduct(Category vo)throws Exception;
+	
 }

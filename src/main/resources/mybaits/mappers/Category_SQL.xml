@@ -11,4 +11,26 @@
 	FROM 
 		category
    	</select>
+   	
+   	<select id="selectCategoryProduct" parameterType="category" resultType="camlemap">
+   	select 
+		a.name
+	    ,b.description
+	    ,b.content
+	from 
+		category a,
+	    product b
+	where 
+		a.id=b.category_id
+		<choose>
+			<when test="id == 0">
+			
+			</when>
+			<otherwise>
+				and a.id=#{id}
+			</otherwise>
+		</choose>
+	    
+   	</select>
+   
    </mapper>

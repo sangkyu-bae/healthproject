@@ -42,7 +42,7 @@
 						<a href="#" style="color:black;">상품 추가 하기</a> 
 					</div>
 					<div class="tab-btn bs">
-						<a href="#">이전 주문내역</a>
+						<a href="${path }/admin/administerPromotion">행사 상품 관리</a>
 					</div>
 				</div>
 			</div>
@@ -50,7 +50,7 @@
 			<div class="review_wrap">
 				<div class="qna_categor category_title">상품등록하기</div>
 			</div>
-			<form id="frm" method="post" action="${path }/admin/addProduct" enctype="multipart/form-data">
+			<form id="frm" method="post" enctype="multipart/form-data" action="${path }/admin/addProduct" >
 				<div class="qna_box_wrap" style="height: 45%; margin-top:60px;">
 					<div>
 						<label for="categoryId" class="join_label">카테고리</label><br> 
