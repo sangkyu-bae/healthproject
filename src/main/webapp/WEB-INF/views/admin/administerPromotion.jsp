@@ -127,7 +127,7 @@
 		                    I'm a product
 		                  </div>
 		                  <div class="product_price">
-		                    72,000원
+		                    72,000원s
 		                  </div>
 		                </li>
 		                
