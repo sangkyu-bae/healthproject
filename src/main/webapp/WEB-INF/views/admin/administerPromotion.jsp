@@ -14,11 +14,18 @@
     height: 30px;
     font-size: 15px
 }
+
+.product_img_ul::after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<script type="text/javascript"  src ="${path }/resources/js/mypageCommon.js"> </script>
+
 <link href="${path}/resources/css/orderlistopt.css" rel="stylesheet" type="text/css">
 
 <div class="mypage_container" style="width: 100%">
@@ -33,8 +40,8 @@
 			</ul>
 		</div>
 	</div>
-	<div class="mypage_section_box  mypage_float_box" style="width: 1120px;">
-		<div class="">
+	<div class="mypage_section_box  mypage_float_box" style="/*width: 1120px;*/">
+		
 			<div class="mypage_section_head sksk">
 				<h2>상품 관리</h2>
 				<div class="tab-group">
@@ -46,12 +53,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="qna_add_form" style="height: 850px; width: 1000px;">
+			<div class="qna_add_form" style="height: 1200px; width: 1000px;">
 			<div class="review_wrap">
 				<div class="qna_categor category_title">프로모션등록하기</div>
 			</div>
 			<form id="frm" method="post" enctype="multipart/form-data" action="${path }/admin/addProduct" >
-				<div class="qna_box_wrap" style="height: 45%; margin-top:60px;">
+				<div class="qna_box_wrap" style="/*height: 45%;*/ margin-top:60px;">
 					<div>
 						<label for="categoryId" class="join_label">카테고리</label><br> 
 						<div style="margin-top:22px;">
@@ -64,74 +71,25 @@
 						</div>
 					</div>
 					<ul class="product_img_ul">
-							
-		                <li class="product_img_item">
-		                  <a href="#">
-		                    <img src="http://localhost:8080/healthproject/resources/img/product/test2.jpg" alt="">
-		                  </a>
-		                  <div class="product_view">
-		                    <a href="#">
-		                        Qucik View
-		                    </a>
-		                  </div>
-		                  <div class="product_text">
-		                    I'm a product
-		                  </div>
-		                  <div class="product_price">
-		                    72,000원
-		                  </div>
-		                </li>
-		                 <li class="product_img_item">
-		                  <a href="#">
-		                    <img src="http://localhost:8080/healthproject/resources/img/product/test2.jpg" alt="">
-		                  </a>
-		                  <div class="product_view">
-		                    <a href="#">
-		                        Qucik View
-		                    </a>
-		                  </div>
-		                  <div class="product_text">
-		                    I'm a product
-		                  </div>
-		                  <div class="product_price">
-		                    72,000원
-		                  </div>
-		                </li>
-		                 <li class="product_img_item">
-		                  <a href="#">
-		                    <img src="http://localhost:8080/healthproject/resources/img/product/test2.jpg" alt="">
-		                  </a>
-		                  <div class="product_view">
-		                    <a href="#">
-		                        Qucik View
-		                    </a>
-		                  </div>
-		                  <div class="product_text">
-		                    I'm a product
-		                  </div>
-		                  <div class="product_price">
-		                    72,000원
-		                  </div>
-		                </li>
-		            
-		                <li class="product_img_item">
-		                  <a href="#">
-		                    <img src="http://localhost:8080/healthproject/resources/img/product/test2.jpg" alt="">
-		                  </a>
-		                  <div class="product_view">
-		                    <a href="#">
-		                        Qucik View
-		                    </a>
-		                  </div>
-		                  <div class="product_text">
-		                    I'm a product
-		                  </div>
-		                  <div class="product_price">
-		                    72,000원s
-		                  </div>
-		                </li>
-		                
-		                 
+						<c:forEach items="${ categoryProduct}" var="list">
+							<li class="product_img_item">
+			                  <a href="#">
+			                    <img src="${path }/resources/img/${list.saveFileName}" alt="${list.description }">
+			                  </a>
+			                  <div class="product_view" style="display:block; width:270px;">
+			                    <a href="#">
+			                        선택하기
+			                    </a>
+			                  </div>
+			                  <div class="product_text">
+			                   	${list.description}
+			                  </div>
+			                  <div class="product_price">
+			                    ${list.price }원
+			                  </div>
+			                </li>
+						</c:forEach>	
+
 					</ul>
 					<!-- 
 					<div class="join_box">
@@ -152,12 +110,11 @@
 					</div>
 					 -->
 				</div>
-				<div class="order_submit_btn_box" style="margin-top: 150px;padding-right: 284px;">
+				<div class="order_submit_btn_box" style="/*margin-top: 150px;padding-right: 284px;*/">
 					<button type="button" onclick="" class="order_btn" name="button">프로모션 등록</button>
 				</div>
 			</form>	
 			</div>
-		</div>
 	</div>
 </div>
 
@@ -175,18 +132,45 @@ const getCategroyProduct= (element) =>{
 	console.log(element.value);
 
 	const url =`${path}/api/getCategoryProduct?categoryId=`+element.value;
-	console.log(url);
 	$.ajax({
 			url : url,
 	        dataType : "json",
 			method:"GET",
 		    contentType: "application/json; charset=utf-8",
 	        success : function(data) {
-	        	console.log("성공");
-	        	console.log(data);
+	        	setProductImage(data);
 			}
 		})
 }
+/*
+const setProductImage=(data)=>{
+	const product=data['categoryProduct'];
+	var html=``;
+	
+	product.forEach(ele=>{
+		html+=`		<li class="product_img_item">
+            <a href="#">
+            <img src="${path }/resources/img/${ele.saveFileName}" alt="${ele.description }">
+          </a>
+          <div class="product_view" style="display:block; width:270px;">
+            <a href="#">
+                선택하기
+            </a>
+          </div>
+          <div class="product_text">
+           	${ele.description}
+          </div>
+          <div class="product_price">
+            ${ele.price }원
+          </div>
+        </li>`
+	});
+	console.log(html);
+	
+	$('.product_img_ul').empty();
+	$('.product_img_ul').append(html);
+}
+*/
 
 document.addEventListener("DOMContentLoaded",function(){
 	noclick();

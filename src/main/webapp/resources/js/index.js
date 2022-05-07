@@ -1551,6 +1551,33 @@ function getCommentSection(comment){
 	commnetTable.innerHTML=html;
 }
 /////////////////////
+/*받아온 상품 정보 화면에 뿌리기*/
+const setProductImage=(data)=>{
+	const product=data['categoryProduct'];
+	var html=``;
+	
+	product.forEach(ele=>{
+		html+=`		<li class="product_img_item">
+            <a href="#">
+            <img src="${path }/resources/img/${ele.saveFileName}" alt="${ele.description }">
+          </a>
+          <div class="product_view" style="display:block; width:270px;">
+            <a href="#">
+                선택하기
+            </a>
+          </div>
+          <div class="product_text">
+           	${ele.description}
+          </div>
+          <div class="product_price">
+            ${ele.price }원
+          </div>
+        </li>`
+	});
+	
+	$('.product_img_ul').empty();
+	$('.product_img_ul').append(html);
+}
 ////////////////////////orderform page 스크립트 개발
 /*
 function getMycartData(){

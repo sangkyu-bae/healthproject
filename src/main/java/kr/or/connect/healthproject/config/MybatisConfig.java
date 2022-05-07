@@ -34,7 +34,7 @@ public class MybatisConfig {
 					.getResource("classpath:mybaits/mybatis-config.xml"));
 		sqlSessionFactoryBean.setMapperLocations(
 				new PathMatchingResourcePatternResolver()
-				.getResources("classpath:mybaits/mappers/*.xml"));
+				.getResources("classpath:mybaits/mappers/*/*.xml"));
 		
 		return sqlSessionFactoryBean.getObject();		
 	}

@@ -24,6 +24,8 @@ import kr.or.connect.healthproject.dto.FileInfo;
 import kr.or.connect.healthproject.dto.Product;
 import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
+import kr.or.connect.healthproject.service.UtilService;
+import kr.or.connect.healthproject.util.dto.PagingVO;
 
 @Controller
 @RequestMapping(path="/admin")
@@ -32,6 +34,8 @@ public class AdminController {
 	AdminService adminService;
 	@Autowired
 	HealthprojectService healthprojectService;
+	@Autowired
+	UtilService utilService;
 	/*
 	 * 
 	 */
@@ -178,11 +182,34 @@ public class AdminController {
 	/*
 	 *행사 상품 관리 
 	 */
-	
 	@GetMapping("/administerPromotion")
-	public String administerPromotion(Model model) throws Exception {
+	public String administerPromotion(Model model,
+			 @RequestParam(value="nowPage", required=false)String nowPage
+			,@RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
 		List<Category>categoryList=adminService.selectCategory(); 
 		model.addAttribute("categoryList",categoryList);
+		
+		Category category=new Category();
+		
+		category.setId((long) 0);//초기 시작
+		List<Map<String,Object>>categoryProduct=adminService.selectCategoryProduct(category);
+		
+		int total=utilService.countBoard();
+		if(nowPage==null&&cntPerPage==null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		
+		
+		PagingVO pagingVO=new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		model.addAttribute("paging", pagingVO);
+		model.addAttribute("viewAll", utilService.selectBoard(pagingVO));
+		model.addAttribute("categoryProduct",categoryProduct);
 		
 		return "admin/administerPromotion.web";
 	}

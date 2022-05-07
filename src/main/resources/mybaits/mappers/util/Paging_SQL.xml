@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.connect.healthproject.util.dao">
+	<select id="countBorad" resultType="int">
+	  	select count(*) as count
+		 FROM(
+		   	select 
+				a.name
+			    ,b.description
+			    ,b.content
+		        ,d.save_file_name
+		        ,format(price,0) as price
+			from 
+				category a,
+			    product b,
+		        product_image c,
+		        file_info d,
+		        product_price e
+			where 
+				a.id=b.category_id
+		        and b.id=c.product_id
+		        and c.file_id=d.id
+		        and e.product_id=b.id
+		        <choose>
+					<when test="id == 0">
+					
+					</when>
+					<otherwise>
+						and a.id=#{id}
+					</otherwise>
+				</choose>
+			) A;
+  	</select>
+  	
+  	<select id="selectBoard" parameterType="PagingVO" resultMap="camlemap">
+  		SELECT * 
+		FROM (
+			SELECT @rownum := @rownum + 1 AS RN, A.* 
+				FROM (
+					select 
+						a.name
+						,b.description
+						,b.content
+						,d.save_file_name
+						,format(price,0) as price
+					from 
+						category a,
+						product b,
+						product_image c,
+						file_info d,
+						product_price e
+					where 
+						a.id=b.category_id
+						and b.id=c.product_id
+						and c.file_id=d.id
+						and e.product_id=b.id
+						<choose>
+							<when test="id == 0">
+							
+							</when>
+							<otherwise>
+								and a.id=#{id}
+							</otherwise>
+						</choose>
+						ORDER BY b.id DESC 
+					) A,(SELECT @rownum :=0) AS r
+				) B
+		WHERE RN BETWEEN #{start} AND #{end}
+  	</select>
+</mapper>
