@@ -192,24 +192,25 @@ public class AdminController {
 		Category category=new Category();
 		
 		category.setId((long) 0);//초기 시작
-		List<Map<String,Object>>categoryProduct=adminService.selectCategoryProduct(category);
+		//List<Map<String,Object>>categoryProduct=adminService.selectCategoryProduct(category);
 		
-		int total=utilService.countBoard();
+		int total=utilService.countBoard(0);
+		
 		if(nowPage==null&&cntPerPage==null) {
 			nowPage = "1";
-			cntPerPage = "5";
+			cntPerPage = "6";
 		} else if (nowPage == null) {
 			nowPage = "1";
 		} else if (cntPerPage == null) { 
-			cntPerPage = "5";
+			cntPerPage = "6";
 		}
 		
 		
 		PagingVO pagingVO=new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		
 		model.addAttribute("paging", pagingVO);
-		model.addAttribute("viewAll", utilService.selectBoard(pagingVO));
-		model.addAttribute("categoryProduct",categoryProduct);
+		model.addAttribute("viewAll", utilService.selectBoard(pagingVO,0));
+		//model.addAttribute("categoryProduct",categoryProduct);
 		
 		return "admin/administerPromotion.web";
 	}

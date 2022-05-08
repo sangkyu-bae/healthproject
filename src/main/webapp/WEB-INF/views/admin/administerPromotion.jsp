@@ -20,7 +20,45 @@
 	content: '';
 	clear: both;
 }
+.wrapper{
+	
+}
 
+.paging-btn{
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    width: 33px;
+    height: 41px;
+    line-height: 40px;
+    border: 1px solid #ddd;
+    border-left: none;
+    float: left;
+    text-align: center;
+    color: #b2b2b2;
+}
+.first:before {
+	content: "<<";
+	text-align: center;
+}
+.prev:before{
+	content:"<";
+}
+.next:before {
+	content: ">";
+}
+.last:before {
+	content:">>";
+}
+.box{
+	height: 42px;
+	width: 100%;
+}
+.wrapper{
+	width:40%;
+	height:42px;
+	margin: 0 auto;
+}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -53,7 +91,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="qna_add_form" style="height: 1200px; width: 1000px;">
+			<div class="qna_add_form" style="height: 1350px; width: 1000px;">
 			<div class="review_wrap">
 				<div class="qna_categor category_title">프로모션등록하기</div>
 			</div>
@@ -71,7 +109,7 @@
 						</div>
 					</div>
 					<ul class="product_img_ul">
-						<c:forEach items="${ categoryProduct}" var="list">
+						<c:forEach items="${ viewAll}" var="list">
 							<li class="product_img_item">
 			                  <a href="#">
 			                    <img src="${path }/resources/img/${list.saveFileName}" alt="${list.description }">
@@ -91,26 +129,46 @@
 						</c:forEach>	
 
 					</ul>
-					<!-- 
-					<div class="join_box">
-						<label for="description" class="join_label">상품이름</label><br>
-						 <input name="description" id="description" class="join_input" type="text">
-					</div>
-					<div class="join_box">
-						<label for="content" class="join_label">상품설명</label><br> 
-						<input name="content"id="content" class="join_input" type="text">
-					</div>
-					<div class="join_box">
-						<label for="price" class="join_label">가격</label><br> 
-						<input name="price"id="price" class="join_input" min="99" type="number" >
-					</div>
-					<div class="image_box" style="margin-top: 35px;">
-						<img class="wthumb_img" alt="" src="" width="130px"style="display: none">
-						<input type="file" id="image" accept="image/*" name ="file"onchange="showThumbnail(this)">
-					</div>
-					 -->
 				</div>
-				<div class="order_submit_btn_box" style="/*margin-top: 150px;padding-right: 284px;*/">
+				<div class="box">
+					<div class="wrapper">
+						<c:if test="${paging.endPage != 1 && paging.startPage != 1}">
+							<a class="paging-btn prev"></a> 
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<b class="paging-btn">${p }</b>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<a class="paging-btn" href="${path }/admin/administerPromotion?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+								</c:when>
+							</c:choose>
+							<c:if test="${paging.endPage != 1 && paging.endPage != paging.lastPage}">
+								<a class="paging-btn next"></a> 
+							</c:if>
+						</c:forEach>
+						<!--
+						<a class="paging-btn">1</a>
+						  
+						<a class="paging-btn first"></a>
+						<a class="paging-btn prev"></a> 
+						<a class="paging-btn">1</a>
+						<a class="paging-btn">1</a>
+						<a class="paging-btn">1</a>
+						<a class="paging-btn">1</a>
+						<a class="paging-btn">1</a>
+						<a class="paging-btn">1</a>
+						<a class="paging-btn">1</a>
+						<a class="paging-btn">1</a>
+						<a class="paging-btn next"></a>
+						<a class="paging-btn last"></a>
+						-->
+					</div>
+				</div>
+				
+				
+				<div class="order_submit_btn_box" style="margin-top: 100px;/*padding-right: 284px;*/">
 					<button type="button" onclick="" class="order_btn" name="button">프로모션 등록</button>
 				</div>
 			</form>	

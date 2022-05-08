@@ -17,14 +17,14 @@ public class UtilServiceImpl implements UtilService{
 	
 	@Override
 	@Transactional
-	public int countBoard() {
-		return utilDao.countBorad();
+	public int countBoard(int categoryId) {
+		return utilDao.countBorad(categoryId);
 	}
 
 	@Override
 	@Transactional
-	public List<Map<String, Object>> selectBoard(PagingVO vo) {
-		return utilDao.selectBoard(vo);
+	public List<Map<String, Object>> selectBoard(PagingVO vo,int categoryId) {
+		return utilDao.selectBoard(vo,categoryId);
 	}
 	
 }
