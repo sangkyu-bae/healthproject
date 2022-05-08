@@ -24,6 +24,7 @@ import kr.or.connect.healthproject.login.dto.User;
 import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
 import kr.or.connect.healthproject.service.MemberService;
+import kr.or.connect.healthproject.service.UtilService;
 
 @RestController
 @RequestMapping(path="/api")
@@ -34,6 +35,8 @@ public class AdminApiController {
 	HealthprojectService healthprojectService;
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	UtilService utilService;
 	
 	@ApiOperation(value = "qna 답변 등록 하기")
 	@ApiResponses({  // Response Message에 대한 Swagger 설명

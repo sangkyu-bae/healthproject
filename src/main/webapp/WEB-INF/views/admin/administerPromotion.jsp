@@ -132,8 +132,8 @@
 				</div>
 				<div class="box">
 					<div class="wrapper">
-						<c:if test="${paging.endPage != 1 && paging.startPage != 1}">
-							<a class="paging-btn prev"></a> 
+						<c:if test="${paging.endPage != 1 && paging.nowPage != 1}">
+							<a href="${path }/admin/administerPromotion?nowPage=${paging.nowPage-1 }&cntPerPage=${paging.cntPerPage}" class="paging-btn prev"></a> 
 						</c:if>
 						<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 							<c:choose>
@@ -144,10 +144,11 @@
 									<a class="paging-btn" href="${path }/admin/administerPromotion?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
 								</c:when>
 							</c:choose>
-							<c:if test="${paging.endPage != 1 && paging.endPage != paging.lastPage}">
-								<a class="paging-btn next"></a> 
-							</c:if>
+							
 						</c:forEach>
+						<c:if test="${paging.endPage != 1 && paging.nowPage != paging.lastPage}">
+								<a href="${path }/admin/administerPromotion?nowPage=${paging.nowPage+1 }&cntPerPage=${paging.cntPerPage}" class="paging-btn next"></a> 
+							</c:if>
 						<!--
 						<a class="paging-btn">1</a>
 						  
@@ -197,8 +198,19 @@ const getCategroyProduct= (element) =>{
 		    contentType: "application/json; charset=utf-8",
 	        success : function(data) {
 	        	setProductImage(data);
+	        	setUlHegith();
 			}
 		})
+}
+
+const setUlHegith=()=>{
+	const li = document.querySelectorAll('.product_img_item');
+	const ul = document.querySelector('.product_img_ul');
+	if(li.length<4){
+		ul.style.height='482px';
+	}else{
+		ul.style.height='882px';
+	}
 }
 /*
 const setProductImage=(data)=>{
@@ -232,5 +244,6 @@ const setProductImage=(data)=>{
 
 document.addEventListener("DOMContentLoaded",function(){
 	noclick();
+	setUlHegith();
 })
 </script>
