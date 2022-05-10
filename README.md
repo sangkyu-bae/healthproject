@@ -5,6 +5,7 @@
 
 ## Description
 캠핑모아 MADAGASCAR은 부쩍늘어난 캠핑족들을 위한 캠핑용품을 구매할 수 있는 쇼핑몰이다.
+<img width="80%" src="https://user-images.githubusercontent.com/94222693/167576830-4684f710-2601-4b79-97ff-5019122da6f7.PNG"/>
 
 **사용기술스택**
 <ul>
