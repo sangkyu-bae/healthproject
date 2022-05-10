@@ -59,6 +59,29 @@
 	height:42px;
 	margin: 0 auto;
 }
+.nav-left{
+	float: left;
+}
+.nav_box:after {
+	display: block;
+	content:'';
+	clear: both;
+}
+.product-box{
+	margin-top:6px;
+    min-width: 65px;
+    border: 1px solid #f1f1f1;
+    color: #777777;
+    font-size: 14px;
+    line-height: 30px;
+    float: left;
+    margin-right: -1px;
+    text-align: center;
+    vertical-align: top;
+ }
+ .chooes{
+ 	background-color: rgba(0,0,0,0.3);
+ }
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -97,15 +120,23 @@
 			</div>
 			<form id="frm" method="post" enctype="multipart/form-data" action="${path }/admin/addProduct" >
 				<div class="qna_box_wrap" style="/*height: 45%;*/ margin-top:60px;">
-					<div>
-						<label for="categoryId" class="join_label">카테고리</label><br> 
-						<div style="margin-top:22px;">
-							<select  onchange="getCategroyProduct(this)" class="rmobile1" id="numbers_box" name="categoryId">
-								<option value=0>카테고리선택</option>
-								<c:forEach var="list" items="${categoryList}">
-									<option value="${list.id}">${list.name }</option>
-								</c:forEach>
-							</select>
+					<div class="nav_box">
+						<div class="nav-left">
+							<label for="categoryId" class="join_label">카테고리</label><br> 
+							<div style="margin-top:22px;">
+								<select  onchange="getCategroyProduct(this)" class="rmobile1" id="numbers_box" name="categoryId">
+									<option value=0>카테고리선택</option>
+									<c:forEach var="list" items="${categoryList}">
+										<option value="${list.id}">${list.name }</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="nav-left">
+							<label for="categoryId" class="join_label">선택된 상품 개수</label><br> 
+							<div  class = "product-box">
+								<span class="total">${paging.total}/</span><span class="total-count">0</span>
+							</div>
 						</div>
 					</div>
 					<ul class="product_img_ul">
@@ -114,7 +145,7 @@
 			                  <a href="#">
 			                    <img src="${path }/resources/img/${list.saveFileName}" alt="${list.description }">
 			                  </a>
-			                  <div class="product_view" style="display:block; width:270px;">
+			                  <div class="product_view" onclick="setSelectProduct(this);" style="display:block; width:270px;">
 			                    <a href="#">
 			                        선택하기
 			                    </a>
@@ -212,6 +243,32 @@ const setUlHegith=()=>{
 		ul.style.height='882px';
 	}
 }
+
+const setNavWidth=()=>{
+	const wrapper=document.querySelector('.wrapper');
+	const wrapperChildCount=wrapper.childElementCount;
+	
+	var elementWidth=wrapper.firstElementChild.offsetWidth;
+	
+	wrapper.style.width=wrapperChildCount*elementWidth+'px';
+}
+
+/*프로모션 상품선택시 상품개수증가*/
+const setSelectProduct=(ele)=>{
+	let classList=ele.classList;
+	
+	classList.forEach(eless=>{
+		if(eless=='chooes'){
+			ele.classList.remove('chooes');
+		}else{
+			ele.classList.add('chooes');
+		}
+	})
+
+	let chooes= document.querySelectorAll('.chooes').length;
+	let totalCount=document.querySelector('.total-count');
+	totalCount.innerText=chooes;
+}
 /*
 const setProductImage=(data)=>{
 	const product=data['categoryProduct'];
@@ -245,5 +302,6 @@ const setProductImage=(data)=>{
 document.addEventListener("DOMContentLoaded",function(){
 	noclick();
 	setUlHegith();
+	setNavWidth();
 })
 </script>

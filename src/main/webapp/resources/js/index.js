@@ -1561,7 +1561,7 @@ const setProductImage=(data)=>{
             <a href="#">
             <img src="${path }/resources/img/${ele.saveFileName}" alt="${ele.description }">
           </a>
-          <div class="product_view" style="display:block; width:270px;">
+          <div class="product_view" setSelectProduct(this); style="display:block; width:270px;">
             <a href="#">
                 선택하기
             </a>
@@ -1577,6 +1577,27 @@ const setProductImage=(data)=>{
 	
 	$('.product_img_ul').empty();
 	$('.product_img_ul').append(html);
+	
+	const paging =data['paging'];
+	
+	let subHtml=``;
+	
+	if(paging.endPage !=1 && paging.nowPage !=1){
+		subHtml+=`<a href="${path }/admin/administerPromotion?nowPage=${paging.nowPage-1 }&cntPerPage=${paging.cntPerPage}" class="paging-btn prev"></a> `;
+	}
+	for(let i=paging.startPage;i<paging.endPage;i++){
+		if(i==paging.nowPage){
+			subHtml+=`<b class="paging-btn">${i}</b>`;
+		}
+		subHtml+=`<a class="paging-btn" href="${path }/admin/administerPromotion?nowPage=${i+1}&cntPerPage=${paging.cntPerPage}">${i+1}</a>`
+	
+	}
+	if(paging.endPage != 1 && paging.nowPage != paging.lastPage){
+		subHtml+=`<a href="${path }/admin/administerPromotion?nowPage=${paging.nowPage+1 }&cntPerPage=${paging.cntPerPage}" class="paging-btn next"></a> `;
+	}
+	$('.wrapper').empty();
+	$('.wrapper').append(subHtml);
+	
 }
 ////////////////////////orderform page 스크립트 개발
 /*

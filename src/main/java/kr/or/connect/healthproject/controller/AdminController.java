@@ -214,6 +214,14 @@ public class AdminController {
 		
 		return "admin/administerPromotion.web";
 	}
+	/*
+	 * 행사 상품 등록
+	 */
+	@PostMapping("addPromotion")
+	public String addPromotion()throws Exception{
+		return null;
+	}
+	
 
 }
 

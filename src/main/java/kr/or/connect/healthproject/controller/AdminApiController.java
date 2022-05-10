@@ -25,6 +25,7 @@ import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
 import kr.or.connect.healthproject.service.MemberService;
 import kr.or.connect.healthproject.service.UtilService;
+import kr.or.connect.healthproject.util.dto.PagingVO;
 
 @RestController
 @RequestMapping(path="/api")
@@ -100,14 +101,23 @@ public class AdminApiController {
             @ApiResponse(code = 500, message = "Exception")
     })
 	@GetMapping(path="/getCategoryProduct")
-	public Map<String, Object>selectCategoryProduct(@RequestParam(name="categoryId")Long categoryId) throws Exception{
-		Category category=new Category();
-		category.setId(categoryId);
+	public Map<String, Object>selectCategoryProduct(@RequestParam(name="categoryId")int categoryId) throws Exception{
+//		Category category=new Category();
+//		category.setId(categoryId);
+//		
+		int total= utilService.countBoard(categoryId);
+		int nowPage=1;
+		int cntPerPage=6;
+		PagingVO pagingVO=new PagingVO(total,nowPage,cntPerPage);
 		
-		List<Map<String,Object>>categoryProduct=adminService.selectCategoryProduct(category);
+		
+		//List<Map<String,Object>>categoryProduct=adminService.selectCategoryProduct(category);
+		List<Map<String, Object>>categoryProduct=utilService.selectBoard(pagingVO, categoryId);
 		
 		Map<String, Object>map=new HashMap<>();
 		map.put("categoryProduct", categoryProduct);
+		map.put("paging",pagingVO);
+		
 		
 		return map;
 	}
