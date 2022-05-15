@@ -2,6 +2,7 @@ package kr.or.connect.healthproject.controller;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.or.connect.healthproject.dto.Category;
 import kr.or.connect.healthproject.dto.FileInfo;
 import kr.or.connect.healthproject.dto.Product;
+import kr.or.connect.healthproject.dto.Promotion;
 import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
 import kr.or.connect.healthproject.service.UtilService;
@@ -218,8 +220,20 @@ public class AdminController {
 	 * 행사 상품 등록
 	 */
 	@PostMapping("addPromotion")
-	public String addPromotion()throws Exception{
-		return null;
+	public String addPromotion(
+			@RequestParam(name="discountRate")double discountRate,
+			HttpServletRequest request,
+			HttpServletResponse response)throws Exception{
+		String[] arrayParam = request.getParameterValues("productId");
+		List<Promotion>promotions=new ArrayList<Promotion>();
+		
+		for (String b:arrayParam) {
+			//Promotion p
+			
+		}
+
+		
+		return "admin/administerPromotion.web";
 	}
 	
 

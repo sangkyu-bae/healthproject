@@ -40,7 +40,8 @@
 			SELECT @rownum := @rownum + 1 AS RN, A.* 
 				FROM (
 					select 
-						a.name
+						b.id as product_id
+						,a.name
 						,b.description
 						,b.content
 						,d.save_file_name

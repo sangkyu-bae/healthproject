@@ -6,8 +6,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+<script type="text/javascript" src ="${path }/resources/js/adminCommon.js"></script>
 <style>
 .rmobile1{
     width: 150px;
@@ -82,6 +82,15 @@
  .chooes{
  	background-color: rgba(0,0,0,0.3);
  }
+ .nav-left{
+ 	margin-right: 25px;
+ }
+ #discountRate{
+    width: 74px;
+    height: 39px;
+    font-size: 16px;
+    text-align: center;
+}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -118,7 +127,7 @@
 			<div class="review_wrap">
 				<div class="qna_categor category_title">프로모션등록하기</div>
 			</div>
-			<form id="frm" method="post" enctype="multipart/form-data" action="${path }/admin/addProduct" >
+			<form id="frm" method="post" action="${path }/admin/addPromotion" >
 				<div class="qna_box_wrap" style="/*height: 45%;*/ margin-top:60px;">
 					<div class="nav_box">
 						<div class="nav-left">
@@ -138,6 +147,12 @@
 								<span class="total">${paging.total}/</span><span class="total-count">0</span>
 							</div>
 						</div>
+						<div class="nav-left">
+							<label for="discountRate" class="join_label">할인율</label><br> 
+							<div  class = "product-box">
+								<input type="number" min="0" max="100"name="discountRate" id="discountRate" class="promtion_box" placeholder="%">
+							</div>
+						</div>
 					</div>
 					<ul class="product_img_ul">
 						<c:forEach items="${ viewAll}" var="list">
@@ -145,7 +160,7 @@
 			                  <a href="#">
 			                    <img src="${path }/resources/img/${list.saveFileName}" alt="${list.description }">
 			                  </a>
-			                  <div class="product_view" onclick="setSelectProduct(this);" style="display:block; width:270px;">
+			                  <div class="product_view" id="${list.productId }" onclick="setSelectProduct(this);" style="display:block; width:270px;">
 			                    <a href="#">
 			                        선택하기
 			                    </a>
@@ -201,7 +216,7 @@
 				
 				
 				<div class="order_submit_btn_box" style="margin-top: 100px;/*padding-right: 284px;*/">
-					<button type="button" onclick="" class="order_btn" name="button">프로모션 등록</button>
+					<button type="button" onclick="setNumberBox()" class="order_btn" name="button">프로모션 등록</button>
 				</div>
 			</form>	
 			</div>
@@ -269,6 +284,8 @@ const setSelectProduct=(ele)=>{
 	let totalCount=document.querySelector('.total-count');
 	totalCount.innerText=chooes;
 }
+
+
 /*
 const setProductImage=(data)=>{
 	const product=data['categoryProduct'];
