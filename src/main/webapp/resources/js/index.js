@@ -1561,7 +1561,7 @@ const setProductImage=(data)=>{
             <a href="#">
             <img src="${path }/resources/img/${ele.saveFileName}" alt="${ele.description }">
           </a>
-          <div class="product_view" setSelectProduct(this); style="display:block; width:270px;">
+          <div class="product_view"  onClick="setSelectProduct(this);" style="display:block; width:270px;">
             <a href="#">
                 선택하기
             </a>

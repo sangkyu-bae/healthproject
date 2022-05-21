@@ -216,13 +216,27 @@
 				
 				
 				<div class="order_submit_btn_box" style="margin-top: 100px;/*padding-right: 284px;*/">
-					<button type="button" onclick="setNumberBox()" class="order_btn" name="button">프로모션 등록</button>
+					<button type="button" onclick="displayPopup()" class="order_btn" name="button">프로모션 등록</button>
 				</div>
 			</form>	
 			</div>
 	</div>
 </div>
-
+	<div class="popup" style="display: none;">
+		<div class="popup_layer">
+			<div class="text_area">
+				<strong class="login title">팝업 타이틀</strong>
+				<p class="text">
+					상품을 장바구니에 <br>등록 하시겠습니까?
+				</p>
+			</div>
+			<div class="btn_area">
+				<button type="button" name="button"  onclick="setNumberBox();"class="btn yes">예</button>
+				<button type="button" name="button" onclick="displayNone();" class="btn no">아니오</button>
+			</div>
+		</div>
+		<div class="popup_dimmed"></div>
+	</div>
 <script>
 function noclick(){
 	var label=document.querySelectorAll('label');

@@ -219,7 +219,7 @@ public class AdminController {
 	/*
 	 * 행사 상품 등록
 	 */
-	@PostMapping("addPromotion")
+	@PostMapping("/addPromotion")
 	public String addPromotion(
 			@RequestParam(name="discountRate")double discountRate,
 			HttpServletRequest request,
@@ -228,12 +228,21 @@ public class AdminController {
 		List<Promotion>promotions=new ArrayList<Promotion>();
 		
 		for (String b:arrayParam) {
-			//Promotion p
-			
+			Promotion promotion=new Promotion();
+			Long porductId= Long.parseLong(b);
+			promotion.setProductId(porductId);
+			promotions.add(promotion);
 		}
 
+		Long insertId=adminService.insertPromotion(promotions, discountRate);
 		
-		return "admin/administerPromotion.web";
+		if(insertId==0) {
+			healthprojectService.alert(response, "상품등록이 처리되지 않았습니다.");
+			String referer=request.getHeader("Referer");
+	         return "redirect:"+referer+".web";
+		}
+		
+		return "redirect:/admin/administerPromotion.web";
 	}
 	
 

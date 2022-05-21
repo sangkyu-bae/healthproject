@@ -217,9 +217,9 @@
 	<div class="popup" style="display: none;">
 		<div class="popup_layer">
 			<div class="text_area">
-				<strong class="login title">팝업 타이틀</strong>
+				<strong class="login title">행사상품 등록</strong>
 				<p class="text">
-					상품을 장바구니에 <br>등록 하시겠습니까?
+					상품을 행사상품에 <br>등록 하시겠습니까?
 				</p>
 			</div>
 			<div class="btn_area">

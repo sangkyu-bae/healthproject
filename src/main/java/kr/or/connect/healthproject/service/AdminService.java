@@ -7,6 +7,7 @@ import kr.or.connect.healthproject.admin.dto.ProductGetSize;
 import kr.or.connect.healthproject.admin.dto.ProductQuestionAnwser;
 import kr.or.connect.healthproject.admin.dto.ProductSize;
 import kr.or.connect.healthproject.dto.Category;
+import kr.or.connect.healthproject.dto.Promotion;
 
 public interface AdminService {
 	public Long insertproductQuestionAnwser(ProductQuestionAnwser anwser);
@@ -30,5 +31,10 @@ public interface AdminService {
 	 * @ params Category 
 	 */
 	public List<Map<String, Object>>selectCategoryProduct(Category vo)throws Exception;
+	/*
+	 * 행사상품 등록하기
+	 * @params 
+	 */
+	public Long insertPromotion(List<Promotion> list,double discountRate)throws Exception;
 	
 }
