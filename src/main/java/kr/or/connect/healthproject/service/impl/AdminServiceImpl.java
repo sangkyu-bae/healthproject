@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.connect.healthproject.admin.dao.AdminPromotionDao;
 import kr.or.connect.healthproject.admin.dao.PayMentMethodDao;
 import kr.or.connect.healthproject.admin.dao.ProductGetSizeDao;
 import kr.or.connect.healthproject.admin.dao.ProductQuestionAnwserDao;
@@ -48,7 +49,8 @@ public class AdminServiceImpl implements AdminService{
 	PromotionDao promotionDao;
 	@Autowired
 	ProductPriceDao productPriceDao;
-	
+	@Autowired
+	AdminPromotionDao adminPromotionDao;
 	@Override
 	@Transactional(readOnly = false)
 	public Long insertproductQuestionAnwser(ProductQuestionAnwser anwser) {
@@ -129,5 +131,14 @@ public class AdminServiceImpl implements AdminService{
 			
 		}
 		return productId;
+	}
+	/*
+	 * 상품 문의 정보 가져오기
+	 * return List<Map<String,Object>
+	 */
+	@Override
+	@Transactional
+	public List<Map<String, Object>> selectQuestion(Map<String, Object>map) throws Exception {
+		return adminPromotionDao.selectQuestion(map);
 	}
 }

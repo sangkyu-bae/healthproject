@@ -2,7 +2,9 @@ package kr.or.connect.healthproject.controller;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.or.connect.healthproject.admin.dto.ProductQuestionAnwser;
 import kr.or.connect.healthproject.dto.Category;
 import kr.or.connect.healthproject.dto.FileInfo;
 import kr.or.connect.healthproject.dto.Product;
 import kr.or.connect.healthproject.dto.Promotion;
+import kr.or.connect.healthproject.login.dto.User;
 import kr.or.connect.healthproject.service.AdminService;
 import kr.or.connect.healthproject.service.HealthprojectService;
+import kr.or.connect.healthproject.service.MemberService;
 import kr.or.connect.healthproject.service.UtilService;
 import kr.or.connect.healthproject.util.dto.PagingVO;
 
@@ -38,6 +43,8 @@ public class AdminController {
 	HealthprojectService healthprojectService;
 	@Autowired
 	UtilService utilService;
+	@Autowired
+	MemberService memberService;
 	/*
 	 * 
 	 */
@@ -245,6 +252,75 @@ public class AdminController {
 		return "redirect:/admin/administerPromotion.web";
 	}
 	
+	/*
+	 * 상품문의 관리 페이지
+	 */
+	@GetMapping("/selectQuestion")
+	public String selectQuestion(Model model,
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception{
+		Map<String, Object>map=new HashMap<>();
+		map.put("questionAnswer", 0);
+		
+		List<Map<String, Object>>selectProductQuestion=adminService.selectQuestion(map);
+		
+		model.addAttribute("selectProductQuestion", selectProductQuestion);
+		
+		return "admin/selectQuestion.web";
+	}
+	/*
+	 * 상품 문의 답변 등록페이지
+	 * @params qustionId
+	 */
+	@GetMapping("/writeQuestion")
+	public String writeQuestion(@RequestParam(name="qustionId") int qustionId,
+			Model model,
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		Map<String, Object>map=new HashMap<>();
+		map.put("qustionId", qustionId);
+		
+		List<Map<String, Object>>selectProductQuestion=adminService.selectQuestion(map);
+		Map<String, Object>selectOneQuestion=new HashMap<>();
+		
+		for(Map<String, Object> tests:selectProductQuestion) {
+			for(Map.Entry<String, Object> entry:tests.entrySet()){
+		        String key = entry.getKey();
+		        Object value = entry.getValue();
+		        selectOneQuestion.put(key, value);
+			}
+		}
+		
+		model.addAttribute("selectOneQuestion", selectOneQuestion);
+		return "admin/writeQuestion.web";
+	}
 
+	/*
+	 * 상품문의 답변 등록
+	 * @params ProductQuestionAnwser vo
+	 */
+	@PostMapping("/addQustionAnwser")
+	public String addQustionAnwser(@ModelAttribute ProductQuestionAnwser vo,
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal,
+			Model model) {
+		String loginId=principal.getName();
+		User user=memberService.getUse(loginId);
+		
+		vo.setUserId(user.getId());
+		vo.setCreateDate(new Date());
+		vo.setModifyDate(new Date());
+		if(vo.getProductQuestionId()==null||vo.getProductQuestionId()==0||vo.getText()==null) {
+			  healthprojectService.alert(response, "상품 답변 요소가 미설정되었습니다.");
+		      String referer=request.getHeader("Referer");
+		      return "redirect:"+referer+".web";
+		}
+		adminService.insertproductQuestionAnwser(vo);
+		model.addAttribute("msg", "insert QestionAnswer.");
+		model.addAttribute("url", "/admin/selectQuestion");
+	
+		return "redirect";
+	}
 }
 

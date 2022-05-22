@@ -33,8 +33,14 @@ public interface AdminService {
 	public List<Map<String, Object>>selectCategoryProduct(Category vo)throws Exception;
 	/*
 	 * 행사상품 등록하기
-	 * @params 
+	 * @params List<Promotion>
+	 * @params double discountRate
 	 */
 	public Long insertPromotion(List<Promotion> list,double discountRate)throws Exception;
+	/*
+	 * 상품 문의 가져오기
+	 */
+	public List<Map<String, Object>> selectQuestion(Map<String, Object>map)throws Exception;
+	
 	
 }
