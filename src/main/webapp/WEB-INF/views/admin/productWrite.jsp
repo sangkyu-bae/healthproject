@@ -28,7 +28,7 @@
 		<div class="mypage_fiter_lst_box">
 			<ul class="mypage_fiter_ul">
 				<li class="mypage_fiter_list" ><a href="${path }/admin/main">주문 관리</a></li>
-				<li class="mypage_fiter_list" style="font-weight: bold;" ><a href="${path} /admin/productWrite">상품 관리</a></li>
+				<li class="mypage_fiter_list" style="font-weight: bold;" ><a href="${path}/admin/productWrite">상품 관리</a></li>
 				<li class="mypage_fiter_list"><a href="${path }/admin/selectQuestion">상품 문의 관리</a></li>
 			</ul>
 		</div>

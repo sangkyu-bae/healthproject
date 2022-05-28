@@ -97,7 +97,9 @@ public class MemberController {
 		Map<String, Object>params=new HashMap<>();
 		params.put("id", user.getId());
 		List<MyCart>list=memberService.getCartProduct(params);
-		model.addAttribute("list",list);
+		model.addAttribute("cartList",list);
+		
+		System.out.println(list.size());
 		
 		return "members/mycart.web";
 	}

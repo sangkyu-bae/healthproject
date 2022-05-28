@@ -15,27 +15,27 @@
 		<div class="navbar-nav">
 			<ul class="navbar_ul">
 				<sec:authorize access="hasRole('ADMIN')">
-				  <li class="ul-list"><a href="${path }/admin/main" class="nav-li">ADMIN</a></li>
+				  <li class="ul-list"><a href="${path }/admin/main" id='adimin' class="nav-li">ADMIN</a></li>
 				</sec:authorize>
-				<li class="ul-list"><a href="/healthproject" class="nav-li">HOME</a></li>
-				<li class="ul-list"><a href="/healthproject/shop" class="nav-li">SHOP</a></li>
+				<li class="ul-list"><a href="/healthproject" id="home" class="nav-li">HOME</a></li>
+				<li class="ul-list"><a href="/healthproject/shop" id="shop" class="nav-li">SHOP</a></li>
 
 				<sec:authorize access="!isAuthenticated()">
-					<li class="ul-list"><a href="/healthproject/members/loginform" class="nav-li">LOGIN</a></li>
+					<li class="ul-list"><a href="/healthproject/members/loginform" id='login' class="nav-li">LOGIN</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<li class="ul-list"><a href="${path }/logout" class="nav-li">Logout</a></li>
+					<li class="ul-list"><a href="${path }/logout" id="logout"class="nav-li">Logout</a></li>
 				</sec:authorize>
 
 				<sec:authorize access="!isAuthenticated()">
-					<li class="ul-list"><a href="/healthproject/members/joinform" class="nav-li">JOIN</a></li>
+					<li class="ul-list"><a href="/healthproject/members/joinform" id="join" class="nav-li">JOIN</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<li class="ul-list"><a href="/healthproject/members/mypage" class="nav-li">MYPAGE</a></li>
+					<li class="ul-list"><a href="/healthproject/members/mypage" id="mypage"class="nav-li">MYPAGE</a></li>
 				</sec:authorize>
 
-				<li class="ul-list"><a href="/" class="nav-li">CONTACT</a></li>
-				<li class="ul-list"><a href="/healthproject/members/mycart" class="nav-li">MYCART</a></li>
+				<li class="ul-list"><a href="${path }" id='contact'class="nav-li">CONTACT</a></li>
+				<li class="ul-list"><a href="${path}/members/mycart" id='mycart' class="nav-li">MYCART</a></li>
 			</ul>
 
 		</div>
@@ -52,25 +52,44 @@
 		var path=pasedUrls();
 		console.log(path);
 		var navList=document.querySelectorAll('.nav-li');
-		if(path.indexOf('index')>-1){
-			navList[0].classList.add('chcke');
-		}else if(path.indexOf('orderform')>-1){
-			navList[5].classList.add('chcke');
-		}else if(path.indexOf('product')>-1){
-			navList[1].classList.add('chcke');
-		}else if(path.indexOf('order_list_opt')>-1||path.indexOf('write_review')>-1||path.indexOf('review')>-1||path.indexOf('qa')>-1){
-			navList[3].classList.add('chcke');
-		}else{
-			for(var i=0;i<navList.length;i++){
-				var href=navList[i].href;
-				if(href.indexOf(path)>-1){
-					navList[i].classList.add('chcke');
-					break;
-				}
+		
+		let checkBold;
+		
+		/* navList.forEach((item)=>{
+			if(path.indexOf('index')>-1&&item.id=='home') {
+				checkBold=item;
+				return false;
+			}else if(path.indexOf('admin')>-1&& item.id=='adimin') {
+				checkBold=item;
+				console.log(item);
+				return false;
+			}else if(path.indexOf('orderform')>-1 && item.id=='mycart'){
+				checkBold=item;
+				return false;
+			}else if(path.indexOf('product')>-1 && item.id=='shop'){
+				checkBold=item;
+				return false;
+			}else if((path.indexOf('order_list_opt')>-1||path.indexOf('write_review')>-1||path.indexOf('review')>-1||path.indexOf('qa')>-1)&& item.id=='mypage'){
+				checkBold=item;
+				return false;
 			}
-		}
+			else{
+				for(var i=0;i<navList.length;i++){
+					var href=navList[i].href;
+					if(href.indexOf(path)>-1){
+						navList[i].classList.add('chcke');
+						return false;
+					}
+				}
+			}	
+		})
+		 */
+/* 		console.log(checkBold)
+		checkBold.classList.add('chcke'); */
 	}
 	
+	document.addEventListener("DOMContentLoaded",function(){
+		changeNavBold();
+	})
 	
-	changeNavBold();
 </script>

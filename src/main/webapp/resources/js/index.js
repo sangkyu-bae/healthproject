@@ -1216,8 +1216,17 @@ function getmyCartImg(data){
 	var data=data['cartList'];
 	var html=``;
 	var totalPrice=0;
-	for(var i=0;i<data.length;i++){
-		
+	console.log(data.length);
+	if(data.length==0){
+		html+=`	<p class="n-table-none">
+							<sapn>상품 문의 내역이 없습니다 </sapn>
+						</p>`
+						console.log(html);
+						
+		const leftHtml=document.querySelector(".cart_order_container ")
+		leftHtml.remove();
+	}else{
+		for(var i=0;i<data.length;i++){
 		var price=data[i].price;
 		var resultprice=price.toLocaleString('ko-KR');
 		var sumResultPrice=price*data[i].count;
@@ -1259,12 +1268,17 @@ function getmyCartImg(data){
                   </div> 
                 </div>
               </li>`
+              
 	}
+	changeTotalPrice(totalPrice,0);
+	}
+	
+	console.log(html);
 	
 	var ul=document.querySelector('.my_cart_list_box');
 	ul.innerHTML=html;
 	addQtnEvent();
-	changeTotalPrice(totalPrice,0);
+	
 	setHeigths();
 }
 function addQtnEvent(){

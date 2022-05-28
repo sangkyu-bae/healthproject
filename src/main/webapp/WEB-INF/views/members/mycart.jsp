@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
       <div class="cart_container">
         <div class="cart_wrap">
@@ -11,53 +12,63 @@
                 My cart
             </div>
              <ul class="my_cart_list_box">
-             <!-- 
-              <li class="my_cart_list">
-                <div class="cart_section">
-                  <div class="cart_img_box cart_section_box">
-                    <img src="http://localhost:8080/healthproject/resources/img/product/moin_jakcket.jpg" alt="">
-                  </div>
-                  <div class="cart_section_box cart_product_info">
-                    <div class="cart_product_name">
-                      I'm a product
-                    </div>
-                    <div class="cart_product_price cart_color">
-                      12,000원
-                    </div>
-                    <div class="cart_color">
-                      Size:L
-                    </div>
-                  </div>
-                  <div class="cart_section_box cart_product_qut">
-                    <input type="text"class="cart_input" name="" value="1">
-                    <div class="qtn_boxs min_box">
-                      -
-                    </div>
-                    <div class="qtn_boxs plus_box">
-                      +
-                    </div>
-                  </div>
-                  <div class="cart_section_box cart_product_prices">
-                    12,000원
-                  </div>
-                  <div class="cart_section_box cart_delte_box">
-                    X
-                  </div>
-                  <div class="cart_buy_btns">
-                  	<input type="button">
-                  </div>
-                </div>
-              </li>
-               -->
+             <%--  <c:choose>
+              	<c:when test="${empty list}">
+              			<p class="n-table-none">
+							<sapn>상품 문의 내역이 없습니다 </sapn>
+						</p>
+              	</c:when>
+              	<c:otherwise>
+              	  <li class="my_cart_list">
+	                <div class="cart_section">
+	                  <div class="cart_img_box cart_section_box">
+	                    <img src="${path }/img/${list.saveFileName}" alt="${list.description}">
+	                  </div>
+	                  <div class="cart_section_box cart_product_info">
+	                    <div class="cart_product_name">
+	                      I'm a product
+	                    </div>
+	                    <div class="cart_product_price cart_color">
+	                      12,000원
+	                    </div>
+	                    <div class="cart_color">
+	                      Size:L
+	                    </div>
+	                  </div>
+	                  <div class="cart_section_box cart_product_qut">
+	                    <input type="text"class="cart_input" name="" value="1">
+	                    <div class="qtn_boxs min_box">
+	                      -
+	                    </div>
+	                    <div class="qtn_boxs plus_box">
+	                      +
+	                    </div>
+	                  </div>
+	                  <div class="cart_section_box cart_product_prices">
+	                    12,000원
+	                  </div>
+	                  <div class="cart_section_box cart_delte_box">
+	                    X
+	                  </div>
+	                  <div class="cart_buy_btns">
+	                  	<input type="button">
+	                  </div>
+	                </div>
+             	 </li>
+              	</c:otherwise>
+              </c:choose>
+             --%>
+               
             </ul>
           </div>
-          <div class="cart_order_container cart_left">
+       
+		<div class="cart_order_container cart_left">
             <div class="order_head">
               Order summary
             </div>
             <div class="order_list_wrap">
               <div class="subtota sub_total_box">
-                <span class="order_sub_head">subtotal</span>
+                <span class="order_sub_head">${list.length }</span>
                 <span class="order_sub_price sub_total">12,000원</span>
               </div>
               <div class="subtota sub_shipping">
@@ -76,6 +87,10 @@
               <button type="button"class="order_check_box_btn" onclick="buy_all_product()"; name="button">Checkout</button>
             </div>
           </div>
+       
+    
+    
+       
         </div>
       </div>
       <div class="popup" style="display:none;">
