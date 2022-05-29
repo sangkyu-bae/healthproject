@@ -6,11 +6,15 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+ 
+
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link href="${path}/resources/css/orderlistopt.css" rel="stylesheet" type="text/css">
+<script type="text/javascript"  src ="${path }/resources/js/mypageCommon.js"> </script>
 
 <div class="mypage_container" style="width: 100%">
 	<div class="mypage_head_box">ADMIN</div>
@@ -30,12 +34,41 @@
 				<h2>상품 문의 관리</h2>
 				<div class="tab-group">
 					<div class="tab-btn" style="padding: 3px; ">
-						<a href="#" style="color:black;">문의 답변 하기</a> 
+						<a href="${path }/admin/selectQuestion" >문의 답변 하기</a> 
 					</div>
 					<div class="tab-btn bs">
-						<a href="${path}/admin/selectPastAnwser ">이전 답변내역</a>
+						<a href="#" style="color:black;">이전 답변내역</a>
 					</div>
 				</div>
+			</div>
+			<div class="n-table-filter">
+				<div class="n-radio-tab">
+					<input type="radio" onclick="setPriod('1week')" class="period_btn" id="radioTabGuide0" name="radioTabGuide">
+					<label  for="radioTabGuide0" onclick="setBorder(this)"> 1주일</label>
+					<input onclick="setPriod('1month')" type="radio" class="period_btn"  id="radioTabGuide1" name="radioTabGuide">
+					<label  for="radioTabGuide1" onclick="setBorder(this)"> 1개월</label>
+					<input type="radio" onclick="setPriod('3month')" class="period_btn" id="radioTabGuide2" name="radioTabGuide">
+					<label for="radioTabGuide2" onclick="setBorder(this)"> 3개월</label>
+					<input type="radio" class="period_btn" onclick="setPriod('all')" id="radioTabGuide3" name="radioTabGuide">
+					<label for="radioTabGuide3" onclick="setBorder(this)" > 전체시기</label>
+				</div>
+				<form id="frm" action="${path }/admin/selectPastAnwser">
+					<div class="n-radio-tab n-right">
+						<div class="n-datepicker sb">
+							<input type="text" id="starts"class="n-input" name="startDate" value="" placeholder="-">
+								<img class="ui-datepicker-trigger" onclick="getDetePiker();" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
+							</div>
+							<div class="n-datepicker sg">
+								~
+							</div>
+							<div class="n-datepicker ">
+								<input type="text" id="lasts" class="n-input" name="lastDate" value="" placeholder="-">
+								<img class="ui-datepicker-trigger" alt="날짜 선택" src="${path}/resources/img/common/ico_calendar.png">
+							</div>
+							<input type="hidden" id="period" name="period">
+					</div>
+					<button type="button" class="n-btn btn-sm btn-accent" onclick="search()">조회</button>
+				</form>
 			</div>
 				
 			<div class="my_order_table_box" style="margin-top: 65px;">
@@ -55,29 +88,36 @@
 							<th scope="col">문의자이름</th>
 							<th scope="col">문의카테고리</th>
 							<th scope="col">문의일자</th>
-							<th scope="col">답변</th>
+							<th scope="col">답변일자</th>
 						</tr>
 					</thead>
 					<tbody class="my_order_table_tbody">
 					<c:choose>
-						<c:when test="${empty selectProductQuestion }">
+						<c:when test="${empty selectPastAnwser }">
 							</tbody>
 								</table>
 								<p class="n-table-none">
-									<sapn>상품 문의 내역이 없습니다 </sapn>
+									<sapn>답변 내역이 없습니다 </sapn>
 								</p>
 						</c:when>
 						<c:otherwise>
-							<c:forEach var ="list" items="${selectProductQuestion}" >
+							<c:forEach var ="list" items="${selectPastAnwser}" >
 								<tr>
 									<td  style="text-overflow: ellipsis; overflow: hidden;white-space: nowrap;">${list.description}</td>
-									<td style="text-overflow: ellipsis; overflow: hidden;white-space: nowrap;">${list.text }</td>
+									<td  class="qa_ok" style="text-overflow: ellipsis; overflow: hidden;white-space: nowrap;">${list.text }</td>
 									<td>${list.name }</td>
 									<td>${list.titleCategory }</td>
 									<td>${list.createDate }</td>
-									<td><button type="button" class="n-btn btn-sm btn-accent" onclick="addQustion('${list.qusetionId}')">등록하기</button></td>		
+									<td>${list.anwserCreateDate }</td>		
 								</tr>
-									
+								 <tr class="conect_feedback_comment " style="display:none;">
+					                <td class="admin_name">
+					                  담당자
+					                </td>
+					                <td class="admin_info" colspan="6">
+					                  ${list.answerText}
+					                </td>
+					              </tr>	
 							</c:forEach>
 							
 								</tbody>
@@ -95,10 +135,12 @@
 </div>
 
 <script>
-/*상품 문의 답변 등록*/
+/* 
 const addQustion=(questionId)=>{
 	const url="${path}/admin/writeQuestion?qustionId="+questionId;
 	location.href=url;
-}
+} */
+
+
 
 </script>

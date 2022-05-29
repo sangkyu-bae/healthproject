@@ -322,5 +322,41 @@ public class AdminController {
 	
 		return "redirect";
 	}
+	
+	/*
+	 * 이전 답변 내용
+	 * @params 검색 기간
+	 */
+	@GetMapping("/selectPastAnwser")
+	public String selectPastAnwser(Model model,
+			@RequestParam(name="startDate",required = false, defaultValue = "0") String startDate,
+			@RequestParam(name="lastDate",required = false, defaultValue = "0") String lastDate
+			) throws Exception {
+		Map<String, Object>map=new HashMap<>();
+		
+		map.put("pastAnswer", true);
+		map.put("questionAnswer", 1);
+		
+	
+//		System.out.println(startDate);
+//		System.out.println(lastDate);
+//		if((startDate!=null||startDate.equals(""))&&(lastDate!=null||lastDate.equals(""))&&period!=4) {
+//			System.out.println("gg");
+//			map.put("startDate", startDate);
+//			map.put("lastDate",lastDate);
+//		}
+		
+		if(!startDate.equals("0")&&!lastDate.equals("0")) {
+			map.put("startDate", startDate);
+			map.put("lastDate", lastDate);
+		}
+		
+		List<Map<String, Object>>selectPastAnwser=adminService.selectQuestion(map);
+		
+		model.addAttribute("selectPastAnwser", selectPastAnwser);
+		
+		
+		return "admin/selectPastAnwser.web";
+	}
 }
 

@@ -17,18 +17,31 @@
 	    , replace (substring_index ( a.create_date, ' ',1),'-','.') as create_date   
 	    ,b.name
 	    ,c.description
+	     <if test="pastAnswer == true">
+	    , replace (substring_index ( d.create_date, ' ',1),'-','.') as anwser_create_date   
+	    ,d.text as answer_text
+	    </if>
 	FROM 
 		product_question a
 	    ,user b
 	    ,product c
+	    <if test="pastAnswer == true">
+	    ,product_question_anwser d
+	    </if>
 	WHERE 
 		a.product_id=c.id
 	    and a.user_id = b.id
+	    <if test="pastAnswer ==true">
+	    	 and a.id=d.product_question_id
+	    </if>
 	    <if test="questionAnswer!=null">
 	   		 and a.question_answer=#{questionAnswer}
 	    </if>
 	    <if test="qustionId!=null">
 	    	and a.id=#{qustionId}
 	    </if>
+		  <if test="startDate !=null">
+		    	AND d.create_date between #{startDate} and #{lastDate}
+		    </if>
   	</select>
   </mapper>
