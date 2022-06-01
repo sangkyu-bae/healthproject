@@ -72,7 +72,7 @@
 			</div>
 				
 			<div class="my_order_table_box" style="margin-top: 65px;">
-				<table class="my_order_table">
+				<table class="my_order_table" border="1">
 					<colgroup>
 						<col style="width: 17%">
 						<col style="width:23%">
@@ -104,20 +104,21 @@
 							<c:forEach var ="list" items="${selectPastAnwser}" >
 								<tr>
 									<td  style="text-overflow: ellipsis; overflow: hidden;white-space: nowrap;">${list.description}</td>
-									<td  class="qa_ok" style="text-overflow: ellipsis; overflow: hidden;white-space: nowrap;">${list.text }</td>
+									<td  class="qa_ok" onclick="showAnwser('${list.qusetionId}')" style="text-overflow: ellipsis; overflow: hidden;white-space: nowrap;">${list.text }</td>
 									<td>${list.name }</td>
 									<td>${list.titleCategory }</td>
 									<td>${list.createDate }</td>
 									<td>${list.anwserCreateDate }</td>		
 								</tr>
-								 <tr class="conect_feedback_comment " style="display:none;">
-					                <td class="admin_name">
+								 <tr id="question_${list.qusetionId }" class="conect_feedback_comment " style="display:none;">
+					                <td class="admin_name" >
 					                  담당자
 					                </td>
-					                <td class="admin_info" colspan="6">
+					                <td class="admin_info" colspan="5">
 					                  ${list.answerText}
 					                </td>
 					              </tr>	
+					            
 							</c:forEach>
 							
 								</tbody>
@@ -135,12 +136,14 @@
 </div>
 
 <script>
-/* 
-const addQustion=(questionId)=>{
-	const url="${path}/admin/writeQuestion?qustionId="+questionId;
-	location.href=url;
-} */
-
+	const showAnwser=(qusetionId)=>{
+		const item='#question_'+qusetionId;
+		const target=document.querySelector(item)
+		if(target.style.display=='none') target.style.display='block'
+		else target.style.display='none'
+		
+		
+	}
 
 
 </script>

@@ -34,7 +34,7 @@
 					<li class="ul-list"><a href="/healthproject/members/mypage" id="mypage"class="nav-li">MYPAGE</a></li>
 				</sec:authorize>
 
-				<li class="ul-list"><a href="${path }" id='contact'class="nav-li">CONTACT</a></li>
+				<%-- <li class="ul-list"><a href="${path }" id='contact'class="nav-li">CONTACT</a></li> --%>
 				<li class="ul-list"><a href="${path}/members/mycart" id='mycart' class="nav-li">MYCART</a></li>
 			</ul>
 
@@ -54,8 +54,9 @@
 		var navList=document.querySelectorAll('.nav-li');
 		
 		let checkBold;
+
 		
-		/* navList.forEach((item)=>{
+/* 	navList.forEach((item)=>{
 			if(path.indexOf('index')>-1&&item.id=='home') {
 				checkBold=item;
 				return false;
@@ -82,10 +83,41 @@
 					}
 				}
 			}	
-		})
-		 */
-/* 		console.log(checkBold)
-		checkBold.classList.add('chcke'); */
+		}) */
+		
+		for(let i=0; i<navList.length;i++){
+			if(path.indexOf('index')>-1&&navList[i].id=='home') {
+				checkBold=navList[i];
+				break;
+			}else if(path.indexOf('admin')>-1&& navList[i].id=='adimin') {
+				checkBold=navList[i];
+				
+				break;
+			}else if((path.indexOf('orderform')>-1||path.indexOf('mycart')>-1) && navList[i].id=='mycart'){
+				checkBold=navList[i];
+				break;
+			}else if((path.indexOf('product')>-1||path.indexOf('shop')>-1) && navList[i].id=='shop'){
+				checkBold=navList[i];
+				break;
+			}else if((path.indexOf('order_list_opt')>-1||path.indexOf('write_review')>-1||path.indexOf('review')>-1||path.indexOf('qa')>-1||path.indexOf('mypage')>-1)&& navList[i].id=='mypage'){
+				checkBold=navList[i];
+				break;
+			}else if(path.indexOf('login')>-1&&navList[i].id=='login'){
+				checkBold=navList[i];
+			}else if(path.indexOf('join')>-1&&navList[i].id=='join'){
+				checkBold=navList[i]
+			}else{
+				/* for(var i=0;i<navList.length;i++){
+					var href=navList[i].href;
+					if(href.indexOf(path)>-1){
+						navList[i].classList.add('chcke');
+						break;
+					}
+				} */
+			}	
+		}
+		console.log(checkBold);
+		checkBold.classList.add('chcke');
 	}
 	
 	document.addEventListener("DOMContentLoaded",function(){

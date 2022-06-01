@@ -4,6 +4,16 @@
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+.n-table-none{
+    width: 500px;
+    margin: 0 auto;
+    line-height: 30em;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+</style>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
       <div class="cart_container">
         <div class="cart_wrap">
@@ -84,7 +94,7 @@
               <span class="order_sub_price total_price">12,000원</span>
             </div>
             <div class="order_check_box">
-              <button type="button"class="order_check_box_btn" onclick="buy_all_product()"; name="button">Checkout</button>
+              <button type="button"class="order_check_box_btn" onclick="buy_all_product()" name="button">Checkout</button>
             </div>
           </div>
        

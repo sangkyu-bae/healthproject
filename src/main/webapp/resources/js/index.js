@@ -53,6 +53,8 @@ function moveSectionImg(){
 		var ul = document.querySelector('.item ');
 		var lis = document.querySelectorAll('.item_list');
 		var count = lis.length;
+		
+		console.log(count);
 		var li= ul.firstElementChild;
 		var liwidth=li.offsetWidth;
 		/////사진이 2장이상일 시에만 자연스런 슬라이딩을 위한 복사 이미지 생성
@@ -76,13 +78,13 @@ function moveSectionImg(){
 				leftArrow.addEventListener("click",function(evt){
 				if(curIndex===0){
 
-					ul.style.transition = '0.2s';
+				ul.style.transition = '0.2s';
 				    ul.style.transform = "translate3d("+ (liwidth*(curIndex))+"px, 0px, 0px)";
 					 setTimeout(function(){
 				                      ul.style.transition='0s';
-				                      ul.style.transform= "translate3d(-" +liwidth*2 + "px, 0px, 0px)";
+				                      ul.style.transform= "translate3d(-" +liwidth*count + "px, 0px, 0px)";
 				                    },201)
-							curIndex=1;
+							curIndex=count-1;
 		
 				}else{
 					ul.style.transition = '0.2s';
@@ -1219,12 +1221,14 @@ function getmyCartImg(data){
 	console.log(data.length);
 	if(data.length==0){
 		html+=`	<p class="n-table-none">
-							<sapn>상품 문의 내역이 없습니다 </sapn>
+							<sapn>장바구니 내역이 없습니다.</sapn>
 						</p>`
 						console.log(html);
 						
 		const leftHtml=document.querySelector(".cart_order_container ")
 		leftHtml.remove();
+		document.querySelector('.cart_head').style.width='100%';
+		document.querySelector(".cart_head_name").style.width='100%';
 	}else{
 		for(var i=0;i<data.length;i++){
 		var price=data[i].price;
